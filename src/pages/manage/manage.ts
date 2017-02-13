@@ -19,4 +19,6 @@ export class ManagePage {
     console.log('ionViewDidLoad ManagePage');
   }
 
+  currencies: string = "CAD";
+  action: string="add_money";
 }
