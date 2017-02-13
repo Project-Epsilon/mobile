@@ -1,27 +1,22 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 
 /*
-  Generated class for the Login page.
+  Generated class for the Pending page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: 'page-pending',
+  templateUrl: 'pending.html'
 })
-export class LoginPage {
+export class PendingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
-
-  login(){
-  	this.navCtrl.setRoot(TabsPage);
+    console.log('ionViewDidLoad PendingPage');
   }
 
 }
