@@ -19,4 +19,6 @@ export class SendMoneyPage {
     console.log('ionViewDidLoad SendMoneyPage');
   }
 
+  currencies: string="USD";
+  recipients: string="trump";
 }
