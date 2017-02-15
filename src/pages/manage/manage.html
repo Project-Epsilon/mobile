@@ -14,5 +14,84 @@
 
 
 <ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="action">
+      <ion-segment-button value="add_money" >
+        Add Money
+      </ion-segment-button>
+      <ion-segment-button value="withdraw">
+        Withdraw
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="action">
+    <ion-list *ngSwitchCase="'add_money'">
+      <ion-card>
+
+        <ion-card-content>
+          <!-- Add card content here! -->
+          <ion-item>
+            <ion-label stacked>Amount</ion-label>
+            <ion-input type="number" placeholder="0.00" step="0.01"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Select Currency</ion-label>
+            <ion-select [(ngModel)]="currencies">
+              <ion-option value="CAD">CAD (Canadian Dollar)</ion-option>
+              <ion-option value="USD">USD (US Dollar)</ion-option>
+              <ion-option value="EUR">EUR (Euro)</ion-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-card-content>
+
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-label text-center stacked>Add money with</ion-label>
+        </ion-card-header>
+        <ion-card-content>
+            <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'withdraw'">
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label stacked>Amount</ion-label>
+            <ion-input type="number" placeholder="0.00" step="0.01"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Select Currency</ion-label>
+            <ion-select [(ngModel)]="currencies">
+              <ion-option value="CAD">123.56 CAD (Canadian Dollar)</ion-option>
+              <ion-option value="USD">23.22 USD (US Dollar)</ion-option>
+              <ion-option value="EUR">16.20 EUR (Euro)</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-label stacked>Paypal Email Address</ion-label>
+          <ion-input type="email" placeholder="example@example.com"></ion-input>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+            <ion-label text-center stacked>Withdraw with</ion-label>
+            <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+        </ion-card-content>
+      </ion-card>
+    </ion-list>
+  </div>
 
 </ion-content>
