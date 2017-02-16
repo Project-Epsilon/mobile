@@ -19,4 +19,6 @@ export class TransfersPage {
     console.log('ionViewDidLoad TransfersPage');
   }
 
+  currencies: string = "CAD";
+  action: string="pending";
 }
