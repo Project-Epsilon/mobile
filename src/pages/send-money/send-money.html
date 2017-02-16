@@ -1,5 +1,5 @@
 <!--
-  Generated template for the SendMoney page.
+  Generated template for the Manage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,12 +7,54 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title text-center>SendMoney</ion-title>
+    <ion-title text-center>Send Money</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div>
+      <ion-card>
+        <ion-card-content>
+          <!-- Add card content here! -->
+          <ion-item>
+            <ion-label stacked>Amount</ion-label>
+            <ion-input type="number" placeholder="0.00" step="0.01"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Select Currency</ion-label>
+            <ion-select [(ngModel)]="currencies">
+              <ion-option value="CAD">CAD (Canadian Dollar)</ion-option>
+              <ion-option value="USD">USD (US Dollar)</ion-option>
+              <ion-option value="EUR">EUR (Euro)</ion-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label stacked>Select Recipient</ion-label>
+            <ion-select [(ngModel)]="recipients">
+              <ion-option value="johndoe">John Doe</ion-option>
+              <ion-option value="janedoe">Jane Doe</ion-option>
+              <ion-option value="trump">Donald Trump (therealdonaldtrump@gmail.com)</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-card-content>
+
+      </ion-card>
+
+      <ion-card>
+        <ion-card-content>
+          <ion-item>
+            <ion-label stacked>Message</ion-label>
+            <ion-textarea rows="4" placeholder="Write a message (optional)." [(ngModel)]="msg"></ion-textarea>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+  </div>
+  <div text-center>
+    <button ion-button clear>Send</button>
+  </div>
 
 </ion-content>
