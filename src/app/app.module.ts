@@ -6,7 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SendMoneyPage } from "../pages/send-money/send-money";
-import { PendingPage } from "../pages/pending/pending";
+import {TransfersPage} from "../pages/transfers/transfers";
 import { ManagePage } from "../pages/manage/manage";
 import { MorePage } from "../pages/more/more";
 
@@ -18,7 +18,7 @@ import { MorePage } from "../pages/more/more";
     TabsPage,
     LoginPage,
     SendMoneyPage,
-    PendingPage,
+    TransfersPage,
     ManagePage,
     MorePage
   ],
@@ -33,7 +33,7 @@ import { MorePage } from "../pages/more/more";
     TabsPage,
     LoginPage,
     SendMoneyPage,
-    PendingPage,
+    TransfersPage,
     ManagePage,
     MorePage
   ],
