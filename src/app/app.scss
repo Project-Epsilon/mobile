@@ -21,4 +21,9 @@
 
 .toolbar-title{
   color : color($colors, mBarter-green, contrast);
+  font-family: $font-family-base;
+}
+
+.toolbar-title-ios{
+  font-weight: 300;
 }
