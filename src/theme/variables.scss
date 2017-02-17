@@ -33,7 +33,7 @@ $colors: (
 
   mBarter-green:(
     base: #1FAB89,
-    contrast: #ffffff
+    contrast: #ffffff,
   ),
 );
 
@@ -79,5 +79,7 @@ $colors: (
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
+//@import "roboto";
+//@import "noto-sans";
+@import url('https://fonts.googleapis.com/css?family=Lato');
+$font-family-base: "Lato";
