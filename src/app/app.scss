@@ -16,14 +16,22 @@
 // automatically applied to the <body> element in the app.
 
 .toolbar-background {
-  background : color($colors, mBarter-green, base);
+  background : color($colors, primary);
 }
 
 .toolbar-title{
-  color : color($colors, mBarter-green, contrast);
+  color : color($colors, white);
   font-family: $font-family-base;
 }
 
 .toolbar-title-ios{
   font-weight: 300;
+}
+
+.header-ios .toolbar-background-ios{
+  border: none;
+}
+
+.ion-page > ion-content{
+  background-color: color($colors, light);
 }

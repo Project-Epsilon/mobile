@@ -12,4 +12,8 @@ export class HomePage {
 
   }
 
+  tapEvent($event){
+    console.log($event);
+  }
+
 }

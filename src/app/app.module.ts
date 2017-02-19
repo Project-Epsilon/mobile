@@ -9,6 +9,10 @@ import { SendMoneyPage } from "../pages/send-money/send-money";
 import { PendingPage } from "../pages/pending/pending";
 import { ManagePage } from "../pages/manage/manage";
 import { MorePage } from "../pages/more/more";
+import { WalletSlideComponent } from '../pages/home/wallet-slide/wallet-slide.component';
+import { WalletHeaderComponent } from '../pages/home/wallet-header/wallet-header.component';
+import { TransactionLogComponent } from '../components/transaction-log/transaction-log.component';
+import { TransactionComponent } from '../components/transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,11 @@ import { MorePage } from "../pages/more/more";
     SendMoneyPage,
     PendingPage,
     ManagePage,
-    MorePage
+    MorePage,
+    WalletSlideComponent,
+    WalletHeaderComponent,
+    TransactionLogComponent,
+    TransactionComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)
