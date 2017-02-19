@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { NavController } from 'ionic-angular';
+import {LoginPage} from "../login/login";
 
 @Component({
   selector: 'page-home',
@@ -8,12 +9,18 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
+  wallets: any = [];
+
   constructor(public navCtrl: NavController) {
 
   }
 
-  tapEvent($event){
+  changeWallet($event){
     console.log($event);
+  }
+
+  signOut(){
+    this.navCtrl.setRoot(LoginPage)
   }
 
 }

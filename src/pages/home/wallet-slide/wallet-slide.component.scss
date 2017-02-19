@@ -1,5 +1,28 @@
-.transactions{
+.transactions-header{
   text-align: center;
   font-size: 1.4rem;
   margin: 1.2rem 0;
+}
+.wallet-slide-dots{
+  position: absolute;
+  top: 2.4rem;
+  right: 0;
+  left: 0;
+  text-align: center;
+  > .wallet-slide-dots-list {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    > li{
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 1px;
+      width: 12px;
+      height: 12px;
+      background-color: color($colors, secondary);
+      &.active{
+        background-color: color($colors, fourth);
+      }
+    }
+  }
 }

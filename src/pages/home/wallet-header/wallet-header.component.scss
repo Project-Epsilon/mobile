@@ -1,6 +1,10 @@
+wallet-slide{
+  height: 100%;
+  display: block;
+}
 .currency-header{
   background-color: color($colors, primary);
-  padding: 3rem 0;
+  padding: 4rem 0 2rem;
   text-align: center;
   color: color($colors, white);
   > .name{

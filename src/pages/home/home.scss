@@ -1,3 +1,15 @@
 page-home {
-
+  .sign-out{
+    color: #ffffff;
+    position: absolute;
+    top: 2.6rem;
+    left: 2rem;
+  }
+  .no-wallets{
+    .sign-out{
+      color: color($colors, primary);
+    }
+  }
 }
+
+
