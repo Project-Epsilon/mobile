@@ -1,8 +1,16 @@
-page-login {
 
+.logo{
+	padding-top: 80px;
+	padding-bottom: 40px;
+	text-align: center;
+	ion-img{
+		background: transparent;
+	}
 }
 
 .input-group{
+	margin-bottom: 1rem;
+	background-color: rgba(255, 255, 255, 0.80);
 	display: flex;
 	align-items: center;
 	ion-icon{
@@ -15,16 +23,22 @@ page-login {
 }
 
 .seperator{
+	color: #fff;
 	text-align: center;
     margin: 10px 0;
     font-size: 1rem;
     position: relative;
-    &:before{
+    &:before, &:after{
     	position: absolute;
     	top: 50%;
-    	left: 0;
     	border-top: #eee solid 1px;
     	content: " ";
-    	width: 100%;
+    	width: 35%;
     }
+	&:before{
+		left: 0;
+	}
+	&:after{
+		right: 0;
+	}
 }
