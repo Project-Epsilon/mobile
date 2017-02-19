@@ -19,6 +19,17 @@
   background : color($colors, primary);
 }
 
+.vertical-container, .vertical-align{
+  width: 100%;
+}
+
+.vertical-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
 .toolbar-title{
   color : color($colors, white);
   font-family: $font-family-base;
