@@ -4,11 +4,16 @@ page-home {
     position: absolute;
     top: 2.6rem;
     left: 2rem;
+    z-index: 99;
+    cursor: pointer;
   }
   .no-wallets{
     .sign-out{
       color: color($colors, primary);
     }
+  }
+  .no-wallets-message{
+    text-align: center;
   }
 }
 

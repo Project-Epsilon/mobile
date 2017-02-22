@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'wallet-slide',
@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WalletSlideComponent implements OnInit {
 
-  constructor() { }
+  @Input() wallets: any;
+  activeWallet: number;
+
+  constructor() {}
+
+  changeWallet($event){
+    console.log($event);
+  }
 
   ngOnInit() {
   }
