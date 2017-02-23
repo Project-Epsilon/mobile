@@ -5,22 +5,29 @@ import { Observable } from 'rxjs/Rx';
 import { Auth0Vars } from '../../auth0-variables';
 
 // Avoid name not found warnings
-declare let Auth0: any;
-declare let Auth0Lock: any;
+declare var Auth0: any;
+declare var Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
-  auth0 = new Auth0({clientID: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx', domain: 'mbarter.auth0.com'});
-  lock = new Auth0Lock('4jdmsck955xaRUwMQCDacqO6NMUSGKJx', 'mbarter.auth0.com', {
-    auth: {
-      redirect: false,
-      params: {
-        scope: 'openid offline_access',
-      }
-    }
+  auth0 = new Auth0({
+    clientID: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
+    domain: 'mbarter.auth0.com'
   });
+  lock = new Auth0Lock(
+      '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
+      'mbarter.auth0.com', {
+        auth: {
+          redirect: false,
+        },
+        params: {
+          scope: 'openid offline_access'
+        }
+      }
+  );
+
   storage: Storage = new Storage();
   refreshSubscription: any;
   user: Object;
@@ -28,6 +35,7 @@ export class AuthService {
   idToken: string;
 
   constructor(private authHttp: AuthHttp, zone: NgZone) {
+
     this.zoneImpl = zone;
     // Check if there is a profile saved in local storage
     this.storage.get('profile').then(profile => {
@@ -41,14 +49,17 @@ export class AuthService {
     });
 
     this.lock.on('authenticated', authResult => {
+
+      console.log(authResult);
+
       this.storage.set('id_token', authResult.idToken);
       this.idToken = authResult.idToken;
 
       // Fetch profile information
-      this.lock.getProfile(authResult.idToken, (error, profile) => {
+      this.lock.getUserInfo(authResult.idToken, (error, profile) => {
+        console.log(error);
         if (error) {
           // Handle error
-          alert(error);
           return;
         }
 
