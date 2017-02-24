@@ -21,6 +21,9 @@ export class HomePage {
       public storage: Storage
   ) {}
 
+  /**
+   * Handles the logout process
+   */
   logout(){
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage);
