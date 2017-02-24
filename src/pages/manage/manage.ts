@@ -3,8 +3,6 @@ import { NavController, NavParams } from 'ionic-angular';
 import {InAppBrowser} from 'ionic-native';
 import {BankTransfer} from '../../providers/bank-transfer';
 
-//import { Config } from '../env';  // Fast workaround for global variables. Use apiUrl
-//let config = new Config();
 /*
   Generated class for the Manage page.
 
@@ -19,9 +17,9 @@ import {BankTransfer} from '../../providers/bank-transfer';
 export class ManagePage {
   data: any;
   message: string;
+  paypalUrl: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public bankTransferService: BankTransfer) {
-    this.test();
   }
     ionViewDidLoad() {
       console.log('ionViewDidLoad ManagePage');
@@ -31,19 +29,31 @@ export class ManagePage {
   action: string="add_money";
 
   public withdraw() {
-
-    //let browser = new InAppBrowser(config.apiUrl, '_system');
+    this.test('11','CAD');
   }
 
 
-  public test() {
-    this.bankTransferService.post()
+  public test(amount, currency) {
+    this.bankTransferService.post(amount, currency)
       .then(data => {
+        /**
+         * Relavent information
+         * data.transactions.description
+         * data.transactions.invoice_number
+         * data.create_time
+         * data.id
+         * data.links[i].href
+         *    0 - GET
+         *    1 - REDIRECT
+         *    2 - POST
+         */
         this.data = data;
         this.message = this.data.message;
-      });
-  }
+        this.paypalUrl = this.data.links[1].href;
 
+        let browser = new InAppBrowser(this.paypalUrl, '_blank', 'location=yes');
+      });
+    }
 }
 
 

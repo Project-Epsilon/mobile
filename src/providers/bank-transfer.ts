@@ -20,9 +20,9 @@ export class BankTransfer {
     console.log('Hello BankTransfer Provider');
   }
 
-  public post() {
+  public post(amount, currency) {
 
-    let body = {word: "Hello"};
+    let body = {amount: amount, currency: currency};
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
@@ -31,7 +31,7 @@ export class BankTransfer {
       // We're using Angular HTTP provider to request the data,
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
-      this.http.post(config.apiUrl, body, options)
+      this.http.post(config.apiUrl + "transfer/bank/deposit", body, options)
         .map(res => res.json())
         .subscribe(data => {
           // we've got back the raw data, now generate the core schedule data
