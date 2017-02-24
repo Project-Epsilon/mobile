@@ -1,0 +1,11 @@
+
+<div class="slide-wrapper" (swipe)="changeWallet($event)">
+    <div class="wallet-slide-dots">
+        <ul class="wallet-slide-dots-list">
+            <li *ngFor="let wallet of wallets" [ngClass]="{'active': $index == activeWallet}"></li>
+        </ul>
+    </div>
+    <wallet-header></wallet-header>
+    <h4 class="transactions-header">Transactions</h4>
+    <transaction-log></transaction-log>
+</div>

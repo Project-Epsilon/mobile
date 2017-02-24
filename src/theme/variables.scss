@@ -26,15 +26,13 @@ $font-path: "../assets/fonts";
 $colors: (
   //primary:    #387ef5,
   primary:    #1FAB89,
-  secondary:  #32db64,
+  secondary:  #62D2A2,
+  third:      #9DF3C4,
+  fourth:     #D7FBE8,
   danger:     #f53d3d,
-  light:      #f4f4f4,
+  light:      #F7F7F7,
   dark:       #222,
-
-  mBarter-green:(
-    base: #1FAB89,
-    contrast: #ffffff,
-  ),
+  white:      #fff,
 );
 
 // App iOS Variables
@@ -81,5 +79,5 @@ $colors: (
 
 //@import "roboto";
 //@import "noto-sans";
-@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Lato:100,300,400,700');
 $font-family-base: "Lato";

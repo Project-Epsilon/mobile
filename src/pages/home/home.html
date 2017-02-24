@@ -1,17 +1,16 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title text-center>Home</ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content [ngClass]="{'no-wallets': wallets.length == 0}">
+  <a class="sign-out" (tap)="logout()">Sign Out</a>
+
+  <wallet-slide
+          *ngIf="wallets.length > 0"
+          [wallets]="wallets"
+  ></wallet-slide>
+
+  <div class="vertical-container" *ngIf="wallets.length == 0">
+    <div class="vertical-align no-wallets-message">
+      <h2>Looks like you have no money!</h2>
+      <button ion-button round><ion-icon name="add"></ion-icon>&nbsp; Add Money</button>
+    </div>
+  </div>
 </ion-content>
