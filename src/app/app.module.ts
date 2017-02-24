@@ -1,5 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import {IonicApp, IonicModule, IonicErrorHandler, App, NavController} from 'ionic-angular';
 import { MyApp } from './app.component';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
@@ -19,11 +19,11 @@ import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
 
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
-import { AuthService } from '../providers/auth.service';
+import { AuthService } from "../providers/auth.service";
 
-let storage: Storage = new Storage();
 
 export function getAuthHttp(http) {
+  let storage: Storage = new Storage();
   return new AuthHttp(new AuthConfig({
     globalHeaders: [{'Accept': 'application/json'}],
     tokenGetter: (() => storage.get('id_token'))
@@ -62,7 +62,9 @@ export function getAuthHttp(http) {
     MorePage
   ],
   providers: [
+    AuthHttp,
     AuthService,
+    Storage,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,

@@ -4,28 +4,28 @@
 	<div class="logo">
 		<ion-img src="assets/images/logo.png" [width]="160" [height]="85"></ion-img>
 	</div>
-	<form (onSubmit)="login(form)" #form="ngForm">
-		<div class="input-group">
-			<ion-icon name="person"></ion-icon>
-			<ion-input
-					type="email"
-					placeholder="Email"
-					required
-			></ion-input>
-		</div>
-		<div class="input-group">
-			<ion-icon name="lock"></ion-icon>
-			<ion-input
-					type="text"
-					placeholder="Password"
-			></ion-input>
-		</div>
-		<button ion-button block type="submit">Sign In</button>
-	</form>
-	<div class="seperator">
-		or sign in with
-	</div>
-	<button class="facebook-login" ion-button block icon-left (click)="showAuth()">
-		<ion-icon name="facebook"></ion-icon> Facebook Login
-	</button>
+	<!--<form (onSubmit)="login(form)" #form="ngForm">-->
+		<!--<div class="input-group">-->
+			<!--<ion-icon name="person"></ion-icon>-->
+			<!--<ion-input-->
+					<!--type="email"-->
+					<!--placeholder="Email"-->
+					<!--required-->
+			<!--&gt;</ion-input>-->
+		<!--</div>-->
+		<!--<div class="input-group">-->
+			<!--<ion-icon name="lock"></ion-icon>-->
+			<!--<ion-input-->
+					<!--type="text"-->
+					<!--placeholder="Password"-->
+			<!--&gt;</ion-input>-->
+		<!--</div>-->
+		<!--<button ion-button block type="submit">Sign In</button>-->
+	<!--</form>-->
+	<!--<div class="seperator">-->
+		<!--or sign in with-->
+	<!--</div>-->
 </ion-content>
+<button class="btn-signin" ion-button block icon-left (click)="showAuth()">
+	Sign In
+</button>

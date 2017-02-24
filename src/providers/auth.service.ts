@@ -1,26 +1,31 @@
 import { Storage } from '@ionic/storage';
 import { AuthHttp, JwtHelper, tokenNotExpired } from 'angular2-jwt';
 import { Injectable, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import { Auth0Vars } from '../../auth0-variables';
 
-// Avoid name not found warnings
-declare var Auth0: any;
-declare var Auth0Lock: any;
+import { environment } from '../environments/environment';
+import { App } from "ionic-angular";
+import { LoginPage } from "../pages/login/login";
+import { TabsPage } from "../pages/tabs/tabs";
+
+declare let Auth0: any;
+declare let Auth0Lock: any;
 
 @Injectable()
 export class AuthService {
 
-  jwtHelper: JwtHelper = new JwtHelper();
+  // Angular JWT Helper
+  private jwtHelper: JwtHelper = new JwtHelper();
 
-  auth0 = new Auth0({
-    clientID: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
-    domain: 'mbarter.auth0.com'
+  // Auth0
+  public auth0 = new Auth0({
+    clientID: environment.auth0_id,
+    domain: environment.auth0_domain
   });
 
-  lock = new Auth0Lock(
-      '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
-      'mbarter.auth0.com', {
+  // Auth0 Lock Widget
+  public lock = new Auth0Lock(
+      environment.auth0_id,
+      environment.auth0_domain, {
         auth: {
           redirect: false,
         },
@@ -31,15 +36,15 @@ export class AuthService {
       }
   );
 
-  storage: Storage = new Storage();
-  refreshSubscription: any;
-  user: Object;
-  zoneImpl: NgZone;
-  idToken: string;
+  public user: Object;
+  public idToken: string;
 
-  constructor(private authHttp: AuthHttp, zone: NgZone) {
+  constructor(
+      private authHttp: AuthHttp,
+      public zone: NgZone,
+      public storage: Storage
+  ) {
 
-    this.zoneImpl = zone;
     // Check if there is a profile saved in local storage
     this.storage.get('profile').then(profile => {
       this.user = JSON.parse(profile);
@@ -51,20 +56,18 @@ export class AuthService {
       this.idToken = token;
     });
 
-    this.lock.on('authenticated', authResult => {
+    this.lock.on('authenticated', result => {
 
-      console.log(authResult);
+      this.storage.set('id_token', result.idToken);
+      this.idToken = result.idToken;
 
-      this.storage.set('id_token', authResult.idToken);
-      this.idToken = authResult.idToken;
-
-      console.log(this.idToken);
+      console.log(result);
 
       // Fetch profile information
-      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+      this.lock.getUserInfo(result.accessToken, (error, profile) => {
 
         if (error) {
-          // Handle error
+          console.log(error);
           return;
         }
 
@@ -75,28 +78,37 @@ export class AuthService {
 
       this.lock.hide();
 
-      this.storage.set('refresh_token', authResult.refreshToken);
-      this.zoneImpl.run(() => this.user = authResult.profile);
+      this.storage.set('refresh_token', result.refreshToken);
+      this.zone.run(() => this.user = result.profile);
 
     });
   }
 
+  /**
+   * Checks if token is not expired
+   * @returns {boolean}
+   */
   public authenticated() {
     return tokenNotExpired('id_token', this.idToken);
   }
 
+  /**
+   * Show the Auth0 Modal
+   */
   public login() {
-    // Show the Auth0 Lock widget
     this.lock.show();
   }
 
+  /**
+   * Removes all authentication parameters from the application.
+   */
   public logout() {
     this.storage.remove('profile');
     this.storage.remove('id_token');
     this.idToken = null;
     this.storage.remove('refresh_token');
-    this.zoneImpl.run(() => this.user = null);
+    this.zone.run(() => this.user = null);
+
     // Unschedule the token refresh
-    //this.unscheduleRefresh();
   }
 }

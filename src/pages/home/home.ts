@@ -1,24 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Storage } from '@ionic/storage';
 
-import { App, NavController } from 'ionic-angular';
+import { NavController, App } from 'ionic-angular';
+import { AuthService } from '../../providers/auth.service';
 import { LoginPage } from "../login/login";
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements OnInit{
+export class HomePage {
 
   wallets: any = ['Wallet 1', 'Wallet 2'];
   currentWalletIndex: number = -1;
 
-  constructor(public navCtrl: NavController, public appCtrl: App) {}
+  constructor(
+      public navCtrl: NavController,
+      public auth: AuthService,
+      public app: App,
+      public storage: Storage
+  ) {}
 
   logout(){
-    this.appCtrl.getRootNav().setRoot(LoginPage);
+    this.auth.logout();
+    this.app.getRootNav().setRoot(LoginPage);
   }
 
-  ngOnInit(){
+  ionViewDidLoad(){
+    // this.storage.get('id_token').then((token) => {
+    //   console.log(token);
+    // });
     if(this.wallets.length > 0){
       this.currentWalletIndex = 0;
     }

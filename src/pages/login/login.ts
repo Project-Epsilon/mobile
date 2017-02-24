@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { AuthService } from '../../providers/auth.service';
+import { NavController, NavParams, App } from 'ionic-angular';
+import { AuthService } from "../../providers/auth.service";
+import { TabsPage } from "../tabs/tabs";
 
 @Component({
   selector: 'page-login',
-  templateUrl: 'login.html',
-  providers: [AuthService],
+  templateUrl: 'login.html'
 })
 export class LoginPage {
 
@@ -14,7 +14,8 @@ export class LoginPage {
   constructor(
       public navCtrl: NavController,
       public navParams: NavParams,
-      public auth: AuthService
+      public auth: AuthService,
+      public app: App
   ) {
     this.user = {
       email: '',
@@ -22,14 +23,19 @@ export class LoginPage {
     }
   }
 
+  /**
+   * Initializes code.
+   */
   ionViewDidLoad() {
-
+    //Load the event listener.
+    this.auth.lock.on('authenticated', result => {
+      this.app.getRootNav().setRoot(TabsPage);
+    });
   }
 
-  login(form){
-    console.log(form);
-  }
-
+  /**
+   * Shows the auth screen.
+   */
   showAuth(){
     this.auth.login()
   }
