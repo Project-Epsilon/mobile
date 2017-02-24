@@ -12,10 +12,12 @@ declare var Auth0Lock: any;
 export class AuthService {
 
   jwtHelper: JwtHelper = new JwtHelper();
+
   auth0 = new Auth0({
     clientID: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
     domain: 'mbarter.auth0.com'
   });
+
   lock = new Auth0Lock(
       '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
       'mbarter.auth0.com', {
@@ -23,7 +25,8 @@ export class AuthService {
           redirect: false,
         },
         params: {
-          scope: 'openid offline_access'
+          scope: 'openid offline_access',
+          device: 'Mobile Phone'
         }
       }
   );
@@ -55,9 +58,11 @@ export class AuthService {
       this.storage.set('id_token', authResult.idToken);
       this.idToken = authResult.idToken;
 
+      console.log(this.idToken);
+
       // Fetch profile information
-      this.lock.getUserInfo(authResult.idToken, (error, profile) => {
-        console.log(error);
+      this.lock.getUserInfo(authResult.accessToken, (error, profile) => {
+
         if (error) {
           // Handle error
           return;
@@ -72,8 +77,6 @@ export class AuthService {
 
       this.storage.set('refresh_token', authResult.refreshToken);
       this.zoneImpl.run(() => this.user = authResult.profile);
-      // Schedule a token refresh
-      //this.scheduleRefresh();
 
     });
   }
