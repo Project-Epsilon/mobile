@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, } from 'ionic-angular';
+import { NavController, NavParams, ModalController} from 'ionic-angular';
 import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 
 /*
@@ -14,14 +14,15 @@ import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 })
 export class TransfersPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransfersPage');
   }
 
   showTransferModal() {
-    this.navCtrl.push(TransfersModalPage);
+    let modal = this.modalCtrl.create(TransfersModalPage);
+    modal.present();
   }
 
   currencies: string = "CAD";
