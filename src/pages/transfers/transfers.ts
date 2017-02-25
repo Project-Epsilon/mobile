@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, } from 'ionic-angular';
+import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 
 /*
   Generated class for the Transfers page.
@@ -17,6 +18,10 @@ export class TransfersPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransfersPage');
+  }
+
+  showTransferModal() {
+    this.navCtrl.push(TransfersModalPage);
   }
 
   currencies: string = "CAD";

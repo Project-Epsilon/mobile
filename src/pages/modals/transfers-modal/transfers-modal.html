@@ -1,18 +1,17 @@
-<!--
-  Generated template for the TransfersModal page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>transfers_modal</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
+<ion-navbar *navbar>
+  <ion-title>Incoming Transfer</ion-title>
+</ion-navbar>
 
 <ion-content padding>
-
+  <ion-item-group>
+    <ion-item-divider color="light">January 13, 2016</ion-item-divider>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
+      </ion-avatar>
+      <h2>FName LName</h2>
+      <p item-right color="in">+10.45$</p>
+    </ion-item>
+  </ion-item-group>
+  <button ion-button (click)="dismiss()">Close</button>
 </ion-content>

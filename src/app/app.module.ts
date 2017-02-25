@@ -7,6 +7,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SendMoneyPage } from "../pages/send-money/send-money";
 import {TransfersPage} from "../pages/transfers/transfers";
+import {TransfersModalPage} from "../pages/modals/transfers-modal/transfers-modal";
 import { ManagePage } from "../pages/manage/manage";
 import { MorePage } from "../pages/more/more";
 
@@ -20,7 +21,8 @@ import { MorePage } from "../pages/more/more";
     SendMoneyPage,
     TransfersPage,
     ManagePage,
-    MorePage
+    MorePage,
+    TransfersModalPage
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -35,7 +37,8 @@ import { MorePage } from "../pages/more/more";
     SendMoneyPage,
     TransfersPage,
     ManagePage,
-    MorePage
+    MorePage,
+    TransfersModalPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ViewController } from 'ionic-angular';
 
 /*
   Generated class for the TransfersModal page.
@@ -13,10 +13,13 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class TransfersModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(public viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TransfersModalPage');
   }
 
+  dismiss(){
+    this.viewCtrl.dismiss();
+  }
 }
