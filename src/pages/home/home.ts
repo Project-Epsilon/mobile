@@ -4,6 +4,10 @@ import { Storage } from '@ionic/storage';
 import { NavController, App } from 'ionic-angular';
 import { AuthService } from '../../providers/auth.service';
 import { LoginPage } from "../login/login";
+import { environment } from "../../environments/environment";
+import { WalletsService } from "../../providers/wallet.service";
+import { Http } from "@angular/http";
+import {CurrencyService} from "../../providers/currency.service";
 
 @Component({
   selector: 'page-home',
@@ -11,14 +15,17 @@ import { LoginPage } from "../login/login";
 })
 export class HomePage {
 
-  wallets: any = ['Wallet 1', 'Wallet 2'];
+  wallets: Object = [];
   currentWalletIndex: number = -1;
 
   constructor(
       public navCtrl: NavController,
       public auth: AuthService,
       public app: App,
-      public storage: Storage
+      public storage: Storage,
+      public walletSrv: WalletsService,
+      public currencySrv: CurrencyService,
+      public http: Http
   ) {}
 
   /**
@@ -30,12 +37,12 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    // this.storage.get('id_token').then((token) => {
-    //   console.log(token);
-    // });
-    if(this.wallets.length > 0){
-      this.currentWalletIndex = 0;
-    }
+    this.currencySrv.init();
+
+    this.walletSrv.getWallets()
+      .subscribe(wallets => {
+        this.wallets = wallets;
+      })
   }
 
 }
