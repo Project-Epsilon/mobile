@@ -4,5 +4,11 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  server_url: 'http://localhost:8000',
+
+  auth0_id: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
+  auth0_domain: 'mbarter.auth0.com',
+
 };
