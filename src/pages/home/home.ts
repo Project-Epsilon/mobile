@@ -4,8 +4,10 @@ import { Storage } from '@ionic/storage';
 import { NavController, App } from 'ionic-angular';
 import { AuthService } from '../../providers/auth.service';
 import { LoginPage } from "../login/login";
-import { AuthHttp } from "angular2-jwt";
-import {environment} from "../../environments/environment";
+import { environment } from "../../environments/environment";
+import { WalletsService } from "../../providers/wallet.service";
+import { Http } from "@angular/http";
+import {CurrencyService} from "../../providers/currency.service";
 
 @Component({
   selector: 'page-home',
@@ -21,7 +23,9 @@ export class HomePage {
       public auth: AuthService,
       public app: App,
       public storage: Storage,
-      public http: AuthHttp
+      public walletSrv: WalletsService,
+      public currencySrv: CurrencyService,
+      public http: Http
   ) {}
 
   /**
@@ -33,19 +37,12 @@ export class HomePage {
   }
 
   ionViewDidLoad(){
-    this.http.get(environment.server_url + '/api/app/currencies')
-        .subscribe(res => {
-          let currencies = res.json().data;
-          console.log(currencies);
-          this.storage.set('currencies', currencies)
-        });
+    this.currencySrv.init();
 
-    this.http.get(environment.server_url + '/api/wallet')
-        .subscribe(res => {
-            let wallets = res.json().data;
-
-            this.wallets = wallets;
-        })
+    this.walletSrv.getWallets()
+      .subscribe(wallets => {
+        this.wallets = wallets;
+      })
   }
 
 }

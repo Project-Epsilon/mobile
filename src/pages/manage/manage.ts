@@ -1,8 +1,9 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {InAppBrowser} from 'ionic-native';
-import {BankTransfer} from '../../providers/bank-transfer';
-import {Storage} from "@ionic/storage";
+import { Component } from '@angular/core';
+import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
+import { BankTransferService } from '../../providers/bank.service';
+import { Storage } from "@ionic/storage";
+import { WalletsService } from "../../providers/wallet.service";
 
 @Component({
   selector: 'page-manage',
@@ -10,25 +11,25 @@ import {Storage} from "@ionic/storage";
 })
 export class ManagePage {
 
-  data: any;
-  message: string;
-  paypalUrl: string;
   currencies: Object;
+  wallets: any;
 
   action: string = "add_money";
-
-  addMoney = {
-    currency: null,
-    amount: 0,
-    decimalPlaces: 0
-  };
+  loader: Loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public bankTransferService: BankTransfer,
-    public storage: Storage
-  ) {}
+    public bankSrv: BankTransferService,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
+  ) {
+    this.loader = this.loadingCtrl.create({
+      content: 'Processing bank transfer.'
+    });
+  }
 
   ionViewDidLoad() {
     this.storage.get('currencies')
@@ -37,11 +38,20 @@ export class ManagePage {
         this.addMoney.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
+    this.wallets = this.walletSrv.wallets
   }
 
-  /**
-   *
-   */
+
+  //******************************************************
+  // AddMoney
+  //******************************************************
+
+  addMoney = {
+    currency: null,
+    amount: 0,
+    decimalPlaces: 0
+  };
+
   public setDecimalPlaces() {
     let minorUnit = this.addMoney.currency.minor_unit;
     if (minorUnit == 0) {
@@ -52,8 +62,9 @@ export class ManagePage {
   }
 
   public submitAddMoney() {
-    this.bankTransferService.post(this.addMoney.amount, this.addMoney.currency.code)
-      .then(data => {
+    this.bankSrv.deposit(this.addMoney.amount, this.addMoney.currency.code)
+      .subscribe(res => {
+        console.log(res);
         /**
          * Relavent information
          * data.transactions.description
@@ -65,12 +76,65 @@ export class ManagePage {
          *    1 - REDIRECT
          *    2 - POST
          */
-        this.data = data;
-        this.message = this.data.message;
-        this.paypalUrl = this.data.links[1].href;
-
-        let browser = new InAppBrowser(this.paypalUrl, '_blank', 'location=yes');
+        // let paypalUrl = res.links[1].href;
+        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
       });
+  }
+
+  //******************************************************
+  // Withdraw Money
+  //******************************************************
+
+  public withdrawMoney = {
+    wallet: null,
+    amount: null,
+    email: ''
+  };
+
+  public submitWithDrawMoney(form) {
+    console.log(form);
+    let displayAmount = this.withdrawMoney.amount  + ' ' + this.withdrawMoney.wallet.currency_code;
+
+    this.alertCtrl.create({
+      title: 'Confirm withdraw',
+      message: 'Do you want to withdraw ' + displayAmount,
+      buttons: [
+        { text: 'Cancel', role: 'cancel'},
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.loader.present();
+
+            this.bankSrv.withdraw(
+              this.withdrawMoney.wallet.id,
+              this.withdrawMoney.amount,
+              this.withdrawMoney.email
+            ).subscribe(res => {
+
+              this.loader.dismiss();
+              if (res.data){
+
+                this.walletSrv.updateWallet(res.data);
+                this.alertCtrl.create({
+                  title: 'Withdrawal Success',
+                  subTitle: displayAmount + ' has been successfully withdrawn from your account.',
+                  buttons: ['Dismiss']
+                }).present();
+
+              } else {
+
+                this.alertCtrl.create({
+                  title: 'Withdrawal Failed',
+                  subTitle: displayAmount + ' could not have been processed.',
+                  buttons: ['Dismiss']
+                }).present();
+
+              }
+            })
+          }
+        }
+      ]
+    }).present();
   }
 
 }

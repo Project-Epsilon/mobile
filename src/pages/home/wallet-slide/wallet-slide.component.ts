@@ -6,8 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WalletSlideComponent implements OnInit {
 
-  @Input() wallets: any;
-  activeWallet: number;
+  @Input() wallets: Object;
+  activeWallet: Object;
 
   constructor() {}
 
@@ -16,6 +16,7 @@ export class WalletSlideComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.activeWallet = this.wallets[0];
   }
 
 }
