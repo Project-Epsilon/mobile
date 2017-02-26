@@ -35,10 +35,8 @@ export class AuthService {
   constructor(private authHttp: AuthHttp, public zone: NgZone, public storage: Storage) {
 
     // Check if there is a profile saved in local storage
-    this.storage.get('user').then(profile => {
-      this.user = JSON.parse(profile);
-    }).catch(error => {
-      console.log(error);
+    this.storage.get('user').then(user => {
+      this.user = user;
     });
 
     this.storage.get('id_token').then(token => {
@@ -47,22 +45,7 @@ export class AuthService {
 
     //Authenticate user and change jwt key with server key.
     this.lock.on('authenticated', result => {
-      this.storage.set('id_token', result.idToken).then(() => {
-        this.authHttp.post(environment.server_url + '/api/login/auth0', {})
-            .subscribe(res => {
-              let data = res.json().data;
-
-              console.log(data);
-
-              //Set token
-              this.idToken = data.token;
-              this.storage.set('id_token', data.token);
-
-              //Set user
-              this.user = data.user;
-              this.storage.set('user', JSON.stringify(data.user));
-            });
-      });
+      this.storage.set('id_token', result.idToken);
 
       this.lock.hide();
     });

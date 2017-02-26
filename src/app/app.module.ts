@@ -1,6 +1,7 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import {IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
@@ -17,10 +18,9 @@ import { TransactionComponent } from '../components/transaction/transaction.comp
 
 import { Http } from '@angular/http';
 import { Storage } from '@ionic/storage';
-
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from "../providers/auth.service";
-
+import { BankTransfer } from "../providers/bank-transfer";
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();
@@ -65,6 +65,7 @@ export function getAuthHttp(http) {
     AuthHttp,
     AuthService,
     Storage,
+    BankTransfer,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
