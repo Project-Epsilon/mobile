@@ -6,7 +6,7 @@
 export const environment = {
   production: false,
 
-  server_url: 'http://localhost:8000',
+  server_url: 'http://server.laurendylam.com/',
 
   auth0_id: '4jdmsck955xaRUwMQCDacqO6NMUSGKJx',
   auth0_domain: 'mbarter.auth0.com',
