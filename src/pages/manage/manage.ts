@@ -1,24 +1,142 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
+import { InAppBrowser } from 'ionic-native';
+import { BankTransferService } from '../../providers/bank.service';
+import { Storage } from "@ionic/storage";
+import { WalletsService } from "../../providers/wallet.service";
 
-/*
-  Generated class for the Manage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: 'page-manage',
   templateUrl: 'manage.html'
 })
 export class ManagePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  currencies: Object;
+  wallets: any;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagePage');
+  action: string = "add_money";
+  loader: Loading;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public bankSrv: BankTransferService,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
+  ) {
+    this.loader = this.loadingCtrl.create({
+      content: 'Processing bank transfer.'
+    });
   }
 
-  currencies: string = "CAD";
-  action: string="add_money";
+  ionViewDidLoad() {
+    this.storage.get('currencies')
+      .then(currencies => {
+        this.currencies = currencies;
+        this.addMoney.currency = this.currencies[0];
+        this.setDecimalPlaces();
+      });
+    this.wallets = this.walletSrv.wallets
+  }
+
+
+  //******************************************************
+  // AddMoney
+  //******************************************************
+
+  addMoney = {
+    currency: null,
+    amount: 0,
+    decimalPlaces: 0
+  };
+
+  public setDecimalPlaces() {
+    let minorUnit = this.addMoney.currency.minor_unit;
+    if (minorUnit == 0) {
+      this.addMoney.decimalPlaces = 1;
+    } else {
+      this.addMoney.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
+    }
+  }
+
+  public submitAddMoney() {
+    this.bankSrv.deposit(this.addMoney.amount, this.addMoney.currency.code)
+      .subscribe(res => {
+        console.log(res);
+        /**
+         * Relavent information
+         * data.transactions.description
+         * data.transactions.invoice_number
+         * data.create_time
+         * data.id
+         * data.links[i].href
+         *    0 - GET
+         *    1 - REDIRECT
+         *    2 - POST
+         */
+        // let paypalUrl = res.links[1].href;
+        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
+      });
+  }
+
+  //******************************************************
+  // Withdraw Money
+  //******************************************************
+
+  public withdrawMoney = {
+    wallet: null,
+    amount: null,
+    email: ''
+  };
+
+  public submitWithDrawMoney(form) {
+    console.log(form);
+    let displayAmount = this.withdrawMoney.amount  + ' ' + this.withdrawMoney.wallet.currency_code;
+
+    this.alertCtrl.create({
+      title: 'Confirm withdraw',
+      message: 'Do you want to withdraw ' + displayAmount,
+      buttons: [
+        { text: 'Cancel', role: 'cancel'},
+        {
+          text: 'Confirm',
+          handler: () => {
+            this.loader.present();
+
+            this.bankSrv.withdraw(
+              this.withdrawMoney.wallet.id,
+              this.withdrawMoney.amount,
+              this.withdrawMoney.email
+            ).subscribe(res => {
+
+              this.loader.dismiss();
+              if (res.data){
+
+                this.walletSrv.updateWallet(res.data);
+                this.alertCtrl.create({
+                  title: 'Withdrawal Success',
+                  subTitle: displayAmount + ' has been successfully withdrawn from your account.',
+                  buttons: ['Dismiss']
+                }).present();
+
+              } else {
+
+                this.alertCtrl.create({
+                  title: 'Withdrawal Failed',
+                  subTitle: displayAmount + ' could not have been processed.',
+                  buttons: ['Dismiss']
+                }).present();
+
+              }
+            })
+          }
+        }
+      ]
+    }).present();
+  }
+
 }
+
+
