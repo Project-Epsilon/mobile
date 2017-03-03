@@ -44,7 +44,7 @@ export function getAuthHttp(http) {
     TransfersPage,
     ManagePage,
     MorePage,
-    TransfersModalPage
+    TransfersModalPage,
     WalletSlideComponent,
     WalletHeaderComponent,
     TransactionLogComponent,
