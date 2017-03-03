@@ -22,7 +22,7 @@ export class TransferService {
    * @param amount
    * @param currency
    * @param recipient
-   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   * @returns Observable
    */
   public send(amount, currency, recipient) {
     let data = new Observable(observer => {
@@ -40,6 +40,7 @@ export class TransferService {
     });
     return data;
   }
+
 
   public receive() {
     let data = new Observable(observer => {
