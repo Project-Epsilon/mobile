@@ -1,3 +1,58 @@
-page-login {
 
+.logo{
+	padding-top: 80px;
+	padding-bottom: 40px;
+	text-align: center;
+	ion-img{
+		background: transparent;
+	}
+}
+
+.input-group{
+	margin-bottom: 1rem;
+	background-color: rgba(255, 255, 255, 0.80);
+	display: flex;
+	align-items: center;
+	ion-icon{
+	    width: 30px;
+    	text-align: center;	
+	}
+	ion-input{
+		width: calc(100% - 35px);
+	}
+}
+
+.seperator{
+	color: #fff;
+	text-align: center;
+    margin: 10px 0;
+    font-size: 1rem;
+    position: relative;
+    &:before, &:after{
+    	position: absolute;
+    	top: 50%;
+    	border-top: #eee solid 1px;
+    	content: " ";
+    	width: 35%;
+    }
+	&:before{
+		left: 0;
+	}
+	&:after{
+		right: 0;
+	}
+}
+.facebook-login{
+	background-color: #3b5998;
+}
+.btn-signin{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	margin: 0;
+	right: 0;
+	padding: 3rem;
+	font-size: 2rem;
+	z-index: 99;
+	border-radius: 0;
 }

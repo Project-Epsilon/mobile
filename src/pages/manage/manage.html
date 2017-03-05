@@ -1,0 +1,113 @@
+<!--
+  Generated template for the Manage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title text-center>Manage</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="action">
+      <ion-segment-button value="add_money" >
+        Add Money
+      </ion-segment-button>
+      <ion-segment-button value="withdraw">
+        Withdraw
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="action">
+    <div *ngSwitchCase="'add_money'">
+      <ion-card>
+
+        <ion-card-content>
+          <!-- Add card content here! -->
+          <ion-item>
+            <ion-label stacked>Amount</ion-label>
+            <ion-input [(ngModel)]="addMoney.amount"
+                       type="number"
+                       placeholder="{{ addMoney.decimalPlaces }}"
+                       step="0.01"
+                       min="0"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked>Select Currency</ion-label>
+            <ion-select [(ngModel)]="addMoney.currency" (ionChange)="setDecimalPlaces()">
+              <ion-option *ngFor="let currency of currencies; let i = index" [value]="currency">
+                {{ currency.code }} - {{ currency.name }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+
+        </ion-card-content>
+
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-label text-center stacked>Add money with</ion-label>
+        </ion-card-header>
+        <ion-card-content>
+            <!-- PayPal Logo --><table border="0" cellpadding="10" cellspacing="0" align="center"><tr><td align="center"></td></tr><tr><td align="center"><a href="https://www.paypal.com/webapps/mpp/paypal-popup" title="How PayPal Works" onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;"><img src="https://www.paypalobjects.com/webstatic/mktg/logo/AM_mc_vs_dc_ae.jpg" border="0" alt="PayPal Acceptance Mark"></a></td></tr></table><!-- PayPal Logo -->
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'withdraw'">
+      <form (submit)="submitWithDrawMoney(withdrawForm)" #withdrawForm="ngForm">
+        <ion-card>
+          <ion-card-content>
+
+            <ion-item>
+              <ion-label stacked>Amount</ion-label>
+              <ion-input
+                      type="number"
+                      placeholder="0.00"
+                      step="0.01"
+                      required
+                      name="amount"
+                      [(ngModel)]="withdrawMoney.amount"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label stacked>Select Currency</ion-label>
+              <ion-select [(ngModel)]="withdrawMoney.wallet" name="wallet">
+                <ion-option  *ngFor="let wallet of wallets" [value]="wallet">
+                  {{ wallet.balance }} - {{ wallet.currency_code }}
+                </ion-option>
+              </ion-select>
+            </ion-item>
+
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-content>
+            <ion-label stacked>Paypal Email Address</ion-label>
+            <ion-input
+                    type="email"
+                    placeholder="example@example.com"
+                    required
+                    name="email"
+                    [(ngModel)]="withdrawMoney.email"
+            ></ion-input>
+          </ion-card-content>
+        </ion-card>
+
+        <button ion-button block type="submit" [disabled]="withdrawForm.invalid">Withdraw with Paypal</button>
+      </form>
+    </div>
+  </div>
+
+</ion-content>
