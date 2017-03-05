@@ -29,7 +29,7 @@ export function getAuthHttp(http) {
   let storage: Storage = new Storage();
   return new AuthHttp(new AuthConfig({
     globalHeaders: [{'Accept': 'application/json'}],
-    tokenGetter: (() => storage.get('id_token'))
+    tokenGetter: (() => storage.get('token'))
   }), http);
 }
 

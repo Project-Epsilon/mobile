@@ -32,28 +32,34 @@ export class LoginPage {
    * Initializes code.
    */
   ionViewDidLoad() {
+    console.log('loaded');
     //Load the event listener.
-    this.auth.lock.on('authenticated', result => {
-      this.authHttp.post(environment.server_url + '/api/login/auth0', {})
-          .subscribe(res => {
-            let data = res.json().data;
-
-            console.log(data);
-
-            //Set token and user
-            this.storage.set('user', data.user);
-            this.storage.set('id_token', data.token).then(() => {
-              this.app.getRootNav().setRoot(TabsPage);
-            });
-          });
-    });
+    // this.auth.lock.on('authenticated', result => {
+    //   this.authHttp.post(environment.server_url + '/api/login/auth0', {})
+    //       .subscribe(res => {
+    //         let data = res.json().data;
+    //
+    //         console.log(data);
+    //
+    //         //Set token and user
+    //         this.storage.set('user', data.user);
+    //         this.storage.set('id_token', data.token).then(() => {
+    //           this.app.getRootNav().setRoot(TabsPage);
+    //         });
+    //       });
+    // });
   }
 
   /**
    * Shows the auth screen.
    */
-  showAuth(){
-    this.auth.login()
+  showAuth(provider){
+    this.auth.login(provider).subscribe(user => {
+
+      if(user){
+        this.app.getRootNav().setRoot(TabsPage);
+      }
+    });
   }
 
 }
