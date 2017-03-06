@@ -6,7 +6,7 @@ import {environment} from '../environments/environment';
 import {InAppBrowser} from "ionic-native";
 import {Http} from "@angular/http";
 
-import {Observable} from "rxjs";
+import {Observable } from "rxjs";
 
 
 @Injectable()
@@ -41,6 +41,9 @@ export class AuthService {
 
   /**
    * Show the Auth0 Modal
+   *
+   * @param provider
+   * @returns {Observable}
    */
   public login(provider) {
 
