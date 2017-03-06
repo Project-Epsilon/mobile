@@ -1,12 +1,12 @@
-import {Storage} from '@ionic/storage';
-import {AuthHttp, tokenNotExpired} from 'angular2-jwt';
-import {Injectable, NgZone} from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
+import { Injectable, NgZone } from '@angular/core';
 
-import {environment} from '../environments/environment';
-import {InAppBrowser} from "ionic-native";
-import {Http} from "@angular/http";
+import { environment } from '../environments/environment';
+import { InAppBrowser } from "ionic-native";
+import { Http } from "@angular/http";
 
-import {Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 
 @Injectable()
