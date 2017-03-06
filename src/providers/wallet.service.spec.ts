@@ -10,7 +10,6 @@ describe('Wallet Service', () => {
     beforeEach(() => {
        this.service = new WalletsService();
     });
-      //check wallets
      it('Get wallets response should not be null', () => {
         expect(this.service.getWallets()).not.toBeNull();
     });

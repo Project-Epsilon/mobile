@@ -9,7 +9,6 @@ import {Storage} from "@ionic/storage";
 
 import{CurrencyService} from "./currency.service";
 
-//currency service test
 describe('Currency Service', () => {
   
     beforeEach(() => {
@@ -30,15 +29,12 @@ describe('Currency Service', () => {
       
     });
   });
-  //check if service is defined
   it('should construct', async(inject([CurrencyService], (service) => {
     expect(service).toBeDefined();
   })));
-  //check if currencies are intialized
     it('get currencies should return', async(inject([CurrencyService], (service) => {
     expect(service.init()).not.toBeNull();
   })));
-  //check return of a currency
     it('USD currency should return', async(inject([CurrencyService], (service) => {
     expect(service.getCurrency('USD')).not.toBeNull();
   })));
