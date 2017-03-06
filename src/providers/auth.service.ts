@@ -52,7 +52,7 @@ export class AuthService {
         browser.on('loadstart')
           .subscribe(event => {
             if (event.url.indexOf(environment.server_url + '/api/app/callback') == 0) {
-              let token = event.url.substring(event.url.indexOf('=') + 1);
+              let token = event.url.substring(event.url.indexOf('=') + 1, event.url.indexOf('&success=true'));
               this.storage.set('token', token).then(value => {
                 this.authHttp.get(environment.server_url + '/api/user').subscribe(res => {
                   this.user = res.json().data;
