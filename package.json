@@ -8,7 +8,8 @@
     "build": "ionic-app-scripts build",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "node ./node_modules/tslint/bin/tslint -c ./tslint.json ./src/**/*.ts --force"
   },
   "dependencies": {
     "@angular/common": "2.2.1",

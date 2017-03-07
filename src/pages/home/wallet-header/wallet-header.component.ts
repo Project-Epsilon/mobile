@@ -1,9 +1,9 @@
-import { Component, Input, AfterContentChecked } from '@angular/core';
-import { CurrencyService } from "../../../providers/currency.service";
+import {Component, Input, OnInit} from "@angular/core";
+import {CurrencyService} from "../../../providers/currency.service";
 
 @Component({
-  selector: 'wallet-header',
-  templateUrl: 'wallet-header.component.html'
+  selector: "wallet-header",
+  templateUrl: "wallet-header.component.html",
 })
 export class WalletHeaderComponent implements AfterContentChecked {
 
@@ -11,7 +11,7 @@ export class WalletHeaderComponent implements AfterContentChecked {
   currencyName: string;
 
   constructor(
-    public currencySrv: CurrencyService
+    public currencySrv: CurrencyService,
   ) {}
 
   /**

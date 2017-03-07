@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-import {environment} from "../environments/environment";
+import { Injectable } from "@angular/core";
+import { Http } from "@angular/http";
 import {Storage} from "@ionic/storage";
+import "rxjs/add/operator/map";
+import {environment} from "../environments/environment";
 
 /*
   Generated class for the CurrencyService provider.
@@ -18,12 +18,12 @@ export class CurrencyService {
 
   public constructor(
     public http: Http,
-    public storage: Storage
+    public storage: Storage,
   ) {
-    this.storage.get('currencies')
-      .then(currencies => {
+    this.storage.get("currencies")
+      .then((currencies) => {
         this.currencies = currencies;
-      })
+      });
   }
 
   public getCurrencies(){
@@ -35,20 +35,20 @@ export class CurrencyService {
   }
 
   public init(){
-    this.http.get(environment.server_url + '/api/app/currencies')
-      .map(res => res.json())
-      .subscribe(res => {
+    this.http.get(environment.server_url + "/api/app/currencies")
+      .map((res) => res.json())
+      .subscribe((res) => {
         let currencies = res.data;
         this.currencies = currencies;
 
         this.mapCurrencies();
 
-        this.storage.set('currencies', currencies);
+        this.storage.set("currencies", currencies);
       });
   }
 
   private mapCurrencies(){
-    for(let currency of this.currencies){
+    for (let currency of this.currencies){
       this.currencyMap[currency.code] = currency;
     }
   }

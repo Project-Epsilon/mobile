@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
-import { Storage } from '@ionic/storage';
+import { Component } from "@angular/core";
+import { Storage } from "@ionic/storage";
 
-import { NavController, App } from 'ionic-angular';
-import { AuthService } from '../../providers/auth.service';
-import { LoginPage } from "../login/login";
-import { environment } from "../../environments/environment";
-import { WalletsService } from "../../providers/wallet.service";
 import { Http } from "@angular/http";
+import { App, NavController } from "ionic-angular";
+import { environment } from "../../environments/environment";
+import { AuthService } from "../../providers/auth.service";
 import {CurrencyService} from "../../providers/currency.service";
+import { WalletsService } from "../../providers/wallet.service";
+import { LoginPage } from "../login/login";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html",
 })
 export class HomePage {
 
@@ -25,7 +25,7 @@ export class HomePage {
       public storage: Storage,
       public walletSrv: WalletsService,
       public currencySrv: CurrencyService,
-      public http: Http
+      public http: Http,
   ) {}
 
   /**
@@ -40,9 +40,9 @@ export class HomePage {
     this.currencySrv.init();
 
     this.walletSrv.getWallets()
-      .subscribe(wallets => {
+      .subscribe((wallets) => {
         this.wallets = wallets;
-      })
+      });
   }
 
 }
