@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {BankTransferService} from "../../../providers/bank.service";
+import { BankTransferService } from "../../../providers/bank.service";
 
 @Component({
   selector: 'app-deposit',

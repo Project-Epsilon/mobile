@@ -4,8 +4,8 @@ import { InAppBrowser } from 'ionic-native';
 import { BankTransferService } from '../../providers/bank.service';
 import { Storage } from "@ionic/storage";
 import { WalletsService } from "../../providers/wallet.service";
-import {WithdrawComponent} from "./withdraw/withdraw.component";
-import {DepositComponent} from "./deposit/deposit.component";
+import { WithdrawComponent } from "./withdraw/withdraw.component";
+import { DepositComponent } from "./deposit/deposit.component";
 
 @Component({
   selector: 'page-manage',

@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {AlertController, LoadingController, Loading} from "ionic-angular";
-import {BankTransferService} from "../../../providers/bank.service";
-import {WalletsService} from "../../../providers/wallet.service";
+import { Component, OnInit } from '@angular/core';
+import { AlertController, LoadingController, Loading } from "ionic-angular";
+import { BankTransferService } from "../../../providers/bank.service";
+import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
   selector: 'app-withdraw',
