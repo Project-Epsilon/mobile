@@ -4,6 +4,7 @@ import { InAppBrowser } from 'ionic-native';
 import { BankTransferService } from '../../providers/bank.service';
 import { Storage } from "@ionic/storage";
 import { WalletsService } from "../../providers/wallet.service";
+import {WithdrawComponent} from "./withdraw/withdraw.component";
 
 @Component({
   selector: 'page-manage',
@@ -17,6 +18,8 @@ export class ManagePage {
   action: string = "add_money";
   loader: Loading;
 
+  withdraw: WithdrawComponent;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -24,11 +27,18 @@ export class ManagePage {
     public storage: Storage,
     public walletSrv: WalletsService,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
       content: 'Processing bank transfer.'
     });
+    this.withdraw = new WithdrawComponent(
+      this.loader,
+      this.alertCtrl,
+      this.loadingCtrl,
+      this.bankSrv,
+      this.walletSrv
+    );
   }
 
   ionViewDidLoad() {
@@ -79,62 +89,6 @@ export class ManagePage {
         // let paypalUrl = res.links[1].href;
         // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
       });
-  }
-
-  //******************************************************
-  // Withdraw Money
-  //******************************************************
-
-  public withdrawMoney = {
-    wallet: null,
-    amount: null,
-    email: ''
-  };
-
-  public submitWithDrawMoney(form) {
-    console.log(form);
-    let displayAmount = this.withdrawMoney.amount  + ' ' + this.withdrawMoney.wallet.currency_code;
-
-    this.alertCtrl.create({
-      title: 'Confirm withdraw',
-      message: 'Do you want to withdraw ' + displayAmount,
-      buttons: [
-        { text: 'Cancel', role: 'cancel'},
-        {
-          text: 'Confirm',
-          handler: () => {
-            this.loader.present();
-
-            this.bankSrv.withdraw(
-              this.withdrawMoney.wallet.id,
-              this.withdrawMoney.amount,
-              this.withdrawMoney.email
-            ).subscribe(res => {
-
-              this.loader.dismiss();
-              if (res.data){
-
-                this.walletSrv.updateWallet(res.data);
-                this.alertCtrl.create({
-                  title: 'Withdrawal Success',
-                  subTitle: displayAmount + ' has been successfully withdrawn from your account.',
-                  buttons: ['Dismiss']
-                }).present();
-
-              } else {
-
-                this.alertCtrl.create({
-                  title: 'Withdrawal Failed',
-                  subTitle: displayAmount + ' could not have been processed.',
-                  buttons: ['Dismiss']
-                }).present();
-
-              }
-            })
-          }
-        }
-      ]
-    }).present();
   }
 
 }
