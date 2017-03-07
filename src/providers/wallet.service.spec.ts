@@ -4,6 +4,11 @@ import { AuthHttp } from "angular2-jwt";
 import { Observable } from "rxjs";
 import { environment } from "../environments/environment";
 import{ WalletsService } from "./wallet.service";
+/** 
+ * Wallet test suite
+ */
+
+
 describe('Wallet Service', () => {
     beforeEach(() => {
        this.service = new WalletsService();
@@ -13,4 +18,4 @@ describe('Wallet Service', () => {
         expect(this.service.getWallets()).not.toBeNull();
       });
   
-    });
+ });
