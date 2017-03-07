@@ -38,3 +38,4 @@ describe('Component: Root Component', () => {
     });
 
 });
+
