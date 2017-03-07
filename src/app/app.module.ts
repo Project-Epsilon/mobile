@@ -24,6 +24,8 @@ import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
 import {WalletsService} from "../providers/wallet.service";
 import {CurrencyService} from "../providers/currency.service";
+import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
+import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();
@@ -48,7 +50,9 @@ export function getAuthHttp(http) {
     WalletSlideComponent,
     WalletHeaderComponent,
     TransactionLogComponent,
-    TransactionComponent
+    TransactionComponent,
+    WithdrawComponent,
+    DepositComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)
