@@ -16,7 +16,7 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="action">
-      <ion-segment-button value="add_money" >
+      <ion-segment-button value="deposit" >
         Add Money
       </ion-segment-button>
       <ion-segment-button value="withdraw">
@@ -25,9 +25,14 @@
     </ion-segment>
   </div>
 
-  <div [ngSwitch]="action">    
-    <DepositComponent></DepositComponent>
-    <WithdrawComponent></WithdrawComponent>
+  <div [ngSwitch]="action">
+    <div *ngSwitchCase="'deposit'">
+      <deposit-component></deposit-component>
+    </div>
+
+    <div *ngSwitchCase="'withdraw'">
+      <withdraw-component></withdraw-component>
+    </div>
   </div>
 
 </ion-content>

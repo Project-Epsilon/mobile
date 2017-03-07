@@ -4,7 +4,7 @@ import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
-  selector: 'app-withdraw',
+  selector: 'withdraw-component',
   templateUrl: './withdraw.component.html',
   styleUrls: ['./withdraw.component.css']
 })

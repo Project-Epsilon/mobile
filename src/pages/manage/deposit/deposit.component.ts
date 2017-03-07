@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BankTransferService } from "../../../providers/bank.service";
 
 @Component({
-  selector: 'app-deposit',
+  selector: 'deposit-component',
   templateUrl: './deposit.component.html',
   styleUrls: ['./deposit.component.css']
 })

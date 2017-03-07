@@ -12,6 +12,9 @@ import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-mo
 import { ManagePage } from "../pages/manage/manage";
 import { MorePage } from "../pages/more/more";
 
+
+import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
+import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 import { WalletSlideComponent } from '../pages/home/wallet-slide/wallet-slide.component';
 import { WalletHeaderComponent } from '../pages/home/wallet-header/wallet-header.component';
 import { TransactionLogComponent } from '../components/transaction-log/transaction-log.component';
@@ -24,8 +27,6 @@ import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
 import { WalletsService } from "../providers/wallet.service";
 import { CurrencyService } from "../providers/currency.service";
-import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
-import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();

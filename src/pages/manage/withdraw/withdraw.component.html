@@ -1,45 +1,43 @@
-<div *ngSwitchCase="'withdraw'">
-  <form (submit)="submitWithDrawMoney(withdrawForm)" #withdrawForm="ngForm">
-    <ion-card>
-      <ion-card-content>
+<form (submit)="submitWithDrawMoney(withdrawForm)" #withdrawForm="ngForm">
+  <ion-card>
+    <ion-card-content>
 
-        <ion-item>
-          <ion-label stacked>Amount</ion-label>
-          <ion-input
-            type="number"
-            placeholder="0.00"
-            step="0.01"
-            required
-            name="amount"
-            [(ngModel)]="withdrawMoney.amount"
-          ></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label stacked>Select Currency</ion-label>
-          <ion-select [(ngModel)]="withdrawMoney.wallet" name="wallet">
-            <ion-option  *ngFor="let wallet of wallets" [value]="wallet">
-              {{ wallet.balance }} - {{ wallet.currency_code }}
-            </ion-option>
-          </ion-select>
-        </ion-item>
-
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-      <ion-card-content>
-        <ion-label stacked>Paypal Email Address</ion-label>
+      <ion-item>
+        <ion-label stacked>Amount</ion-label>
         <ion-input
-          type="email"
-          placeholder="example@example.com"
+          type="number"
+          placeholder="0.00"
+          step="0.01"
           required
-          name="email"
-          [(ngModel)]="withdrawMoney.email"
+          name="amount"
+          [(ngModel)]="withdrawMoney.amount"
         ></ion-input>
-      </ion-card-content>
-    </ion-card>
+      </ion-item>
 
-    <button ion-button block type="submit" [disabled]="withdrawForm.invalid">Withdraw with Paypal</button>
-  </form>
-</div>
+      <ion-item>
+        <ion-label stacked>Select Currency</ion-label>
+        <ion-select [(ngModel)]="withdrawMoney.wallet" name="wallet">
+          <ion-option *ngFor="let wallet of wallets" [value]="wallet">
+            {{ wallet.balance }} - {{ wallet.currency_code }}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-label stacked>Paypal Email Address</ion-label>
+      <ion-input
+        type="email"
+        placeholder="example@example.com"
+        required
+        name="email"
+        [(ngModel)]="withdrawMoney.email"
+      ></ion-input>
+    </ion-card-content>
+  </ion-card>
+
+  <button ion-button block type="submit" [disabled]="withdrawForm.invalid">Withdraw with Paypal</button>
+</form>

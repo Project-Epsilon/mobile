@@ -16,7 +16,7 @@ export class ManagePage {
   currencies: Object;
   wallets: any;
 
-  action: string = "add_money";
+  action: string = "deposit";
   loader: Loading;
 
   withdraw: WithdrawComponent;
