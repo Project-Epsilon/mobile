@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { InAppBrowser } from 'ionic-native';
 import { BankTransferService } from '../../providers/bank.service';
 import { Storage } from "@ionic/storage";
