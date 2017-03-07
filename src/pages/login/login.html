@@ -25,7 +25,10 @@
 	<!--<div class="seperator">-->
 		<!--or sign in with-->
 	<!--</div>-->
+  <button class="btn-signin" ion-button block icon-left (click)="showAuth('facebook')">
+    Facebook
+  </button>
+  <button class="btn-signin" ion-button block icon-left (click)="showAuth('google')">
+    Google
+  </button>
 </ion-content>
-<button class="btn-signin" ion-button block icon-left (click)="showAuth()">
-	Sign In
-</button>
