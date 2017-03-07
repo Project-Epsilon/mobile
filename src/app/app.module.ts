@@ -1,5 +1,5 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import {IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { ContactPage } from '../pages/contact/contact';
@@ -7,8 +7,8 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { SendMoneyPage } from "../pages/send-money/send-money";
-import {TransfersPage} from "../pages/transfers/transfers";
-import {TransfersModalPage} from "../pages/modals/transfers-modal/transfers-modal";
+import { TransfersPage } from "../pages/transfers/transfers";
+import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
 import { ManagePage } from "../pages/manage/manage";
 import { MorePage } from "../pages/more/more";
 
@@ -22,8 +22,8 @@ import { Storage } from '@ionic/storage';
 import { AuthConfig, AuthHttp } from 'angular2-jwt';
 import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
-import {WalletsService} from "../providers/wallet.service";
-import {CurrencyService} from "../providers/currency.service";
+import { WalletsService } from "../providers/wallet.service";
+import { CurrencyService } from "../providers/currency.service";
 import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
 import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 
