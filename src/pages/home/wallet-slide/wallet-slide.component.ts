@@ -16,7 +16,7 @@ export class WalletSlideComponent implements OnInit {
    *
    * @param $event
    */
-  changeWallet($event){
+  public changeWallet($event){
     if($event.direction==2){ //right swipe
       if(this.wallets.indexOf(this.activeWallet)!=this.wallets.length-1){
         let next = this.wallets.indexOf(this.activeWallet)+1;
@@ -33,7 +33,10 @@ export class WalletSlideComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  /**
+   * Lifecycle hook to initialize active wallet
+   */
+  public ngOnInit() {
     this.activeWallet = this.wallets[0];
   }
 

@@ -15,9 +15,9 @@ export class WalletHeaderComponent implements AfterContentChecked {
   ) {}
 
   /**
-   * Whenever content changes update the currency name.
+   * Lifecycle hook whenever content changes update the currency name
    */
-  ngAfterContentChecked(){
+  public ngAfterContentChecked(){
     this.currencyName = this.currencySrv.getCurrency(this.wallet.currency_code).name;
   }
 
