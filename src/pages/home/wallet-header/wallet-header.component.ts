@@ -1,9 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, OnInit} from "@angular/core";
 import {CurrencyService} from "../../../providers/currency.service";
 
 @Component({
-  selector: 'wallet-header',
-  templateUrl: 'wallet-header.component.html'
+  selector: "wallet-header",
+  templateUrl: "wallet-header.component.html",
 })
 export class WalletHeaderComponent implements OnInit {
 
@@ -11,7 +11,7 @@ export class WalletHeaderComponent implements OnInit {
   currencyName: string;
 
   constructor(
-    public currencySrv: CurrencyService
+    public currencySrv: CurrencyService,
   ) {}
 
   ngOnInit() {

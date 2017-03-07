@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams, App } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { Storage } from "@ionic/storage";
+import { AuthHttp } from "angular2-jwt";
+import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { TabsPage } from "../tabs/tabs";
-import { AuthHttp } from "angular2-jwt";
-import { Storage } from "@ionic/storage";
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html'
+  selector: "page-login",
+  templateUrl: "login.html",
 })
 export class LoginPage {
 
@@ -19,12 +19,12 @@ export class LoginPage {
       public auth: AuthService,
       public app: App,
       public authHttp: AuthHttp,
-      public storage: Storage
+      public storage: Storage,
   ) {
     this.user = {
-      email: '',
-      password: '',
-    }
+      email: "",
+      password: "",
+    };
   }
 
   /**
@@ -33,9 +33,9 @@ export class LoginPage {
    * @param provider
    */
   showAuth(provider){
-    this.auth.login(provider).subscribe(user => {
+    this.auth.login(provider).subscribe((user) => {
 
-      if(user){
+      if (user){
         this.app.getRootNav().setRoot(TabsPage);
       }
     });

@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'wallet-slide',
-  templateUrl: 'wallet-slide.component.html'
+  selector: "wallet-slide",
+  templateUrl: "wallet-slide.component.html",
 })
 export class WalletSlideComponent implements OnInit {
 
