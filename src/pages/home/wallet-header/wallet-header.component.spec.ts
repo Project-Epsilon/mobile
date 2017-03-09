@@ -1,17 +1,17 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 
-import { WalletHeaderComponent } from './wallet-header.component';
+import { WalletHeaderComponent } from "./wallet-header.component";
 
-describe('WalletHeaderComponent', () => {
+describe("WalletHeaderComponent", () => {
   let component: WalletHeaderComponent;
   let fixture: ComponentFixture<WalletHeaderComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WalletHeaderComponent ]
+      declarations: [ WalletHeaderComponent ],
     })
     .compileComponents();
   }));
@@ -22,7 +22,7 @@ describe('WalletHeaderComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

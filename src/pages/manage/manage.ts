@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
-import { InAppBrowser } from 'ionic-native';
-import { BankTransferService } from '../../providers/bank.service';
+import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
+import {AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
+import { InAppBrowser } from "ionic-native";
+import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
 
 @Component({
-  selector: 'page-manage',
-  templateUrl: 'manage.html'
+  selector: "page-manage",
+  templateUrl: "manage.html",
 })
 export class ManagePage {
 
@@ -24,23 +24,22 @@ export class ManagePage {
     public storage: Storage,
     public walletSrv: WalletsService,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: 'Processing bank transfer.'
+      content: "Processing bank transfer.",
     });
   }
 
   ionViewDidLoad() {
-    this.storage.get('currencies')
-      .then(currencies => {
+    this.storage.get("currencies")
+      .then((currencies) => {
         this.currencies = currencies;
         this.addMoney.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-    this.wallets = this.walletSrv.wallets
+    this.wallets = this.walletSrv.wallets;
   }
-
 
   //******************************************************
   // AddMoney
@@ -49,7 +48,7 @@ export class ManagePage {
   addMoney = {
     currency: null,
     amount: 0,
-    decimalPlaces: 0
+    decimalPlaces: 0,
   };
 
   public setDecimalPlaces() {
@@ -63,7 +62,7 @@ export class ManagePage {
 
   public submitAddMoney() {
     this.bankSrv.deposit(this.addMoney.amount, this.addMoney.currency.code)
-      .subscribe(res => {
+      .subscribe((res) => {
         console.log(res);
         /**
          * Relavent information
@@ -88,55 +87,53 @@ export class ManagePage {
   public withdrawMoney = {
     wallet: null,
     amount: null,
-    email: ''
+    email: "",
   };
 
   public submitWithDrawMoney(form) {
     console.log(form);
-    let displayAmount = this.withdrawMoney.amount  + ' ' + this.withdrawMoney.wallet.currency_code;
+    let displayAmount = this.withdrawMoney.amount  + " " + this.withdrawMoney.wallet.currency_code;
 
     this.alertCtrl.create({
-      title: 'Confirm withdraw',
-      message: 'Do you want to withdraw ' + displayAmount,
+      title: "Confirm withdraw",
+      message: "Do you want to withdraw " + displayAmount,
       buttons: [
-        { text: 'Cancel', role: 'cancel'},
+        { text: "Cancel", role: "cancel"},
         {
-          text: 'Confirm',
+          text: "Confirm",
           handler: () => {
             this.loader.present();
 
             this.bankSrv.withdraw(
               this.withdrawMoney.wallet.id,
               this.withdrawMoney.amount,
-              this.withdrawMoney.email
-            ).subscribe(res => {
+              this.withdrawMoney.email,
+            ).subscribe((res) => {
 
               this.loader.dismiss();
               if (res.data){
 
                 this.walletSrv.updateWallet(res.data);
                 this.alertCtrl.create({
-                  title: 'Withdrawal Success',
-                  subTitle: displayAmount + ' has been successfully withdrawn from your account.',
-                  buttons: ['Dismiss']
+                  title: "Withdrawal Success",
+                  subTitle: displayAmount + " has been successfully withdrawn from your account.",
+                  buttons: ["Dismiss"],
                 }).present();
 
               } else {
 
                 this.alertCtrl.create({
-                  title: 'Withdrawal Failed',
-                  subTitle: displayAmount + ' could not have been processed.',
-                  buttons: ['Dismiss']
+                  title: "Withdrawal Failed",
+                  subTitle: displayAmount + " could not have been processed.",
+                  buttons: ["Dismiss"],
                 }).present();
 
               }
-            })
-          }
-        }
-      ]
+            });
+          },
+        },
+      ],
     }).present();
   }
 
 }
-
-

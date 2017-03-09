@@ -19,6 +19,10 @@
   background : color($colors, primary);
 }
 
+.toolbar-title{
+  color : color($colors, base);
+}
+
 .vertical-container, .vertical-align{
   width: 100%;
 }

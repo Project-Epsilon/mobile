@@ -1,54 +1,33 @@
-import { Storage } from '@ionic/storage';
-import { AuthHttp, tokenNotExpired } from 'angular2-jwt';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone } from "@angular/core";
+import { Storage } from "@ionic/storage";
+import { AuthHttp, tokenNotExpired } from "angular2-jwt";
 
-import { environment } from '../environments/environment';
+import { Http } from "@angular/http";
+import { InAppBrowser } from "ionic-native";
+import { environment } from "../environments/environment";
 
-declare let Auth0: any;
-declare let Auth0Lock: any;
+import { Observable } from "rxjs";
 
 @Injectable()
 export class AuthService {
 
-  // Auth0
-  public auth0 = new Auth0({
-    clientID: environment.auth0_id,
-    domain: environment.auth0_domain
-  });
-
-  // Auth0 Lock Widget
-  public lock = new Auth0Lock(
-      environment.auth0_id,
-      environment.auth0_domain, {
-        auth: {
-          redirect: false,
-          params: {
-            scope: 'openid profile'
-          }
-        }
-      }
-  );
-
   public user: Object;
   public idToken: string;
 
-  constructor(private authHttp: AuthHttp, public zone: NgZone, public storage: Storage) {
+  constructor(private authHttp: AuthHttp,
+              public zone: NgZone,
+              public storage: Storage,
+              public http: Http) {
 
     // Check if there is a profile saved in local storage
-    this.storage.get('user').then(user => {
+    this.storage.get("user").then((user) => {
       this.user = user;
     });
 
-    this.storage.get('id_token').then(token => {
+    this.storage.get("id_token").then((token) => {
       this.idToken = token;
     });
 
-    //Authenticate user and change jwt key with server key.
-    this.lock.on('authenticated', result => {
-      this.storage.set('id_token', result.idToken);
-
-      this.lock.hide();
-    });
   }
 
   /**
@@ -56,24 +35,49 @@ export class AuthService {
    * @returns {boolean}
    */
   public authenticated() {
-    return tokenNotExpired('id_token', this.idToken);
+    return tokenNotExpired("id_token", this.idToken);
   }
 
   /**
    * Show the Auth0 Modal
+   *
+   * @param provider
+   * @returns {Observable}
    */
-  public login() {
-    this.lock.show();
+  public login(provider) {
+
+    let data = new Observable((observer) => {
+
+      this.http.get(environment.server_url + "/api/auth/" + provider).subscribe((res) => {
+        let url = res.json().data.url;
+        let browser = new InAppBrowser(url, "_blank");
+        browser.on("loadstart")
+          .subscribe((event) => {
+            if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
+              let token = event.url.substring(event.url.indexOf("=") + 1, event.url.indexOf("&success=true"));
+              this.storage.set("token", token).then((value) => {
+                this.authHttp.get(environment.server_url + "/api/user").subscribe((res) => {
+                  this.user = res.json().data;
+                  observer.next(this.user);
+                  observer.complete();
+                });
+              });
+              browser.close();
+            }
+          });
+      });
+    });
+    return data;
   }
 
   /**
    * Removes all authentication parameters from the application.
    */
   public logout() {
-    this.authHttp.get(environment.server_url + '/api/logout');
+    this.authHttp.get(environment.server_url + "/api/logout");
 
-    this.storage.remove('user');
-    this.storage.remove('id_token');
+    this.storage.remove("user");
+    this.storage.remove("id_token");
     this.idToken = null;
     this.zone.run(() => this.user = null);
 

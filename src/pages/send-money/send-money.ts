@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import {WalletsService} from "../../providers/wallet.service";
 import {TransferService} from "../../providers/transfer.service";
 
+
 /*
   Generated class for the SendMoney page.
 
@@ -10,8 +11,8 @@ import {TransferService} from "../../providers/transfer.service";
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-send-money',
-  templateUrl: 'send-money.html'
+  selector: "page-send-money",
+  templateUrl: "send-money.html",
 })
 export class SendMoneyPage {
 
@@ -30,13 +31,13 @@ export class SendMoneyPage {
 
   public send(){
 
-
     this.transfSrv.send(amount, wallet_id, option, recipient)
       .subscribe(res => {
         console.log(res);
       });
+
   }
 
-  currencies: string="USD";
-  recipients: string="trump";
+  currencies: string= "USD";
+  recipients: string= "trump";
 }
