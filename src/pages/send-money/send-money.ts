@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import {WalletsService} from "../../providers/wallet.service";
+import {TransferService} from "../../providers/transfer.service";
 
 /*
   Generated class for the SendMoney page.
@@ -13,10 +15,26 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class SendMoneyPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public transfSrv: TransferService,
+    public walletSrv: WalletsService
+) {
+
+  }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SendMoneyPage');
+
+  }
+
+  public send(){
+
+
+    this.transfSrv.send(amount, wallet_id, option, recipient)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
 
   currencies: string="USD";
