@@ -3,6 +3,7 @@ import { Storage } from "@ionic/storage";
 import { AuthHttp } from "angular2-jwt";
 import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
+import { OTPPage } from "../OTP/otp";
 import { TabsPage } from "../tabs/tabs";
 
 @Component({
@@ -39,6 +40,10 @@ export class LoginPage {
         this.app.getRootNav().setRoot(TabsPage);
       }
     });
+  }
+  OTPlogin()
+  {
+          this.app.getRootNav().setRoot(OTPPage);
   }
 
 }

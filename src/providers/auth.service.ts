@@ -37,6 +37,32 @@ export class AuthService {
   public authenticated() {
     return tokenNotExpired("id_token", this.idToken);
   }
+  public OTPauthenticate(phone_number) {
+         let data = new Observable((observer) => {
+      this.http.post(environment.server_url + "api/auth/otp", {
+          phone_number,
+        })
+        .map((res) => res.json())
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+        });
+    });
+  }
+  
+   public OTPcodeauth(token) {
+         let data = new Observable((observer) => {
+      this.http.post(environment.server_url + "api/auth/otp/unlock", {
+          token,
+        })
+        .map((res) => res.json())
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+        });
+    });
+         return data;
+  }
 
   /**
    * Show the Auth0 Modal
