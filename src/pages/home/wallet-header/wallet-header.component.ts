@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, Input, AfterContentChecked} from "@angular/core";
 import {CurrencyService} from "../../../providers/currency.service";
 
 @Component({
