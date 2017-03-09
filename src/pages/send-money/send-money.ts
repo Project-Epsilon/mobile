@@ -29,15 +29,29 @@ export class SendMoneyPage {
 
   }
 
-  public send(){
+  sendMoneyForm = {
+  receiver: null,
+  amount: 0,
+  wallet_id: null,
+  message: ""
+  };
 
-    this.transfSrv.send(amount, wallet_id, option, recipient)
+  /**
+   * Uses transfer server to send money to another user.
+   *
+   * @param form
+   */
+  public send(form){
+  let receiver = this.sendMoneyForm.receiver;
+  let amount = this.sendMoneyForm.amount;
+  let wallet_id = this.sendMoneyForm.wallet_id;
+  let message = this.sendMoneyForm.message;
+
+    this.transfSrv.send(receiver, amount, wallet_id, message)
       .subscribe(res => {
         console.log(res);
       });
 
   }
 
-  currencies: string= "USD";
-  recipients: string= "trump";
 }
