@@ -16,19 +16,19 @@ export class TransferService {
   /**
    * Sends a post request to the server to transfer money to another user.
    *
+   * @param receiver
    * @param amount
    * @param wallet_id
-   * @param option - This is either 0 (phone number), 1 (email) or 2 (both)
-   * @param recipient - This contains the information corresponding to the above option, along with a message.
-   * @returns {Observable}
+   * @param message
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
    */
-  public send(amount, wallet_id, option, recipient) {
+  public send(receiver, amount, wallet_id, message) {
     let data = new Observable(observer => {
       this.http.post(environment.server_url + "/api/transfer/user/send", {
+        receiver: receiver,
         amount: amount,
         wallet_id: wallet_id,
-        option: option,
-        recipient: recipient
+        message: message
       })
         .map(res => res.json())
         .subscribe(res => {

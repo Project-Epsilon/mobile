@@ -11,6 +11,7 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 export class SendMoneyPage {
   private sendMoneyForm: FormGroup;
+  private wallets: any;
 
   constructor(
     public navCtrl: NavController,
@@ -23,10 +24,12 @@ export class SendMoneyPage {
 
     this.sendMoneyForm = this.formBuilder.group({
       amount: ['', Validators.required],
-      currency: ['', Validators.required],
+      wallet_id: ['', Validators.required],
       receiver: ['', Validators.required],
       message: ['']
     });
+
+    this.wallets = this.walletSrv.wallets;
 
   }
 
@@ -40,8 +43,8 @@ export class SendMoneyPage {
    *
    */
   public send(){
-    console.log(this.sendMoneyForm.value);
-    
+
+
     let receiver = this.sendMoneyForm.value.receiver;
     let amount = this.sendMoneyForm.value.amount;
     let wallet_id = this.sendMoneyForm.value.wallet_id;
@@ -53,6 +56,8 @@ export class SendMoneyPage {
       });
 
   this.sendMoneyForm.reset();
+
+  this.walletSrv.updateWallet(this.wallets);
 
   }
 

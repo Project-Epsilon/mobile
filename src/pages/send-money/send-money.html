@@ -21,10 +21,10 @@
 
         <ion-item>
           <ion-label stacked>Select Currency</ion-label>
-          <ion-select formControlName="currency">
-            <ion-option value="CAD">CAD (Canadian Dollar)</ion-option>
-            <ion-option value="USD">USD (US Dollar)</ion-option>
-            <ion-option value="EUR">EUR (Euro)</ion-option>
+          <ion-select formControlName="wallet_id">
+            <ion-option  *ngFor="let wallet of wallets" [value]="wallet.id">
+              {{ wallet.currency_code }}   -   Balance: {{ wallet.balance }}
+            </ion-option>
           </ion-select>
         </ion-item>
 
