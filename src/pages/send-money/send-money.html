@@ -10,7 +10,7 @@
 
 <ion-content padding>
 
-  <form [formGroup]="submitMoneyForm" (ngSubmit)="send()"  >
+  <form [formGroup]="sendMoneyForm" (ngSubmit)="send()"  >
     <ion-card>
       <ion-card-content>
 
@@ -51,7 +51,7 @@
 
 
   <div text-center>
-    <button ion-button type="submit" block>Send</button>
+    <button ion-button type="submit" block [disabled]="!sendMoneyForm.valid">Send</button>
   </div>
   </form>
 

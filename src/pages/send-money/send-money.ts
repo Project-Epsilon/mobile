@@ -9,9 +9,6 @@ import {Validators, FormBuilder, FormGroup } from '@angular/forms';
   templateUrl: "send-money.html",
 })
 
-/**
- *
- */
 export class SendMoneyPage {
   private sendMoneyForm: FormGroup;
 
@@ -43,19 +40,19 @@ export class SendMoneyPage {
    *
    */
   public send(){
-  console.log("Hello World!");
+    console.log(this.sendMoneyForm.value);
+    
+    let receiver = this.sendMoneyForm.value.receiver;
+    let amount = this.sendMoneyForm.value.amount;
+    let wallet_id = this.sendMoneyForm.value.wallet_id;
+    let message = this.sendMoneyForm.value.message;
 
-  /*let receiver = this.sendMoneyForm.receiver;
-  let amount = this.sendMoneyForm.amount;
-  let wallet_id = this.sendMoneyForm.wallet_id;
-  let message = this.sendMoneyForm.message;*/
+    this.transfSrv.send(receiver, amount, wallet_id, message)
+      .subscribe(res => {
+        console.log(res);
+      });
 
-  //console.log(this.sendMoneyForm.value);
-
-  /*this.transfSrv.send(receiver, amount, wallet_id, message)
-    .subscribe(res => {
-      console.log(res);
-    });*/
+  this.sendMoneyForm.reset();
 
   }
 
