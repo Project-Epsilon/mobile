@@ -54,13 +54,12 @@ export class AuthService {
         browser.on("loadstart")
           .subscribe((event) => {
             if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
-              let token = event.url.substring(event.url.indexOf("=") + 1, event.url.indexOf("&success=true"));
-              this.storage.set("token", token).then((value) => {
-                this.authHttp.get(environment.server_url + "/api/user").subscribe((res) => {
-                  this.user = res.json().data;
-                  observer.next(this.user);
-                  observer.complete();
-                });
+              let data: any = event.url.substring(event.url.indexOf("data=") + 5, event.url.indexOf("&success=true"));
+              data = JSON.parse(decodeURIComponent(data));
+              this.storage.set("token", data.meta.token).then((value) => {
+                this.user = data.data;
+                observer.next(this.user);
+                observer.complete();
               });
               browser.close();
             }

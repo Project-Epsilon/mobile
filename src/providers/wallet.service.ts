@@ -29,7 +29,6 @@ export class WalletsService {
         .map((res) => res.json())
         .subscribe((res) => {
           this.wallets = res.data;
-
           observer.next(this.wallets);
           observer.complete();
         });
