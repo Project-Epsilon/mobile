@@ -37,9 +37,8 @@ export class LoginPage {
   }
 
   /**
-   * Shows the auth screen for the given provider
-   *
-   * @param provider
+   * Auto login for development
+   *  
    */
   autoLogin(){
     this.http.post('http://server.laurendylam.com/api/login', {
