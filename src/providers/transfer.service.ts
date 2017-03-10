@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../environments/environment";
-import {AuthHttp} from "angular2-jwt";
 import 'rxjs/add/operator/map';
+
+import {AuthHttp} from "angular2-jwt";
 import {Observable} from "rxjs";
+import {environment} from "../environments/environment";
 
-/*
-  Generated class for the TransferService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class TransferService {
+  data: any;
 
   constructor(
     public http: AuthHttp
