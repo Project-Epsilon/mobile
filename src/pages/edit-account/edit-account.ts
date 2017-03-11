@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
-import {Validators, FormBuilder, FormGroup} from '@angular/forms';
+import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
 
 /*
  Generated class for the EditAccount page.
@@ -13,28 +13,54 @@ import {Validators, FormBuilder, FormGroup} from '@angular/forms';
   templateUrl: 'edit-account.html',
 
   template: `
-    <form [formGroup]="todo" (ngSubmit)="logForm()">
+    <form [formGroup]="updateAccount" (ngSubmit)="updateInfo()">
       <ion-item>
-        <ion-label>Todo</ion-label>
-        <ion-input type="text" formControlName="title"></ion-input>
+        <ion-label stacked>Name</ion-label>
+        <ion-input type="text" formControlName="name"></ion-input>
       </ion-item>
+  
       <ion-item>
-        <ion-label>Description</ion-label>
-        <ion-textarea formControlName="description"></ion-textarea>
+        <ion-label stacked>Email</ion-label>
+        <ion-input type="email" formControlName="email"></ion-input>
       </ion-item>
-      <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
+  
+      <ion-item>
+        <ion-label stacked>Phone Number</ion-label>
+        <ion-input type="tel" formControlName="phone"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Username</ion-label>
+        <ion-input type="text" formControlName="username"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Password</ion-label>
+        <ion-input type="password" formControlName="password"></ion-input>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label stacked>Password Confirmation</ion-label>
+        <ion-input type="password" formControlName="passwordConfirmation"></ion-input>
+      </ion-item>
+  
+      <button ion-button full [disabled]="!updateAccount.valid">Update Info</button>
     </form>
   `
 })
 
 export class EditAccountPage {
 
-  private todo: FormGroup;
+  private updateAccount: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
-    this.todo = this.formBuilder.group({
-      title: ['', Validators.required],
-      description: [''],
+    this.updateAccount = this.formBuilder.group({
+      name: ['', Validators.required],
+      email: ['', Validators.required],
+      phone: ['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      passwordConfirmation: ['', Validators.required],
     });
   }
 
