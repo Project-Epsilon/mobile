@@ -43,6 +43,8 @@
           <ion-item>
             <ion-label stacked>Select Currency</ion-label>
             <ion-select [(ngModel)]="addMoney.currency" (ionChange)="setDecimalPlaces()">
+                        <!--*ngIf="addMoney.currency != null"-->
+                        <!--[selectedText]="addMoney.currency.code">-->
               <ion-option *ngFor="let currency of currencies; let i = index" [value]="currency">
                 {{ currency.code }} - {{ currency.name }}
               </ion-option>

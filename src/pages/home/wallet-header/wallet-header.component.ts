@@ -1,5 +1,7 @@
 import {Component, Input, AfterContentChecked} from "@angular/core";
 import {CurrencyService} from "../../../providers/currency.service";
+import {NavController} from "ionic-angular";
+import {ManagePage} from "../../manage/manage";
 
 @Component({
   selector: "wallet-header",
@@ -12,6 +14,7 @@ export class WalletHeaderComponent implements AfterContentChecked {
 
   constructor(
     public currencySrv: CurrencyService,
+    public navCtrl: NavController
   ) {}
 
   /**
@@ -19,6 +22,17 @@ export class WalletHeaderComponent implements AfterContentChecked {
    */
   public ngAfterContentChecked(){
     this.currencyName = this.currencySrv.getCurrency(this.wallet.currency_code).name;
+  }
+
+  public foo(string){
+    if(string=="add") {
+      let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
+      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "add", currency : currency});
+    }
+    else if(string=="remove"){
+      //this.navCtrl.parent.select(1);
+      this.navCtrl.setRoot(ManagePage, {wallet : this.wallet, action : "remove"});
+    }
   }
 
 }
