@@ -4,6 +4,7 @@ import {AlertController, Loading, LoadingController, NavController, NavParams} f
 import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
+import {Alert} from "../../utils/Alert";
 
 @Component({
   selector: "page-manage",
@@ -94,46 +95,51 @@ export class ManagePage {
     console.log(form);
     let displayAmount = this.withdrawMoney.amount  + " " + this.withdrawMoney.wallet.currency_code;
 
-    this.alertCtrl.create({
-      title: "Confirm withdraw",
-      message: "Do you want to withdraw " + displayAmount,
-      buttons: [
-        { text: "Cancel", role: "cancel"},
-        {
-          text: "Confirm",
-          handler: () => {
-            this.loader.present();
+    let alertButtons = [
+      { text: "Cancel", role: "cancel"},
+      {
+        text: "Confirm",
+        handler: () => {
+          this.loader.present();
 
-            this.bankSrv.withdraw(
-              this.withdrawMoney.wallet.id,
-              this.withdrawMoney.amount,
-              this.withdrawMoney.email,
-            ).subscribe((res) => {
-
-              this.loader.dismiss();
-              if (res.data){
-
-                this.walletSrv.updateWallet(res.data);
-                this.alertCtrl.create({
-                  title: "Withdrawal Success",
-                  subTitle: displayAmount + " has been successfully withdrawn from your account.",
-                  buttons: ["Dismiss"],
-                }).present();
-
-              } else {
-
-                this.alertCtrl.create({
-                  title: "Withdrawal Failed",
-                  subTitle: displayAmount + " could not have been processed.",
-                  buttons: ["Dismiss"],
-                }).present();
-
-              }
-            });
-          },
+          this.bankSrv.withdraw(
+            this.withdrawMoney.wallet.id,
+            this.withdrawMoney.amount,
+            this.withdrawMoney.email,
+          ).subscribe((res) => this.handleWithdrawal(res, displayAmount));
         },
-      ],
-    }).present();
+      },
+    ];
+
+    new Alert(this.alertCtrl,"Confirm withdraw", "Do you want to withdraw " + displayAmount, alertButtons);
+
   }
 
+  private handleWithdrawal(res, displayAmount) {
+    this.loader.dismiss();
+
+    if (res.data){
+
+      this.walletSrv.updateWallet(res.data);
+      new Alert(
+        this.alertCtrl,
+        "Withdrawal Success",
+        displayAmount + " has been successfully withdrawn from your account.",
+        ["Dismiss"]
+      );
+
+    } else {
+      new Alert(
+        this.alertCtrl,
+        "Withdrawal Failed",
+        displayAmount + " could not have been processed." + res.errors.message,
+        ["Dismiss"]);
+
+    }
+
+  }
 }
+
+
+
+

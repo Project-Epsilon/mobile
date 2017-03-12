@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, AlertController} from 'ionic-angular';
 import {WalletsService} from "../../providers/wallet.service";
 import {TransferService} from "../../providers/transfer.service";
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
+import {Alert} from "../../utils/Alert";
 
 @Component({
   selector: "page-send-money",
@@ -18,6 +19,7 @@ export class SendMoneyPage {
     public navParams: NavParams,
     public transfSrv: TransferService,
     public walletSrv: WalletsService,
+    public alertController: AlertController,
     private formBuilder: FormBuilder
   )
   {
@@ -50,15 +52,14 @@ export class SendMoneyPage {
     let wallet_id = this.sendMoneyForm.value.wallet_id;
     let message = this.sendMoneyForm.value.message;
 
+    /*
     this.transfSrv.send(receiver, amount, wallet_id, message)
       .subscribe(res => {
+        this.sendMoneyForm.reset();
+        this.walletSrv.updateWallet(this.wallets);
         console.log(res);
       });
-
-  this.sendMoneyForm.reset();
-
-  this.walletSrv.updateWallet(this.wallets);
-
+*/
   }
 
 }

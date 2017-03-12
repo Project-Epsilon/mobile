@@ -41,7 +41,7 @@
     "codecov": "^1.0.1",
     "jasmine-core": "^2.5.2",
     "jasmine-spec-reporter": "^3.2.0",
-    "karma": "^1.4.1",
+    "karma": "^1.5.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.2",
@@ -49,7 +49,7 @@
     "ts-node": "^2.0.0",
     "tslint": "^4.4.2",
     "tslint-eslint-rules": "^3.3.0",
-    "typescript": "2.0.9"
+    "typescript": "2.2.0"
   },
   "cordovaPlugins": [
     "cordova-plugin-whitelist",
