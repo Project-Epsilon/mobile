@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import {AuthService} from "../../providers/auth.service";
 
 /*
  Generated class for the EditAccount page.
@@ -17,14 +18,14 @@ export class EditAccountPage {
 
   private updateAccount: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, public auth:AuthService ) {
+    let user: any = Object.assign({}, this.auth.user);
+
     this.updateAccount = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phone: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      passwordConfirmation: ['', Validators.required],
+      name: [user.name, Validators.required],
+      email: [user.email, Validators.required],
+      phone: [user.phone_number, Validators.required],
+      username: [user.username, Validators.required],
     });
   }
 
@@ -33,7 +34,7 @@ export class EditAccountPage {
   }
 
   updateInfo() {
-
+    
   }
 
 }
