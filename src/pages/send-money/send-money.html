@@ -10,19 +10,20 @@
 
 <ion-content padding>
 
-  <form [formGroup]="sendMoneyForm" (ngSubmit)="send()"  >
+  <form [formGroup]="sendMoneyForm" (ngSubmit)="send()" novalidate>
     <ion-card>
       <ion-card-content>
 
         <ion-item>
           <ion-label stacked>Amount</ion-label>
-          <ion-input type="number" formControlName="amount" placeholder="0.00" step="0.01" min="0"></ion-input>
+          <ion-input type="number" formControlName="amount" placeholder="0.00" step="0.01" min="0" [max]="maxAmount" (input)="updateValidAmount()"></ion-input>
         </ion-item>
+        <div *ngIf="!validAmount">You must enter an amount less than {{maxAmount}}.</div>
 
         <ion-item>
           <ion-label stacked>Select Currency</ion-label>
-          <ion-select formControlName="wallet_id">
-            <ion-option  *ngFor="let wallet of wallets" [value]="wallet.id">
+          <ion-select formControlName="wallet" (ionChange)="updateValidAmount()">
+            <ion-option *ngFor="let wallet of wallets" [value]="wallet" >
               {{ wallet.currency_code }}   -   Balance: {{ wallet.balance }}
             </ion-option>
           </ion-select>
@@ -44,7 +45,7 @@
     <ion-card-content>
       <ion-item>
         <ion-label stacked>Message</ion-label>
-        <ion-textarea rows="4" formControlName="message" placeholder="Write a message (optional)." ></ion-textarea>
+        <ion-textarea rows="4" formControlName="message" placeholder="Write a message (optional)."  maxlength="255"></ion-textarea>
       </ion-item>
     </ion-card-content>
   </ion-card>

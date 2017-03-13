@@ -18,6 +18,8 @@ export class ManagePage {
   action: string = "add_money";
   loader: Loading;
 
+  private transferErrors: Error;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -106,7 +108,7 @@ export class ManagePage {
             this.withdrawMoney.wallet.id,
             this.withdrawMoney.amount,
             this.withdrawMoney.email,
-          ).subscribe((res) => this.handleWithdrawal(res, displayAmount));
+          ).subscribe((res) => this.handleWithdrawal(res, displayAmount), (error) => this.transferErrors = error);
         },
       },
     ];
