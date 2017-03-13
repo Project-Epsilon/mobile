@@ -14,4 +14,37 @@
 
 
 <ion-content padding>
+  <form [formGroup]="updateAccount" (ngSubmit)="updateInfo()">
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input type="email" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Phone Number</ion-label>
+      <ion-input type="tel" formControlName="phone"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-input type="text" formControlName="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password</ion-label>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Password Confirmation</ion-label>
+      <ion-input type="password" formControlName="passwordConfirmation"></ion-input>
+    </ion-item>
+
+    <button ion-button full [disabled]="!updateAccount.valid">Update Info</button>
+  </form>
 </ion-content>
