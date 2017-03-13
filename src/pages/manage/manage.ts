@@ -43,7 +43,7 @@ export class ManagePage {
 
   //refactoring will be needed
   ionViewDidEnter(){
-    
+
     //If came through home page
     if(this.navParams.get("wallet")){
       console.log(this.navParams.get("action"));
@@ -71,7 +71,7 @@ export class ManagePage {
     this.storage.get("currencies")
       .then((currencies) => {
         this.currencies = currencies;
-        this.addMoney.currency = this.currencies[0];
+        this.addMoney.currency = this.navParams.get("currency") == null ? this.currencies[0] : this.navParams.get("currency");
         this.setDecimalPlaces();
       });
     this.wallets = this.walletSrv.wallets;
