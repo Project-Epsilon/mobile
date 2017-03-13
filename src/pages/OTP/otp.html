@@ -25,24 +25,29 @@
   <!--<div class="seperator">-->
     <!--or sign in with-->
   <!--</div>-->
- <ion-item [hidden] = "!hideCodeinput">
+ <ion-item *ngIf = "!hideCodeinput">
     <ion-label>Enter a phone number here</ion-label>
     <ion-input [(ngModel)]="phoneNumber" placeholder="1-111-111-1111" type="tel" value=""></ion-input>
   </ion-item>
-  <button [hidden] = "!hideCodeinput" class="btn-signin" ion-button block icon-left (click)="submitOTP(phonenumber)">
+  <button *ngIf = "!hideCodeinput" class="btn-signin" ion-button block icon-left (click)="submitOTP(phonenumber)">
 Submit Phone Number
 </button> 
-   <ion-item [hidden] = "hideCodeinput">
+<button *ngIf = "!hideCodeinput" class="btn-signin" ion-button block icon-left (click)="returnToLogin()">
+Back
+</button> 
+   <ion-item *ngIf = "hideCodeinput">
     <ion-label fixed>Please enter your Validation Code</ion-label>
     <ion-input [(ngModel)]="codeNumber" placeholder="123456"  type="number" value="">
     </ion-input>
   </ion-item>
   <ion-card warning>
-    <ion-card-content [hidden]="invalidCode">
+    <ion-card-content *ngIf="invalidCode">
    <div class = ".text-error">Invalid Code! Please Try again.</div>
   </ion-card-content>
     </ion-card>
-     <button [hidden] = "hideCodeinput" class="btn-signin" ion-button block icon-left (click)="submitOTPCode(codeNumber)">
+    <button *ngIf = "hideCodeinput" class="btn-signin" ion-button block icon-left (click)="returnToPhoneEntry()">
+Back </button> 
+     <button *ngIf = "hideCodeinput" class="btn-signin" ion-button block icon-left (click)="submitOTPCode(codeNumber)">
 Submit Code	 
  </button> 
 </ion-content>

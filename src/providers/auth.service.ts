@@ -38,9 +38,10 @@ export class AuthService {
     return tokenNotExpired("id_token", this.idToken);
   }
   public OTPauthenticate(phone_number) {
+      console.log(phone_number);
          let data = new Observable((observer) => {
-      this.http.post(environment.server_url + "api/auth/otp", {
-          phone_number,
+      this.authHttp.post(environment.server_url + "/api/auth/otp", {
+          phone_number: phone_number,
         })
         .map((res) => res.json())
         .subscribe((res) => {
@@ -48,14 +49,15 @@ export class AuthService {
           observer.complete();
         });
     });
+    
+    return data;
   }
   
    public OTPcodeauth(token) {
          let data = new Observable((observer) => {
-      this.http.post(environment.server_url + "api/auth/otp/unlock", {
-          token,
+      this.authHttp.post(environment.server_url +  "/api/auth/otp/unlock", {
+          token:token,
         })
-        .map((res) => res.json())
         .subscribe((res) => {
           observer.next(res);
           observer.complete();

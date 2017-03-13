@@ -12,7 +12,7 @@ import {Http} from "@angular/http";
   templateUrl: "login.html",
 })
 export class LoginPage {
-
+  public locked:boolean = true;
   constructor(
       public navCtrl: NavController,
       public navParams: NavParams,
@@ -29,11 +29,15 @@ export class LoginPage {
    * @param provider
    */
   showAuth(provider){
-    this.auth.login(provider).subscribe((user) => {
-
-      if (user){
-        this.app.getRootNav().setRoot(TabsPage);
+    this.auth.login(provider).subscribe((user: any) => {
+      if (user.locked){
+        this.app.getRootNav().setRoot(OTPPage);
       }
+        else
+        {
+        this.app.getRootNav().setRoot(TabsPage);
+        }
+      
     });
   }
   OTPlogin()
@@ -41,6 +45,12 @@ export class LoginPage {
           this.app.getRootNav().setRoot(OTPPage);
   }
 
+  return()
+{
+          this.app.getRootNav().setRoot(OTPPage);
+  
+  
+}
   /**
    * Auto login for development
    *  

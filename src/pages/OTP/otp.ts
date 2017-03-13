@@ -20,13 +20,13 @@ export class OTPPage {
   public user: any;
 
   constructor(
-      public navCtrl: NavController,
-      public navParams: NavParams,
-      public auth: AuthService,
-      public app: App,
-      public authHttp: AuthHttp,
-      public storage: Storage,
-      public alrtCtrl:AlertController 
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public auth: AuthService,
+    public app: App,
+    public authHttp: AuthHttp,
+    public storage: Storage,
+    public alrtCtrl:AlertController 
   ) {
     this.user = {
       email: "",
@@ -41,47 +41,53 @@ export class OTPPage {
    */
   showAuth(provider){
     this.auth.login(provider).subscribe((user) => {
-
       if (user){
         this.app.getRootNav().setRoot(TabsPage);
       }
-    });
+});
   }
-  OTPlogin()
-  {
-          this.app.getRootNav().setRoot(TabsPage);
+  OTPlogin(){
+    this.app.getRootNav().setRoot(TabsPage);
   }
   
   submitOTPCode(codeNumber)
   {
     this.codeNumber = codeNumber;
-    let data = this.auth.OTPcodeauth(this.codeNumber);
-    let verifyinfo = data._isScalar;
-    if(verifyinfo == false){
+    let verifyinfo:string;
+    this.auth.OTPcodeauth(this.codeNumber).subscribe((res)=> {
+    console.log(res);
+     verifyinfo == res;
+    });
+    if(verifyinfo == "ok"){
       let alert = this.alrtCtrl.create({
-    buttons: ["Dismiss"],
-    subTitle: "The Login Code you submitted was not valid! Please Re-enter it!",
-    title: "Login Code Invalid!",
-      });
+        buttons: ["Dismiss"],
+        subTitle: "The Login Code you submitted was not valid! Please Re-enter it!",
+        title: "Login Code Invalid!",
+        });
       this.invalidCode = !this.invalidCode;
       alert.present();
-     }
-      else{
+    }
+    else{
       this.app.getRootNav().setRoot(TabsPage);
       this.invalidCode = true;
       this.hideCodeinput = true;
-      }
-      }
+    }
+  }
   
-  submitOTP(phoneNumber)
-  {
-    this.phoneNumber = phoneNumber;
-    this.auth.OTPauthenticate(this.phoneNumber);
+  submitOTP(phoneNumber){
+    this.auth.OTPauthenticate(this.phoneNumber).subscribe((res) => {
+    console.log(res);
+    });
     this.hideCodeinput = !this.hideCodeinput;
   }
-  
-  returnToLogin()
-  {
-  this.app.getRootNav().setRoot(LoginPage);
+ 
+  returnToPhoneEntry(){
+    console.log(JSON.stringify( this.hideCodeinput));
+    this.hideCodeinput = !this.hideCodeinput;
+    this.invalidCode = false;
   }
-}
+  returnToLogin(){
+  this.app.getRootNav().setRoot(LoginPage);
+  this.invalidCode = false;
+  }
+ }
