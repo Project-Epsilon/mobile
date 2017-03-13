@@ -5,8 +5,7 @@ import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
   selector: 'withdraw-component',
-  templateUrl: './withdraw.component.html',
-  styleUrls: ['./withdraw.component.css']
+  templateUrl: './withdraw.component.html'
 })
 export class WithdrawComponent implements OnInit {
 

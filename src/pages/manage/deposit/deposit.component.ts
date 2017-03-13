@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { BankTransferService } from "../../../providers/bank.service";
+import { Storage } from "@ionic/storage";
+import { WalletsService } from "../../../providers/wallet.service";
+
 
 @Component({
   selector: 'deposit-component',
-  templateUrl: './deposit.component.html',
-  styleUrls: ['./deposit.component.css']
+  templateUrl: './deposit.component.html'
 })
 export class DepositComponent implements OnInit {
+  currencies: Object;
+  wallets: any;
 
   constructor(
-    public bankSrv: BankTransferService
+    public bankSrv: BankTransferService,
+    public storage: Storage,
+    public walletSrv: WalletsService
   ) { }
 
   ngOnInit() {
@@ -52,6 +58,16 @@ export class DepositComponent implements OnInit {
         // let paypalUrl = res.links[1].href;
         // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
       });
+  }
+
+  ionViewDidLoad() {
+    this.storage.get('currencies')
+      .then(currencies => {
+        this.currencies = currencies;
+        this.addMoney.currency = this.currencies[0];
+        this.setDecimalPlaces();
+      });
+    this.wallets = this.walletSrv.wallets
   }
 
 }
