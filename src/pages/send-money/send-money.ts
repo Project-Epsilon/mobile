@@ -4,7 +4,6 @@ import {WalletsService} from "../../providers/wallet.service";
 import {TransferService} from "../../providers/transfer.service";
 import {Validators, FormBuilder, FormGroup } from '@angular/forms';
 import {Alert} from "../../utils/Alert";
-import {consoleTestResultHandler} from "tslint/lib/test";
 
 @Component({
   selector: "page-send-money",
@@ -15,9 +14,8 @@ export class SendMoneyPage {
   private sendMoneyForm: FormGroup;
   private wallets: any;
   private validAmount = true;
-  private maxAmount = 999999999;
+  private maxAmount : number;
   loader: Loading;
-  private transferErrors: Error;
 
   constructor(
     public navCtrl: NavController,
@@ -30,9 +28,8 @@ export class SendMoneyPage {
 
   )
   {
-
     this.sendMoneyForm = this.formBuilder.group({
-      amount: ['', [Validators.required, Validators.maxLength(this.maxAmount)]],
+      amount: ['', [Validators.required]],
       wallet: [null, Validators.required],
       receiver: ['', Validators.required],
       message: ['', Validators.maxLength(255)]
@@ -43,17 +40,14 @@ export class SendMoneyPage {
     });
 
     this.wallets = this.walletSrv.wallets;
-
   }
 
   ionViewDidLoad() {
 
   }
 
-
   /**
    * Uses transfer server to send money to another user.
-   *
    */
   public send(){
     let receiver = {phone_number : '5145555555'};
@@ -77,7 +71,9 @@ export class SendMoneyPage {
             wallet.id,
             message
           ).subscribe(
-            (res) => this.handleSend(res, displayAmount), (error) => this.transferErrors = error);
+            (res) => this.handleSend(res, displayAmount),
+            (error) => {new Alert(this.alertCtrl,"Whoops!", error, ["Dismiss."]);}
+            );
         },
       },
     ];
@@ -86,9 +82,15 @@ export class SendMoneyPage {
 
   }
 
+  /**
+   * Updates user wallet and alerts user on successful transfer of money.
+   * If unsuccessful, alerts user of the problem.
+   *
+   * @param res
+   * @param displayAmount
+   */
   private handleSend(res, displayAmount) {
     this.loader.dismiss();
-    console.log(res.data);
 
     if (res.data){
 
@@ -110,8 +112,10 @@ export class SendMoneyPage {
     }
   }
 
+  /**
+   * Updates the maximum amount of money the user can send based on his selected wallet.
+   */
   public updateValidAmount(){
-    console.log("Updated!");
     if (!this.sendMoneyForm.value.wallet) {
       return;
     }

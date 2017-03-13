@@ -52,7 +52,7 @@
 
 
   <div text-center>
-    <button ion-button type="submit" block [disabled]="!sendMoneyForm.valid">Send</button>
+    <button ion-button type="submit" block [disabled]="!sendMoneyForm.valid || !validAmount">Send</button>
   </div>
   </form>
 
