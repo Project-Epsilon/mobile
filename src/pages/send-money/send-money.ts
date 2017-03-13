@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
 
 /*
   Generated class for the SendMoney page.
@@ -8,17 +8,17 @@ import { NavController, NavParams } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-send-money',
-  templateUrl: 'send-money.html'
+  selector: "page-send-money",
+  templateUrl: "send-money.html",
 })
 export class SendMoneyPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad SendMoneyPage');
+    console.log("ionViewDidLoad SendMoneyPage");
   }
 
-  currencies: string="USD";
-  recipients: string="trump";
+  currencies: string= "USD";
+  recipients: string= "trump";
 }

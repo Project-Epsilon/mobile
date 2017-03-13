@@ -1,28 +1,47 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement } from "@angular/core";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { By } from "@angular/platform-browser";
 
-import { WalletSlideComponent } from './wallet-slide.component';
+import { WalletSlideComponent } from "./wallet-slide.component";
 
-describe('WalletSlideComponent', () => {
-  let component: WalletSlideComponent;
-  let fixture: ComponentFixture<WalletSlideComponent>;
+/**
+ * Fake event class for testing purposes only
+ */
+class FakeEvent{
+  direction: number;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ WalletSlideComponent ]
-    })
-    .compileComponents();
-  }));
+  constructor(direction: number) {
+    this.direction = direction;
+  }
+}
+
+/**
+ * Wallet Slide test suite
+ */
+describe("WalletSlideComponent", () => {
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WalletSlideComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    this.walletSlideComponent = new WalletSlideComponent();
+    this.walletSlideComponent.wallets = [1,2,3];
+    this.walletSlideComponent.activeWallet = this.walletSlideComponent.wallets[0];
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it("should create", () => {
+    expect(this.walletSlideComponent).toBeTruthy();
+  });
+
+  it("should have wallet", () => {
+    expect(this.walletSlideComponent.ngOnInit()).not.toBeNull();
+  });
+
+  it("should swipe right", () => {
+    this.walletSlideComponent.changeWallet(new FakeEvent(2));
+    expect(this.walletSlideComponent.activeWallet).toEqual(2);
+  });
+
+  it("should not swipe left", () => {
+    this.walletSlideComponent.changeWallet(new FakeEvent(4));
+    expect(this.walletSlideComponent.activeWallet).toEqual(1);
   });
 });

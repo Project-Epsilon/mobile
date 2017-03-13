@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
+import { Injectable } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
 import {Observable} from "rxjs";
+import "rxjs/add/operator/map";
 import {environment} from "../environments/environment";
 
 /*
@@ -16,7 +16,7 @@ export class WalletsService {
   wallets;
 
   constructor(
-    public http: AuthHttp
+    public http: AuthHttp,
   ) {}
 
   /**
@@ -24,12 +24,11 @@ export class WalletsService {
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public getWallets(){
-    let data = new Observable(observer => {
-      this.http.get(environment.server_url + '/api/wallet')
-        .map(res => res.json())
-        .subscribe(res => {
+    let data = new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/wallet")
+        .map((res) => res.json())
+        .subscribe((res) => {
           this.wallets = res.data;
-
           observer.next(this.wallets);
           observer.complete();
         });
@@ -45,8 +44,8 @@ export class WalletsService {
     let exists = false;
 
     //Find and update the wallet.
-    for(let wallet of this.wallets){
-      if(wallet.id == walletUpdate.id){
+    for (let wallet of this.wallets){
+      if (wallet.id == walletUpdate.id){
         wallet.balance = walletUpdate.balance;
         wallet.shown = walletUpdate.shown;
         wallet.order = walletUpdate.order;

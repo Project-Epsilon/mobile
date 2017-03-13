@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ViewController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { ViewController } from "ionic-angular";
 
 /*
   Generated class for the TransfersModal page.
@@ -8,15 +8,15 @@ import { ViewController } from 'ionic-angular';
   Ionic pages and navigation.
 */
 @Component({
-  selector: 'page-transfers-modal',
-  templateUrl: 'transfers-modal.html'
+  selector: "page-transfers-modal",
+  templateUrl: "transfers-modal.html",
 })
 export class TransfersModalPage {
 
   constructor(public viewCtrl: ViewController) {}
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TransfersModalPage');
+    console.log("ionViewDidLoad TransfersModalPage");
   }
 
   dismiss(){

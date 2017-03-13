@@ -8,9 +8,9 @@ import { WalletsService } from "../../../providers/wallet.service";
   templateUrl: './withdraw.component.html'
 })
 export class WithdrawComponent implements OnInit {
+  loader: Loading;
 
   constructor(
-    public loader: Loading,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController,
     public bankSrv: BankTransferService,
