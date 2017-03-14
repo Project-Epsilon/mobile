@@ -10,11 +10,12 @@ import {Alert} from "../../utils/Alert";
   templateUrl: "send-money.html",
 })
 
-export class SendMoneyPage implements OnInit {
+export class SendMoneyPage {
   private form: FormGroup;
   private wallets: any;
   private validAmount = true;
   private maxAmount : number;
+  private maxCurrency : number;
   loader: Loading;
 
   constructor(
@@ -28,9 +29,15 @@ export class SendMoneyPage implements OnInit {
 
   )
   {
-    
     this.loader = this.loadingCtrl.create({
       content: "Processing transfer.",
+    });
+
+    this.form = this.formBuilder.group({
+      amount: ['', [Validators.required]],
+      wallet: [null, Validators.required],
+      receiver: ['', Validators.required],
+      message: ['', Validators.maxLength(255)]
     });
 
     this.wallets = this.walletSrv.wallets;
@@ -40,19 +47,6 @@ export class SendMoneyPage implements OnInit {
 
   }
 
-  ngOnInit(){
-    this.form = this.formBuilder.group({
-      amount: ['', [Validators.required]],
-      wallet: [null, Validators.required],
-      receiver: ['', Validators.required],
-      message: ['', Validators.maxLength(255)]
-    });
-  }
-
-  ngOnChange (){
-    //this.walletSrv.updateWallet(this.wallets);
-
-  }
   /**
    * Uses transfer server to send money to another user.
    */
@@ -117,7 +111,6 @@ export class SendMoneyPage implements OnInit {
         "Transfer Failed",
         displayAmount + " could not have been processed. " + res.errors.message,
         ["Dismiss"]);
-
     }
   }
 
@@ -129,8 +122,9 @@ export class SendMoneyPage implements OnInit {
       return;
     }
     else {
-      this.validAmount = (this.form.value.amount < parseFloat(this.form.value.wallet.balance));
+      this.validAmount = (this.form.value.amount <= parseFloat(this.form.value.wallet.balance));
       this.maxAmount = this.form.value.wallet.balance;
+      this.maxCurrency = this.form.value.wallet.currency_code;
     }
   }
 

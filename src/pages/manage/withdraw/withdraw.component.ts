@@ -9,9 +9,12 @@ import {Validators, FormGroup, FormBuilder} from "@angular/forms";
   selector: 'withdraw-component',
   templateUrl: './withdraw.component.html'
 })
-export class WithdrawComponent implements OnInit {
+export class WithdrawComponent {
   loader: Loading;
   private form: FormGroup;
+  private validAmount = true;
+  private maxAmount : number;
+  private maxCurrency : number;
   private wallets: any;
 
   constructor(
@@ -32,10 +35,6 @@ export class WithdrawComponent implements OnInit {
     });
 
     this.wallets = this.walletSrv.wallets;
-  }
-
-  ngOnInit() {
-
   }
 
   ionViewDidLoad() {
@@ -88,5 +87,23 @@ export class WithdrawComponent implements OnInit {
         displayAmount + " could not have been processed." + res.errors.message,
         ["Dismiss"]);
     }
+
+
   }
+
+  /**
+   * Updates the maximum amount of money the user can withdraw based on his selected wallet.
+   */
+  public updateValidAmount(){
+    if (!this.form.value.wallet) {
+      return;
+    }
+    else {
+      this.validAmount = (this.form.value.amount <= parseFloat(this.form.value.wallet.balance));
+      this.maxAmount = this.form.value.wallet.balance;
+      this.maxCurrency = this.form.value.wallet.currency_code;
+    }
+  }
+
+
 }

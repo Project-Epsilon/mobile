@@ -4,7 +4,6 @@ import {AlertController, Loading, LoadingController, NavController, NavParams} f
 import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
-import {Alert} from "../../utils/Alert";
 
 @Component({
   selector: "page-manage",
@@ -20,70 +19,15 @@ export class ManagePage {
 
   private transferErrors: Error;
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    public bankSrv: BankTransferService,
-    public storage: Storage,
-    public walletSrv: WalletsService,
-    private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController,
-  ) {
-    this.loader = this.loadingCtrl.create({
-      content: "Processing bank transfer.",
-    });
-  }
-
-  ionViewDidLoad() {
-    this.storage.get("currencies")
-      .then((currencies) => {
-        this.currencies = currencies;
-        this.addMoney.currency = this.currencies[0];
-        this.setDecimalPlaces();
-      });
-  }
-
-  //******************************************************
-  // AddMoney
-  //******************************************************
-
-  addMoney = {
-    currency: null,
-    amount: 0,
-    decimalPlaces: 0,
-  };
-
-  public setDecimalPlaces() {
-    let minorUnit = this.addMoney.currency.minor_unit;
-    if (minorUnit == 0) {
-      this.addMoney.decimalPlaces = 1;
-    } else {
-      this.addMoney.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
-    }
-  }
-
-  public submitAddMoney() {
-    this.bankSrv.deposit(this.addMoney.amount, this.addMoney.currency.code)
-      .subscribe((res) => {
-        console.log(res);
-        /**
-         * Relavent information
-         * data.transactions.description
-         * data.transactions.invoice_number
-         * data.create_time
-         * data.id
-         * data.links[i].href
-         *    0 - GET
-         *    1 - REDIRECT
-         *    2 - POST
-         */
-        // let paypalUrl = res.links[1].href;
-        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
-      });
-  }
-
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public bankSrv: BankTransferService,
+              public storage: Storage,
+              public walletSrv: WalletsService,
+              private alertCtrl: AlertController,
+              public loadingCtrl: LoadingController,) {
+                this.loader = this.loadingCtrl.create({
+                  content: "Processing bank transfer.",
+                });
+              }
 }
-
-
-
-
