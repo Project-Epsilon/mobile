@@ -31,7 +31,7 @@ export class WithdrawComponent {
     this.form = this.formBuilder.group({
       amount: ['', [Validators.required]],
       wallet: [null, Validators.required],
-      email: ['', [Validators.required, Validators.pattern('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')]]
+      email: ['', [Validators.required]]
     });
 
     this.wallets = this.walletSrv.wallets;
@@ -41,6 +41,9 @@ export class WithdrawComponent {
 
   }
 
+  /**
+   * Sends a withdraw request to server. Alerts user for confirmation.
+   */
   public withdraw() {
     let displayAmount = this.form.value.amount  + " " + this.form.value.wallet.currency_code;
 
@@ -67,6 +70,12 @@ export class WithdrawComponent {
 
   }
 
+  /**
+   * Handles the server response. If the withdrawl is succesful, the wallet is updated.
+   *
+   * @param res
+   * @param displayAmount
+   */
   private handleWithdrawal(res, displayAmount) {
     this.loader.dismiss();
 

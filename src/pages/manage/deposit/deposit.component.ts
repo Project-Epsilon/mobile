@@ -48,7 +48,7 @@ export class DepositComponent {
   }
 
   /**
-   *
+   * Sends a deposit request to server. Opens up a paypal browser allowing user to deposit money.
    */
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
