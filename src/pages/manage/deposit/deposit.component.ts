@@ -44,7 +44,7 @@ export class DepositComponent {
       this.form.value.decimalPlaces = 1;
     } else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
-    }g
+    }
   }
 
   /**
