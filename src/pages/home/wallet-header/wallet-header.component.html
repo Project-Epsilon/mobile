@@ -3,10 +3,10 @@
   <h3 class="balance">{{ wallet.balance }}</h3>
 </div>
 <div class="action-group">
-  <div class="action" (tap)="foo('add')">
+  <div class="action" (tap)="redirect('deposit')">
     <ion-icon name="add"></ion-icon> Add Money
   </div>
-  <div class="action" (tap)="foo('remove')">
+  <div class="action" (tap)="redirect('withdraw')">
     <ion-icon name="remove"></ion-icon> Withdraw
   </div>
   <div class="action">

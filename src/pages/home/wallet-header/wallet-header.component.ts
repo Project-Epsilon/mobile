@@ -24,14 +24,18 @@ export class WalletHeaderComponent implements AfterContentChecked {
     this.currencyName = this.currencySrv.getCurrency(this.wallet.currency_code).name;
   }
 
-  public foo(string){
-    if(string=="add") {
+  /**
+   * Redirects to appropriate page based off clicked action tab (deposit, withdraw, send)
+   *
+   * @param string
+   */
+  public redirect(string){
+    if(string=="deposit") {
       let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
-      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "add", currency : currency});
+      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "deposit", currency : currency});
     }
-    else if(string=="remove"){
-      //this.navCtrl.parent.select(1);
-      this.navCtrl.setRoot(ManagePage, {wallet : this.wallet, action : "remove"});
+    else if(string=="withdraw"){
+      this.navCtrl.setRoot(ManagePage, {wallet : this.wallet, action : "withdraw"});
     }
   }
 

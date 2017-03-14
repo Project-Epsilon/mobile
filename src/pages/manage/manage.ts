@@ -41,32 +41,32 @@ export class ManagePage {
     }
   }
 
-  //refactoring will be needed
+  /**
+   * Determines if user selected deposit or withdraw and displays appropriate currency
+   */
   ionViewDidEnter(){
-
-    //If came through home page
     if(this.navParams.get("wallet")){
-      console.log(this.navParams.get("action"));
-      if(this.navParams.get("action")=="remove"){
+      if(this.navParams.get("action")=="withdraw"){
         this.action = "withdraw";
         this.withdrawMoney = {
           wallet: this.navParams.get("wallet"),
-          amount: this.navParams.get("wallet").balance, //should be 0
-          email: "", //TODO
+          amount: 0,
+          email: "",
         }
       } else {
         this.action = "add_money";
-        console.log(this.navParams.get("currency"));
         this.addMoney = {
           currency: this.navParams.get("currency"),
-          amount: this.navParams.get("wallet").balance,
-          decimalPlaces: 0.01, //What should this be
+          amount: 0,
+          decimalPlaces: 0.01,
         };
-
       }
     }
   }
 
+  /**
+   * Sets up currencies when page is created
+   */
   ionViewDidLoad() {
     this.storage.get("currencies")
       .then((currencies) => {
