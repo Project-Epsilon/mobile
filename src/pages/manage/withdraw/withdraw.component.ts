@@ -41,7 +41,7 @@ export class WithdrawComponent {
 
   }
 
-  public submitWithDrawMoney() {
+  public withdraw() {
     let displayAmount = this.form.value.amount  + " " + this.form.value.wallet.currency_code;
 
     let alertButtons = [

@@ -47,7 +47,10 @@ export class DepositComponent {
     }
   }
 
-  public submitAddMoney() {
+  /**
+   *
+   */
+  public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
       .subscribe(res => {
         console.log(res);
