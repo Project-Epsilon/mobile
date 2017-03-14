@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
 import {WalletsService} from "../../providers/wallet.service";
 import {TransferService} from "../../providers/transfer.service";
@@ -10,8 +10,8 @@ import {Alert} from "../../utils/Alert";
   templateUrl: "send-money.html",
 })
 
-export class SendMoneyPage {
-  private sendMoneyForm: FormGroup;
+export class SendMoneyPage implements OnInit {
+  private form: FormGroup;
   private wallets: any;
   private validAmount = true;
   private maxAmount : number;
@@ -28,13 +28,7 @@ export class SendMoneyPage {
 
   )
   {
-    this.sendMoneyForm = this.formBuilder.group({
-      amount: ['', [Validators.required]],
-      wallet: [null, Validators.required],
-      receiver: ['', Validators.required],
-      message: ['', Validators.maxLength(255)]
-    });
-
+    
     this.loader = this.loadingCtrl.create({
       content: "Processing transfer.",
     });
@@ -43,19 +37,31 @@ export class SendMoneyPage {
   }
 
   ionViewDidLoad() {
-    // TODO: Place form builder here!
-    // This will solve the validator problem.
+
   }
 
+  ngOnInit(){
+    this.form = this.formBuilder.group({
+      amount: ['', [Validators.required]],
+      wallet: [null, Validators.required],
+      receiver: ['', Validators.required],
+      message: ['', Validators.maxLength(255)]
+    });
+  }
+
+  ngOnChange (){
+    //this.walletSrv.updateWallet(this.wallets);
+
+  }
   /**
    * Uses transfer server to send money to another user.
    */
   public send(){
     let receiver = {phone_number : '5145555555'};
       //this.sendMoneyForm.value.receiver;
-    let amount = this.sendMoneyForm.value.amount;
-    let wallet = this.sendMoneyForm.value.wallet;
-    let message = this.sendMoneyForm.value.message;
+    let amount = this.form.value.amount;
+    let wallet = this.form.value.wallet;
+    let message = this.form.value.message;
 
     let displayAmount = amount + " " + wallet.currency_code;
 
@@ -74,6 +80,7 @@ export class SendMoneyPage {
           ).subscribe(
             (res) => this.handleSend(res, displayAmount),
             (error) => {new Alert(this.alertCtrl,"Whoops!", error, ["Dismiss."]);}
+
             );
         },
       },
@@ -94,8 +101,9 @@ export class SendMoneyPage {
     this.loader.dismiss();
 
     if (res.data){
+      this.form.reset();
+      this.walletSrv.getWallets().subscribe((res) => this.wallets = res);
 
-      this.walletSrv.updateWallet(res.data);
       new Alert(
         this.alertCtrl,
         "Transfer Success",
@@ -117,12 +125,12 @@ export class SendMoneyPage {
    * Updates the maximum amount of money the user can send based on his selected wallet.
    */
   public updateValidAmount(){
-    if (!this.sendMoneyForm.value.wallet) {
+    if (!this.form.value.wallet) {
       return;
     }
     else {
-      this.validAmount = (this.sendMoneyForm.value.amount < parseFloat(this.sendMoneyForm.value.wallet.balance));
-      this.maxAmount = this.sendMoneyForm.value.wallet.balance;
+      this.validAmount = (this.form.value.amount < parseFloat(this.form.value.wallet.balance));
+      this.maxAmount = this.form.value.wallet.balance;
     }
   }
 

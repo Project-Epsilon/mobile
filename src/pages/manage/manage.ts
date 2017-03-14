@@ -41,7 +41,6 @@ export class ManagePage {
         this.addMoney.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-    this.wallets = this.walletSrv.wallets;
   }
 
   //******************************************************
