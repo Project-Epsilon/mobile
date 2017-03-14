@@ -12,6 +12,7 @@ import {Validators, FormGroup, FormBuilder} from "@angular/forms";
 export class WithdrawComponent implements OnInit {
   loader: Loading;
   private form: FormGroup;
+  private wallets: any;
 
   constructor(
     public alertCtrl: AlertController,
@@ -23,6 +24,14 @@ export class WithdrawComponent implements OnInit {
     this.loader = this.loadingCtrl.create({
       content: 'Processing bank transfer.'
     });
+
+    this.form = this.formBuilder.group({
+      amount: ['', [Validators.required]],
+      wallet: [null, Validators.required],
+      email: ['', [Validators.required, Validators.pattern('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')]]
+    });
+
+    this.wallets = this.walletSrv.wallets;
   }
 
   ngOnInit() {
@@ -30,11 +39,7 @@ export class WithdrawComponent implements OnInit {
   }
 
   ionViewDidLoad() {
-    this.form = this.formBuilder.group({
-      amount: ['', [Validators.required]],
-      wallet: [null, Validators.required],
-      email: ['', [Validators.required, Validators.pattern('/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/')]]
-    });
+
   }
 
   public submitWithDrawMoney() {

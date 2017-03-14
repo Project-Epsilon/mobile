@@ -83,63 +83,6 @@ export class ManagePage {
       });
   }
 
-  //******************************************************
-  // Withdraw Money
-  //******************************************************
-
-  public withdrawMoney = {
-    wallet: null,
-    amount: null,
-    email: "",
-  };
-
-  public submitWithDrawMoney(form) {
-    console.log(form);
-    let displayAmount = this.withdrawMoney.amount  + " " + this.withdrawMoney.wallet.currency_code;
-
-    let alertButtons = [
-      { text: "Cancel", role: "cancel"},
-      {
-        text: "Confirm",
-        handler: () => {
-          this.loader.present();
-
-          this.bankSrv.withdraw(
-            this.withdrawMoney.wallet.id,
-            this.withdrawMoney.amount,
-            this.withdrawMoney.email,
-          ).subscribe((res) => this.handleWithdrawal(res, displayAmount), (error) => this.transferErrors = error);
-        },
-      },
-    ];
-
-    new Alert(this.alertCtrl,"Confirm withdraw", "Do you want to withdraw " + displayAmount, alertButtons);
-
-  }
-
-  private handleWithdrawal(res, displayAmount) {
-    this.loader.dismiss();
-
-    if (res.data){
-
-      this.walletSrv.updateWallet(res.data);
-      new Alert(
-        this.alertCtrl,
-        "Withdrawal Success",
-        displayAmount + " has been successfully withdrawn from your account.",
-        ["Dismiss"]
-      );
-
-    } else {
-      new Alert(
-        this.alertCtrl,
-        "Withdrawal Failed",
-        displayAmount + " could not have been processed." + res.errors.message,
-        ["Dismiss"]);
-
-    }
-
-  }
 }
 
 
