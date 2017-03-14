@@ -7,7 +7,7 @@ import { MyApp } from "./app.component";
 
 import { TransactionLogComponent } from "../components/transaction-log/transaction-log.component";
 import { TransactionComponent } from "../components/transaction/transaction.component";
-import { ContactPage } from "../pages/contact/contact";
+import {ContactPage, PhonePipe} from "../pages/contact/contact";
 import { HomePage } from "../pages/home/home";
 import { WalletHeaderComponent } from "../pages/home/wallet-header/wallet-header.component";
 import { WalletSlideComponent } from "../pages/home/wallet-slide/wallet-slide.component";
@@ -48,6 +48,7 @@ export function getAuthHttp(http) {
     WalletHeaderComponent,
     TransactionLogComponent,
     TransactionComponent,
+    PhonePipe,
   ],
   imports: [
     IonicModule.forRoot(MyApp),
