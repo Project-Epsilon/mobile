@@ -43,7 +43,8 @@ export class SendMoneyPage {
   }
 
   ionViewDidLoad() {
-
+    // TODO: Place form builder here!
+    // This will solve the validator problem.
   }
 
   /**
