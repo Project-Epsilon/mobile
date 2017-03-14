@@ -29,13 +29,13 @@ export class ContactPage {
 })
 export class PhonePipe {
   transform(val, args) {
-    val = val.charAt(0) != 0 ? '0' + val : '' + val;
-    let newStr = '';
-    let i = 0;
+    if (val.length == 7) return val.slice(0, 3) + '-' + val.slice(3, 7);
+    else if (val.length == 10) {
+      let area_code = val.slice(0, 3);
+      let three_digit = val.slice(3, 6);
+      let four_digit = val.slice(6, 10);
 
-    for(; i < (Math.floor(val.length/2) - 1); i++){
-      newStr = newStr+ val.substr(i*2, 2) + '-';
+      return '(' + area_code + ')' + ' ' + three_digit + '-' + four_digit;
     }
-    return newStr+ val.substr(i*2);
   }
 }
