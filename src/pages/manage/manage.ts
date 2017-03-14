@@ -4,6 +4,7 @@ import {AlertController, Loading, LoadingController, NavController, NavParams} f
 import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
+import {HomePage} from "../home/home";
 
 @Component({
   selector: "page-manage",
@@ -31,11 +32,46 @@ export class ManagePage {
     });
   }
 
+  /**
+   * If came here through homepage must reset to homepage before leaving
+   */
+  ionViewDidLeave(){
+    if(this.navParams.get("wallet")) {
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+
+  /**
+   * Determines if user selected deposit or withdraw and displays appropriate currency
+   */
+  ionViewDidEnter(){
+    if(this.navParams.get("wallet")){
+      if(this.navParams.get("action")=="withdraw"){
+        this.action = "withdraw";
+        this.withdrawMoney = {
+          wallet: this.navParams.get("wallet"),
+          amount: 0,
+          email: "",
+        }
+      } else {
+        this.action = "add_money";
+        this.addMoney = {
+          currency: this.navParams.get("currency"),
+          amount: 0,
+          decimalPlaces: 0.01,
+        };
+      }
+    }
+  }
+
+  /**
+   * Sets up currencies when page is created
+   */
   ionViewDidLoad() {
     this.storage.get("currencies")
       .then((currencies) => {
         this.currencies = currencies;
-        this.addMoney.currency = this.currencies[0];
+        this.addMoney.currency = this.navParams.get("currency") == null ? this.currencies[0] : this.navParams.get("currency");
         this.setDecimalPlaces();
       });
     this.wallets = this.walletSrv.wallets;
