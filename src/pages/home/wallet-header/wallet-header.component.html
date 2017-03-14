@@ -1,6 +1,6 @@
 <div class="currency-header">
   <p class="name">{{ currencyName }}</p>
-  <h3 class="balance">{{ wallet.balance }}</h3>
+  <h3 class="balance">{{ wallet.balance | currency:wallet.currency_code:true}}</h3>
 </div>
 <div class="action-group">
   <div class="action" (tap)="redirect('deposit')">
