@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
+import {ContactPage} from "../contact/contact";
 
 /*
   Generated class for the More page.
@@ -12,6 +13,8 @@ import { NavController, NavParams } from "ionic-angular";
   templateUrl: "more.html",
 })
 export class MorePage {
+
+  contactsPage = ContactPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
