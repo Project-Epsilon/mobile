@@ -21,14 +21,12 @@ export class WalletSlideComponent implements OnInit {
       if(this.wallets.indexOf(this.activeWallet)!=this.wallets.length-1){
         let next = this.wallets.indexOf(this.activeWallet)+1;
         this.activeWallet = this.wallets[next];
-        console.log(this.activeWallet);
       }
     }
     if($event.direction==4){ //left swipe
       if(this.wallets.indexOf(this.activeWallet)!= 0){
         let next = this.wallets.indexOf(this.activeWallet)-1;
         this.activeWallet = this.wallets[next];
-        console.log(this.activeWallet);
       }
     }
   }

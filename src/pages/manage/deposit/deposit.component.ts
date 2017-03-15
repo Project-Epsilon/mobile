@@ -3,13 +3,14 @@ import { BankTransferService } from "../../../providers/bank.service";
 import { Storage } from "@ionic/storage";
 import { WalletsService } from "../../../providers/wallet.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { NavParams } from "ionic-angular";
 
 
 @Component({
   selector: 'deposit-component',
   templateUrl: './deposit.component.html'
 })
-export class DepositComponent {
+export class DepositComponent implements OnInit{
   public currencies: Object;
   public wallets: any;
   public form: FormGroup;
@@ -18,12 +19,13 @@ export class DepositComponent {
     public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
+    public navParams: NavParams,
     private formBuilder: FormBuilder
 
   ) {
     this.form = this.formBuilder.group({
-      amount: ['', Validators.required],
-      currency: ['', Validators.required]
+      amount: [this.navParams.get("wallet").balance, Validators.required],
+      currency: ["", Validators.required]
     });
   }
 
@@ -31,15 +33,17 @@ export class DepositComponent {
    * Retrieves currencies from local storage and sets the appropiate decimal places.
    * Function is called when page loads.
    */
-  ionViewDidLoad() {
+  public ngOnInit(){
+    console.log("init"); //debug
     this.storage.get('currencies')
       .then(currencies => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-
-    this.wallets = this.walletSrv.wallets
+    console.log(this.navParams.get("currency"));
+    //console.log(this.navParams.get("wallet")); //wallet from home page
+    this.wallets = this.walletSrv.wallets;
   }
 
   /**

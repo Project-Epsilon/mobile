@@ -4,6 +4,7 @@ import { AlertController, Loading, LoadingController, NavController, NavParams} 
 import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
+import {HomePage} from "../home/home";
 
 @Component({
   selector: "page-manage",
@@ -31,5 +32,34 @@ export class ManagePage {
       this.loader = this.loadingCtrl.create({
         content: "Processing bank transfer.",
       });
+  }
+
+  /**
+   * If came here through homepage must reset to homepage before leaving
+   */
+  ionViewDidLeave(){
+    if(this.navParams.get("wallet")) {
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+
+  ionViewDidEnter(){
+    if(this.navParams.get("wallet")){
+      if(this.navParams.get("action")=="withdraw"){
+        this.action = "withdraw";
+        // this.withdrawMoney = {
+        //   wallet: this.navParams.get("wallet"),
+        //   amount: 0,
+        //   email: "",
+        // }
+      } else {
+        this.action = "deposit";
+        // this.addMoney = {
+        //   currency: this.navParams.get("currency"),
+        //   amount: 0,
+        //   decimalPlaces: 0.01,
+        // };
+      }
+    }
   }
 }
