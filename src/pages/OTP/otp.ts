@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component,ChangeDetectorRef} from "@angular/core";
 import {Storage} from "@ionic/storage";
 import {AuthHttp} from "angular2-jwt";
 import {App, NavController, NavParams} from "ionic-angular";
@@ -26,7 +26,8 @@ export class OTPPage {
     public app: App,
     public authHttp: AuthHttp,
     public storage: Storage,
-    public alrtCtrl: AlertController
+    public alrtCtrl: AlertController,
+    private cdRef:ChangeDetectorRef
   ) {
     this.user = {
       email: "",
@@ -61,7 +62,7 @@ export class OTPPage {
         if (data == "ok")
         {
           this.invalidCode = false;
-          this.hideCodeinput = true;
+          this.cdRef.detectChanges();
           this.app.getRootNav().setRoot(TabsPage);
         }
         else
@@ -72,11 +73,19 @@ export class OTPPage {
             title: "Login Code Invalid!",
           });
           this.invalidCode = true;
+          this.cdRef.detectChanges();
           alert.present();
+
         }
         });
   }
+  hide()  {
+    this.hideCodeinput = false;
+  }
 
+  show()  {
+    this.hideCodeinput = true;
+  }
   submitOTP(phoneNumber) {
     let verifyphone: any;
 
@@ -90,11 +99,14 @@ export class OTPPage {
         });
         this.invalidCode = true;
         alert.present();
+        console.log(this.hideCodeinput + "!err");
+        this.cdRef.detectChanges();
       }
       else
       {
         console.log("Toggling false")
         this.hideCodeinput = false;
+        this.cdRef.detectChanges();
         console.log(this.hideCodeinput)
 
       }
@@ -103,12 +115,14 @@ export class OTPPage {
 
   returnToPhoneEntry() {
     console.log(this.hideCodeinput);
-    this.hideCodeinput = true;
+    this.hideCodeinput = false;
     this.invalidCode = false;
+    this.cdRef.detectChanges();
   }
 
   returnToLogin() {
     this.app.getRootNav().setRoot(LoginPage);
     this.invalidCode = false;
+    this.cdRef.detectChanges();
   }
 }
