@@ -1,12 +1,12 @@
 <div class="currency-header">
   <p class="name">{{ currencyName }}</p>
-  <h3 class="balance">{{ wallet.balance }}</h3>
+  <h3 class="balance">{{ wallet.balance | currency:wallet.currency_code:true}}</h3>
 </div>
 <div class="action-group">
-  <div class="action">
-    <ion-icon name="add"></ion-icon> Add Money
+  <div class="action" (tap)="redirect('deposit')">
+    <ion-icon name="add"></ion-icon> Deposit
   </div>
-  <div class="action">
+  <div class="action" (tap)="redirect('withdraw')">
     <ion-icon name="remove"></ion-icon> Withdraw
   </div>
   <div class="action">
