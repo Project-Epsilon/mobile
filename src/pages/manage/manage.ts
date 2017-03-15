@@ -47,18 +47,8 @@ export class ManagePage {
     if(this.navParams.get("wallet")){
       if(this.navParams.get("action")=="withdraw"){
         this.action = "withdraw";
-        // this.withdrawMoney = {
-        //   wallet: this.navParams.get("wallet"),
-        //   amount: 0,
-        //   email: "",
-        // }
       } else {
         this.action = "deposit";
-        // this.addMoney = {
-        //   currency: this.navParams.get("currency"),
-        //   amount: 0,
-        //   decimalPlaces: 0.01,
-        // };
       }
     }
   }

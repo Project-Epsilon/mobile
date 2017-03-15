@@ -30,7 +30,7 @@ export class WithdrawComponent {
     });
 
     this.form = this.formBuilder.group({
-      amount: [this.navParams.get("wallet").balance, [Validators.required]],
+      amount: ['', [Validators.required]],
       wallet: [this.navParams.get("wallet"), Validators.required],
       email: ['', [Validators.required]]
     });

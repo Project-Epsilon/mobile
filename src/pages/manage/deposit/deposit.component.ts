@@ -24,8 +24,8 @@ export class DepositComponent implements OnInit{
 
   ) {
     this.form = this.formBuilder.group({
-      amount: [this.navParams.get("wallet").balance, Validators.required],
-      currency: ["", Validators.required]
+      amount: ['', Validators.required],
+      currency: [this.navParams.get("currency"), Validators.required]
     });
   }
 
@@ -34,7 +34,6 @@ export class DepositComponent implements OnInit{
    * Function is called when page loads.
    */
   public ngOnInit(){
-    console.log("init"); //debug
     this.storage.get('currencies')
       .then(currencies => {
         this.currencies = currencies;
@@ -42,7 +41,6 @@ export class DepositComponent implements OnInit{
         this.setDecimalPlaces();
       });
     console.log(this.navParams.get("currency"));
-    //console.log(this.navParams.get("wallet")); //wallet from home page
     this.wallets = this.walletSrv.wallets;
   }
 
