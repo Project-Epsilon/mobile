@@ -17,15 +17,16 @@ import {AuthService} from "../../providers/auth.service";
 export class EditAccountPage {
 
   private updateAccount: FormGroup;
+  private user: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder: FormBuilder, public auth:AuthService ) {
-    let user: any = Object.assign({}, this.auth.user);
+    this.user = Object.assign({}, this.auth.user);
 
     this.updateAccount = this.formBuilder.group({
-      name: [user.name, Validators.required],
-      email: [user.email, Validators.required],
-      phone: [user.phone_number, Validators.required],
-      username: [user.username, Validators.required],
+      name: [this.user.name, Validators.required],
+      email: [this.user.email, Validators.required],
+      phone_number: [this.user.phone_number, Validators.required],
+      username: [this.user.username, Validators.required],
     });
   }
 
@@ -34,7 +35,10 @@ export class EditAccountPage {
   }
 
   updateInfo() {
-    
+    this.auth.updateUserInfo(this.updateAccount.value).subscribe((user: any) => {
+      console.log(user);
+      this.user = user;
+    });
   }
 
 }
