@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BankTransferService } from "../../../providers/bank.service";
 import { Storage } from "@ionic/storage";
 import { WalletsService } from "../../../providers/wallet.service";
-import {Validators, FormBuilder, FormGroup} from "@angular/forms";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 
 
 @Component({
@@ -27,6 +27,10 @@ export class DepositComponent {
     });
   }
 
+  /**
+   * Retrieves currencies from local storage and sets the appropiate decimal places.
+   * Function is called when page loads.
+   */
   ionViewDidLoad() {
     this.storage.get('currencies')
       .then(currencies => {
@@ -38,11 +42,15 @@ export class DepositComponent {
     this.wallets = this.walletSrv.wallets
   }
 
+  /**
+   * Sets the appropriate decimal place in the form based on the currency used.
+   */
   public setDecimalPlaces() {
     let minorUnit = this.form.value.currency.minor_unit;
     if (minorUnit == 0) {
       this.form.value.decimalPlaces = 1;
-    } else {
+    }
+    else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
     }
   }
@@ -69,5 +77,4 @@ export class DepositComponent {
         // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
       });
   }
-
 }

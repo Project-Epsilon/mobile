@@ -1,5 +1,4 @@
-import {App,AlertController} from "ionic-angular";
-import {Inject} from "@angular/core";
+import { AlertController } from "ionic-angular";
 
 export class Alert {
   constructor(
@@ -7,10 +6,7 @@ export class Alert {
     private title: string,
     private message: string,
     private buttons: any[]
-  )
-  {
+  ) {
     alertCtrl.create({title: title, message: message, buttons: buttons}).present();
   }
-
-
 }

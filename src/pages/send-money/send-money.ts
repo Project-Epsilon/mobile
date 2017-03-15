@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {NavController, NavParams, AlertController, LoadingController, Loading} from 'ionic-angular';
-import {WalletsService} from "../../providers/wallet.service";
-import {TransferService} from "../../providers/transfer.service";
-import {Validators, FormBuilder, FormGroup } from '@angular/forms';
-import {Alert} from "../../utils/Alert";
+import { Component } from '@angular/core';
+import { NavController, NavParams, AlertController, LoadingController, Loading } from 'ionic-angular';
+import { WalletsService } from "../../providers/wallet.service";
+import { TransferService } from "../../providers/transfer.service";
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Alert } from "../../utils/Alert";
 
 @Component({
   selector: "page-send-money",
@@ -27,8 +27,7 @@ export class SendMoneyPage {
     private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController
 
-  )
-  {
+  ) {
     this.loader = this.loadingCtrl.create({
       content: "Processing transfer.",
     });
@@ -41,10 +40,6 @@ export class SendMoneyPage {
     });
 
     this.wallets = this.walletSrv.wallets;
-  }
-
-  ionViewDidLoad() {
-
   }
 
   /**

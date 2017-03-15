@@ -7,9 +7,7 @@
 
 </ion-header>
 
-
 <ion-content padding>
-
   <form [formGroup]="form" (ngSubmit)="send()" novalidate>
     <ion-card>
       <ion-card-content>
@@ -40,20 +38,18 @@
       </ion-card-content>
     </ion-card>
 
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label stacked>Message</ion-label>
+          <ion-textarea rows="4" formControlName="message" placeholder="Write a message (optional)."  maxlength="255"></ion-textarea>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-content>
-      <ion-item>
-        <ion-label stacked>Message</ion-label>
-        <ion-textarea rows="4" formControlName="message" placeholder="Write a message (optional)."  maxlength="255"></ion-textarea>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
-
-
-  <div text-center>
-    <button ion-button type="submit" block [disabled]="!form.valid || !validAmount">Send</button>
-  </div>
+    <div text-center>
+      <button ion-button type="submit" block [disabled]="!form.valid || !validAmount">Send</button>
+    </div>
   </form>
 
 </ion-content>

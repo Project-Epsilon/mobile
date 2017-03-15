@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import {AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
+import { AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
 import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
@@ -19,15 +19,17 @@ export class ManagePage {
 
   private transferErrors: Error;
 
-  constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public bankSrv: BankTransferService,
-              public storage: Storage,
-              public walletSrv: WalletsService,
-              private alertCtrl: AlertController,
-              public loadingCtrl: LoadingController,) {
-                this.loader = this.loadingCtrl.create({
-                  content: "Processing bank transfer.",
-                });
-              }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public bankSrv: BankTransferService,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    private alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
+  ) {
+      this.loader = this.loadingCtrl.create({
+        content: "Processing bank transfer.",
+      });
+  }
 }

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AlertController, LoadingController, Loading } from "ionic-angular";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import {Alert} from "../../../utils/Alert";
-import {Validators, FormGroup, FormBuilder} from "@angular/forms";
+import { Validators, FormGroup, FormBuilder } from "@angular/forms";
 
 @Component({
   selector: 'withdraw-component',
@@ -35,10 +35,6 @@ export class WithdrawComponent {
     });
 
     this.wallets = this.walletSrv.wallets;
-  }
-
-  ionViewDidLoad() {
-
   }
 
   /**
@@ -80,7 +76,6 @@ export class WithdrawComponent {
     this.loader.dismiss();
 
     if (res.data){
-
       this.walletSrv.updateWallet(res.data);
       new Alert(
         this.alertCtrl,
@@ -94,10 +89,9 @@ export class WithdrawComponent {
         this.alertCtrl,
         "Withdrawal Failed",
         displayAmount + " could not have been processed." + res.errors.message,
-        ["Dismiss"]);
+        ["Dismiss"]
+      );
     }
-
-
   }
 
   /**
@@ -113,6 +107,4 @@ export class WithdrawComponent {
       this.maxCurrency = this.form.value.wallet.currency_code;
     }
   }
-
-
 }
