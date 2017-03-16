@@ -10,7 +10,7 @@ import { Alert } from "../../../utils/Alert";
   templateUrl: "./withdraw.component.html",
 })
 export class WithdrawComponent {
-  public loader: Loading;
+  private loader: Loading;
   private form: FormGroup;
   public validAmount = true;
   private maxAmount: number;
@@ -29,7 +29,7 @@ export class WithdrawComponent {
     });
 
     this.form = this.formBuilder.group({
-      amount: ["", [Validators.required]],
+      amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
       email: ["", [Validators.required]],
       wallet: [null, Validators.required],
     });

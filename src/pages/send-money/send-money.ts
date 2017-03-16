@@ -16,7 +16,7 @@ export class SendMoneyPage {
   private validAmount = true;
   private maxAmount: number;
   private maxCurrency: number;
-  public loader: Loading;
+  private loader: Loading;
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +33,7 @@ export class SendMoneyPage {
     });
 
     this.form = this.formBuilder.group({
-      amount: ["", [Validators.required]],
+      amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
       message: ["", Validators.maxLength(255)],
       receiver: ["", Validators.required],
       wallet: [null, Validators.required],
