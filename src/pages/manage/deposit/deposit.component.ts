@@ -12,6 +12,7 @@ import { NavParams } from "ionic-angular";
 })
 export class DepositComponent implements OnInit{
   public currencies: Object;
+  public default_currency: Object;
   public wallets: any;
   public form: FormGroup;
 
@@ -25,12 +26,12 @@ export class DepositComponent implements OnInit{
   ) {
     this.form = this.formBuilder.group({
       amount: ['', Validators.required],
-      currency: [this.navParams.get("currency"), Validators.required]
+      currency: [this.default_currency, Validators.required]
     });
   }
 
   /**
-   * Retrieves currencies from local storage and sets the appropiate decimal places.
+   * Retrieves currencies from local storage and sets the appropriate decimal places.
    * Function is called when page loads.
    */
   public ngOnInit(){
@@ -40,6 +41,8 @@ export class DepositComponent implements OnInit{
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
+    if(this.navParams.get("currency"))
+      this.default_currency = this.navParams.get("currency");
     console.log(this.navParams.get("currency"));
     this.wallets = this.walletSrv.wallets;
   }
@@ -55,6 +58,19 @@ export class DepositComponent implements OnInit{
     else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
     }
+  }
+
+  /**
+   * Compares two currencies for equality
+   *
+   * @param currency1
+   * @param currency2
+   * @returns {boolean}
+   */
+  public isSameCurrency(currency1, currency2){
+    if(currency1==null||currency2==null)
+      return null;
+    return(currency1.code==currency2.code);
   }
 
   /**

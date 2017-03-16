@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
-import { InAppBrowser } from "ionic-native";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
-import {HomePage} from "../home/home";
+import { HomePage } from "../home/home";
 
 @Component({
   selector: "page-manage",
@@ -43,6 +42,9 @@ export class ManagePage {
     }
   }
 
+  /**
+   * Determines which manage page to show user depending on button clicked
+   */
   ionViewDidEnter(){
     if(this.navParams.get("wallet")){
       if(this.navParams.get("action")=="withdraw"){
