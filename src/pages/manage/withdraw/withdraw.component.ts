@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, LoadingController, Loading } from "ionic-angular";
+import { AlertController, LoadingController, Loading, NavParams } from "ionic-angular";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import {Alert} from "../../../utils/Alert";
@@ -22,6 +22,7 @@ export class WithdrawComponent {
     public loadingCtrl: LoadingController,
     public bankSrv: BankTransferService,
     public walletSrv: WalletsService,
+    public navParams: NavParams,
     private formBuilder: FormBuilder
   ) {
     this.loader = this.loadingCtrl.create({
@@ -30,7 +31,7 @@ export class WithdrawComponent {
 
     this.form = this.formBuilder.group({
       amount: ['', [Validators.required]],
-      wallet: [null, Validators.required],
+      wallet: [this.navParams.get("wallet"), Validators.required],
       email: ['', [Validators.required]]
     });
 
