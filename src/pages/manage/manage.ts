@@ -12,6 +12,9 @@ export class ManagePage {
   public loader: Loading;
   public action: string = "deposit";
 
+  public currencies: Object;
+  public wallets: any;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
