@@ -1,20 +1,20 @@
-import { Component } from '@angular/core';
-import { AlertController, LoadingController, Loading } from "ionic-angular";
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertController, Loading, LoadingController } from "ionic-angular";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
-import {Alert} from "../../../utils/Alert";
-import { Validators, FormGroup, FormBuilder } from "@angular/forms";
+import { Alert } from "../../../utils/Alert";
 
 @Component({
-  selector: 'withdraw-component',
-  templateUrl: './withdraw.component.html'
+  selector: "withdraw-component",
+  templateUrl: "./withdraw.component.html",
 })
 export class WithdrawComponent {
-  loader: Loading;
+  private loader: Loading;
   private form: FormGroup;
   private validAmount = true;
-  private maxAmount : number;
-  private maxCurrency : number;
+  private maxAmount: number;
+  private maxCurrency: number;
   private wallets: any;
 
   constructor(
@@ -22,19 +22,32 @@ export class WithdrawComponent {
     public loadingCtrl: LoadingController,
     public bankSrv: BankTransferService,
     public walletSrv: WalletsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: 'Processing bank transfer.'
+      content: "Processing bank transfer.",
     });
 
     this.form = this.formBuilder.group({
-      amount: ['', [Validators.required]],
+      amount: ["", [Validators.required]],
+      email: ["", [Validators.required]],
       wallet: [null, Validators.required],
-      email: ['', [Validators.required]]
     });
 
     this.wallets = this.walletSrv.wallets;
+  }
+
+  /**
+   * Updates the maximum amount of money the user can withdraw based on his selected wallet.
+   */
+  public updateValidAmount() {
+    if (!this.form.value.wallet) {
+      return;
+    } else {
+      this.validAmount = (this.form.value.amount <= parseFloat(this.form.value.wallet.balance));
+      this.maxAmount = this.form.value.wallet.balance;
+      this.maxCurrency = this.form.value.wallet.currency_code;
+    }
   }
 
   /**
@@ -46,7 +59,6 @@ export class WithdrawComponent {
     let alertButtons = [
       { text: "Cancel", role: "cancel"},
       {
-        text: "Confirm",
         handler: () => {
           this.loader.present();
 
@@ -56,13 +68,14 @@ export class WithdrawComponent {
             this.form.value.email,
           ).subscribe(
               (res) => this.handleWithdrawal(res, displayAmount),
-              (error) => {new Alert(this.alertCtrl,"Whoops!", error, ["Dismiss."]);}
+              (error) => { Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]); },
           );
         },
+        text: "Confirm",
       },
     ];
 
-    new Alert(this.alertCtrl,"Confirm withdraw", "Do you want to withdraw " + displayAmount, alertButtons);
+    Alert(this.alertCtrl, "Confirm withdraw", "Do you want to withdraw " + displayAmount, alertButtons);
 
   }
 
@@ -75,37 +88,23 @@ export class WithdrawComponent {
   private handleWithdrawal(res, displayAmount) {
     this.loader.dismiss();
 
-    if (res.data){
+    if (res.data) {
       this.walletSrv.updateWallet(res.data);
       this.form.reset();
-      new Alert(
+      Alert(
         this.alertCtrl,
         "Withdrawal Success",
         displayAmount + " has been successfully withdrawn from your account.",
-        ["Dismiss"]
+        ["Dismiss"],
       );
 
     } else {
-      new Alert(
+      Alert(
         this.alertCtrl,
         "Withdrawal Failed",
         displayAmount + " could not have been processed." + res.errors.message,
-        ["Dismiss"]
+        ["Dismiss"],
       );
-    }
-  }
-
-  /**
-   * Updates the maximum amount of money the user can withdraw based on his selected wallet.
-   */
-  public updateValidAmount(){
-    if (!this.form.value.wallet) {
-      return;
-    }
-    else {
-      this.validAmount = (this.form.value.amount <= parseFloat(this.form.value.wallet.balance));
-      this.maxAmount = this.form.value.wallet.balance;
-      this.maxCurrency = this.form.value.wallet.currency_code;
     }
   }
 }
