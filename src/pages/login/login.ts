@@ -5,6 +5,7 @@ import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { TabsPage } from "../tabs/tabs";
 import {Http} from "@angular/http";
+import {OtpPage} from "../otp/otp";
 
 @Component({
   selector: "page-login",
@@ -28,11 +29,8 @@ export class LoginPage {
    * @param provider
    */
   showAuth(provider){
-    this.auth.login(provider).subscribe((user) => {
-
-      if (user){
-        this.app.getRootNav().setRoot(TabsPage);
-      }
+    this.auth.login(provider).subscribe((user: any) => {
+      this.otpCheck(user)
     });
   }
 
@@ -52,11 +50,22 @@ export class LoginPage {
       this.auth.idToken = data.token;
 
       this.storage.set("token", data.token).then((value) => {
-        this.app.getRootNav().setRoot(TabsPage);
+        this.otpCheck(data);
       });
     });
+  }
 
-
+  /**
+   * Redirects the user to the appropriate page.
+   *
+   * @param user
+   */
+  public otpCheck(user){
+    if (user.locked){
+      this.app.getRootNav().setRoot(TabsPage);
+    } else {
+      this.app.getRootNav().setRoot(OtpPage);
+    }
   }
 
 }

@@ -82,4 +82,29 @@ export class AuthService {
 
     // Unschedule the token refresh
   }
+
+  /**
+   * Sends http requests for otp authentication, requesting otp and unlocking user.
+   * 
+   * @param data
+   * @param unlock
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   */
+  otp(data, unlock){
+    return new Observable((observer) => {
+      this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock)? "/unlock" : ""), data)
+        .subscribe((res) => {
+          observer.next(res.text());
+          observer.complete();
+        }, (res) => {
+          let msg = res.json();
+          if (msg["errors"]){
+            msg = msg.errors;
+          }
+          observer.next(msg);
+          observer.complete();
+        });
+    });
+  }
+
 }
