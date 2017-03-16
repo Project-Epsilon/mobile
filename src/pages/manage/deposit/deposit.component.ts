@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { BankTransferService } from "../../../providers/bank.service";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
+import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
-
 
 @Component({
-  selector: 'deposit-component',
-  templateUrl: './deposit.component.html'
+  selector: "deposit-component",
+  templateUrl: "./deposit.component.html",
 })
 export class DepositComponent {
   public currencies: Object;
@@ -18,12 +17,12 @@ export class DepositComponent {
     public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
 
   ) {
     this.form = this.formBuilder.group({
-      amount: ['', Validators.required],
-      currency: ['', Validators.required]
+      amount: ["", Validators.required],
+      currency: ["", Validators.required],
     });
   }
 
@@ -31,15 +30,15 @@ export class DepositComponent {
    * Retrieves currencies from local storage and sets the appropiate decimal places.
    * Function is called when page loads.
    */
-  ionViewDidLoad() {
-    this.storage.get('currencies')
-      .then(currencies => {
+  public ionViewDidLoad() {
+    this.storage.get("currencies")
+      .then((currencies) => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
 
-    this.wallets = this.walletSrv.wallets
+    this.wallets = this.walletSrv.wallets;
   }
 
   /**
@@ -47,10 +46,9 @@ export class DepositComponent {
    */
   public setDecimalPlaces() {
     let minorUnit = this.form.value.currency.minor_unit;
-    if (minorUnit == 0) {
+    if (minorUnit === 0) {
       this.form.value.decimalPlaces = 1;
-    }
-    else {
+    } else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
     }
   }
@@ -60,8 +58,8 @@ export class DepositComponent {
    */
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe((res) => {
+        // console.log(res);
         /**
          * Relavent information
          * data.transactions.description
@@ -73,7 +71,7 @@ export class DepositComponent {
          *    1 - REDIRECT
          *    2 - POST
          */
-        //let paypalUrl = res.links[1].href;
+        // let paypalUrl = res.links[1].href;
         // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
       });
   }
