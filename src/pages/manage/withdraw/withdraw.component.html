@@ -13,7 +13,7 @@
           [max]="maxAmount"
         ></ion-input>
       </ion-item>
-      <div *ngIf="!validAmount">You only have {{maxAmount}} {{maxCurrency}}!</div>
+      <p color="danger" *ngIf="!validAmount">You only have {{maxAmount}} {{maxCurrency}}!</p>
 
       <ion-item>
         <ion-label stacked>Select Currency</ion-label>

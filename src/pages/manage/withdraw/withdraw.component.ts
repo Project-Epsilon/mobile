@@ -77,6 +77,7 @@ export class WithdrawComponent {
 
     if (res.data){
       this.walletSrv.updateWallet(res.data);
+      this.form.reset();
       new Alert(
         this.alertCtrl,
         "Withdrawal Success",
