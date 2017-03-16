@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
+import { Validators, FormBuilder, FormGroup } from "@angular/forms";
+import { NavParams } from "ionic-angular";
+
 
 @Component({
   selector: "deposit-component",
@@ -12,31 +14,34 @@ export class DepositComponent {
   private currencies: Object;
   private wallets: any;
   private form: FormGroup;
+  private default_currency: Object;
 
   constructor(
     public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
-    private formBuilder: FormBuilder,
-
+    public navParams: NavParams,
+    private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
       amount: ["", Validators.required],
-      currency: ["", Validators.required],
+      currency: [this.default_currency, Validators.required]
     });
   }
   /**
-   * Retrieves currencies from local storage and sets the appropiate decimal places.
+   * Retrieves currencies from local storage and sets the appropriate decimal places.
    * Function is called when page loads.
    */
-  public ionViewDidLoad() {
-    this.storage.get("currencies")
-      .then((currencies) => {
+  public ngOnInit() {
+    this.storage.get('currencies')
+      .then(currencies => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-
+    if (this.navParams.get("currency"))
+      this.default_currency = this.navParams.get("currency");
+    console.log(this.navParams.get("currency"));
     this.wallets = this.walletSrv.wallets;
   }
 
@@ -50,6 +55,19 @@ export class DepositComponent {
     } else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
     }
+  }
+
+  /**
+   * Compares two currencies for equality
+   *
+   * @param currency1
+   * @param currency2
+   * @returns {boolean}
+   */
+  public isSameCurrency(currency1, currency2) {
+    if (currency1 == null || currency2 == null)
+      return null;
+    return (currency1.code == currency2.code);
   }
 
   /**

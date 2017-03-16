@@ -1,6 +1,6 @@
+import { AlertController, LoadingController, Loading, NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, Loading, LoadingController } from "ionic-angular";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import { Alert } from "../../../utils/Alert";
@@ -23,6 +23,7 @@ export class WithdrawComponent {
     public bankSrv: BankTransferService,
     public walletSrv: WalletsService,
     private formBuilder: FormBuilder,
+    public navParams: NavParams,
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Processing bank transfer.",
@@ -31,9 +32,9 @@ export class WithdrawComponent {
     this.form = this.formBuilder.group({
       amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
       email: ["", [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")]],
-      wallet: [null, Validators.required],
+      wallet: [this.navParams.get("wallet"), Validators.required],
     });
-// Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
+
     this.wallets = this.walletSrv.wallets;
   }
 
