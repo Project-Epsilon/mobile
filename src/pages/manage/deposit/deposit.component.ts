@@ -9,9 +9,9 @@ import { WalletsService } from "../../../providers/wallet.service";
   templateUrl: "./deposit.component.html",
 })
 export class DepositComponent {
-  public currencies: Object;
-  public wallets: any;
-  public form: FormGroup;
+  private currencies: Object;
+  private wallets: any;
+  private form: FormGroup;
 
   constructor(
     public bankSrv: BankTransferService,

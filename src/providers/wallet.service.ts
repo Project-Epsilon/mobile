@@ -4,16 +4,10 @@ import {Observable} from "rxjs";
 import "rxjs/add/operator/map";
 import {environment} from "../environments/environment";
 
-/*
-  Generated class for the WalletsService provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class WalletsService {
 
-  wallets;
+  public wallets: any;
 
   constructor(
     public http: AuthHttp,
@@ -23,7 +17,7 @@ export class WalletsService {
    * Gets all wallets of the user.
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
-  public getWallets(){
+  public getWallets() {
     let data = new Observable((observer) => {
       this.http.get(environment.server_url + "/api/wallet")
         .map((res) => res.json())
@@ -40,12 +34,11 @@ export class WalletsService {
    * Updates a wallet in this service.
    * @param walletUpdate
    */
-  public updateWallet(walletUpdate){
+  public updateWallet(walletUpdate) {
     let exists = false;
 
-    //Find and update the wallet.
-    for (let wallet of this.wallets){
-      if (wallet.id == walletUpdate.id){
+    for (let wallet of this.wallets) {
+      if (wallet.id === walletUpdate.id) {
         wallet.balance = walletUpdate.balance;
         wallet.shown = walletUpdate.shown;
         wallet.order = walletUpdate.order;
@@ -54,8 +47,7 @@ export class WalletsService {
       }
     }
 
-    //If the wallet does not exists push it to the array
-    if (! exists){
+    if (! exists) {
       this.wallets.push(walletUpdate);
     }
   }

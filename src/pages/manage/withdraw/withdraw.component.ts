@@ -10,9 +10,9 @@ import { Alert } from "../../../utils/Alert";
   templateUrl: "./withdraw.component.html",
 })
 export class WithdrawComponent {
-  private loader: Loading;
+  public loader: Loading;
   private form: FormGroup;
-  private validAmount = true;
+  public validAmount = true;
   private maxAmount: number;
   private maxCurrency: number;
   private wallets: any;

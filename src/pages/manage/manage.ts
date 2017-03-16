@@ -11,22 +11,13 @@ import { WalletsService } from "../../providers/wallet.service";
 })
 export class ManagePage {
 
-  currencies: Object;
-  wallets: any;
-
-  action: string = "deposit";
-  loader: Loading;
-
-  private transferErrors: Error;
+  public loader: Loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public bankSrv: BankTransferService,
     public storage: Storage,
-    public walletSrv: WalletsService,
-    private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
   ) {
       this.loader = this.loadingCtrl.create({
         content: "Processing bank transfer.",
