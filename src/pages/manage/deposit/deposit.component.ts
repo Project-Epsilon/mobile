@@ -16,11 +16,12 @@ export class DepositComponent implements OnInit {
   public wallets: any;
   public form: FormGroup;
 
-  constructor(public bankSrv: BankTransferService,
-              public storage: Storage,
-              public walletSrv: WalletsService,
-              public navParams: NavParams,
-              private formBuilder: FormBuilder) {
+  constructor(
+    public bankSrv: BankTransferService,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    public navParams: NavParams,
+    private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       amount: ['', Validators.required],
       currency: [this.default_currency, Validators.required]
