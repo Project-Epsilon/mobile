@@ -10,20 +10,17 @@ import { NavParams } from "ionic-angular";
   selector: 'deposit-component',
   templateUrl: './deposit.component.html'
 })
-export class DepositComponent implements OnInit{
+export class DepositComponent implements OnInit {
   public currencies: Object;
   public default_currency: Object;
   public wallets: any;
   public form: FormGroup;
 
-  constructor(
-    public bankSrv: BankTransferService,
-    public storage: Storage,
-    public walletSrv: WalletsService,
-    public navParams: NavParams,
-    private formBuilder: FormBuilder
-
-  ) {
+  constructor(public bankSrv: BankTransferService,
+              public storage: Storage,
+              public walletSrv: WalletsService,
+              public navParams: NavParams,
+              private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       amount: ['', Validators.required],
       currency: [this.default_currency, Validators.required]
@@ -34,14 +31,14 @@ export class DepositComponent implements OnInit{
    * Retrieves currencies from local storage and sets the appropriate decimal places.
    * Function is called when page loads.
    */
-  public ngOnInit(){
+  public ngOnInit() {
     this.storage.get('currencies')
       .then(currencies => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-    if(this.navParams.get("currency"))
+    if (this.navParams.get("currency"))
       this.default_currency = this.navParams.get("currency");
     console.log(this.navParams.get("currency"));
     this.wallets = this.walletSrv.wallets;
@@ -67,10 +64,10 @@ export class DepositComponent implements OnInit{
    * @param currency2
    * @returns {boolean}
    */
-  public isSameCurrency(currency1, currency2){
-    if(currency1==null||currency2==null)
+  public isSameCurrency(currency1, currency2) {
+    if (currency1 == null || currency2 == null)
       return null;
-    return(currency1.code==currency2.code);
+    return (currency1.code == currency2.code);
   }
 
   /**
