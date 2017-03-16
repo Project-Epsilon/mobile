@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
-import { InAppBrowser } from "ionic-native";
-import { BankTransferService } from "../../providers/bank.service";
-import { WalletsService } from "../../providers/wallet.service";
+import { Loading, LoadingController, NavController, NavParams} from "ionic-angular";
+
 
 @Component({
   selector: "page-manage",
@@ -12,6 +10,7 @@ import { WalletsService } from "../../providers/wallet.service";
 export class ManagePage {
 
   public loader: Loading;
+  public action: string = "deposit";
 
   constructor(
     public navCtrl: NavController,

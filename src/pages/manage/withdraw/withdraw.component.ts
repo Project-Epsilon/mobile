@@ -30,10 +30,10 @@ export class WithdrawComponent {
 
     this.form = this.formBuilder.group({
       amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
-      email: ["", [Validators.required]],
+      email: ["", [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")]],
       wallet: [null, Validators.required],
     });
-
+// Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")
     this.wallets = this.walletSrv.wallets;
   }
 
@@ -60,16 +60,16 @@ export class WithdrawComponent {
       { text: "Cancel", role: "cancel"},
       {
         handler: () => {
-          this.loader.present();
+          this.loader.present().catch(f => f);
 
           this.bankSrv.withdraw(
             this.form.value.wallet.id,
             this.form.value.amount,
             this.form.value.email,
           ).subscribe(
-              (res) => this.handleWithdrawal(res, displayAmount),
-              (error) => { Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]); },
-          );
+              (res) => { this.loader.dismiss().catch(f => f); this.handleWithdrawal(res, displayAmount);  },
+              (error) => { this.loader.dismiss().catch(f => f); Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]); },
+          )
         },
         text: "Confirm",
       },
@@ -86,7 +86,6 @@ export class WithdrawComponent {
    * @param displayAmount
    */
   private handleWithdrawal(res, displayAmount) {
-    this.loader.dismiss();
 
     if (res.data) {
       this.walletSrv.updateWallet(res.data);

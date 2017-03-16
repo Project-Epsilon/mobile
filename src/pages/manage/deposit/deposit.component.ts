@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
 import { BankTransferService } from "../../../providers/bank.service";
@@ -25,7 +25,6 @@ export class DepositComponent {
       currency: ["", Validators.required],
     });
   }
-
   /**
    * Retrieves currencies from local storage and sets the appropiate decimal places.
    * Function is called when page loads.
