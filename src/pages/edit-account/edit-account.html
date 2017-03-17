@@ -11,23 +11,40 @@
   <form [formGroup]="updateAccount" (ngSubmit)="updateInfo()">
     <ion-item>
       <ion-label stacked>Name</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
+      <ion-input formControlName="name" type="text" [class.invalid]="!updateAccount.controls.name.valid"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!updateAccount.controls.name.valid">
+      <p>Please enter a valid name.</p>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Email</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
+      <ion-input formControlName="email" name="email" type="email" [class.invalid]="!updateAccount.controls.email.valid"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!updateAccount.controls.email.valid">
+      <p>Please enter a valid Email.</p>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Phone Number</ion-label>
-      <ion-input type="tel" formControlName="phone_number"></ion-input>
+      <ion-input formControlName="phone_number" type="tel" [class.invalid]="!updateAccount.controls.phone_number.valid"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="!updateAccount.controls.phone_number.valid">
+      <p>Please enter a valid Phone Number.</p>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Username</ion-label>
-      <ion-input type="text" formControlName="username"></ion-input>
+      <ion-input formControlName="username" type="text" [class.invalid]="!updateAccount.controls.username.valid"></ion-input>
     </ion-item>
+
+    <ion-item *ngIf="!updateAccount.controls.username.valid">
+      <p>Please enter a valid Username.</p>
+    </ion-item>
+
     <button ion-button full [disabled]="!updateAccount.valid">Update Info</button>
   </form>
 </ion-content>
