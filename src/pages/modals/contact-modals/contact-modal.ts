@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { ViewController } from "ionic-angular";
 
 @Component({
-    selector: "page-contacts-modal",
-    templateUrl: "contacts-modal.html",
+    selector: "page-contact-modal",
+    templateUrl: "contact-modal.html",
 })
-export class ContactsModalPage {
+export class ContactModalPage {
 
     constructor(public viewCtrl: ViewController) {}
 

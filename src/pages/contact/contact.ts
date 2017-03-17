@@ -6,7 +6,7 @@ import { ModalController } from "ionic-angular";
 import { NavController } from "ionic-angular";
 
 import { environment } from "../../environments/environment";
-import { ContactsModalPage } from "../modals/contacts-modals/contacts-modal";
+import { ContactModalPage } from "../modals/contact-modals/contact-modal";
 
 @Component({
   selector: "page-contact",
@@ -24,8 +24,8 @@ export class ContactPage {
         .subscribe((result) => this.contacts = result.data);
   }
 
-  showContactsModal() {
-    let modal = this.modalCtrl.create(ContactsModalPage);
+  showContactModal() {
+    let modal = this.modalCtrl.create(ContactModalPage);
     modal.present();
   }
 
