@@ -1,12 +1,12 @@
-import { Injectable, NgZone } from "@angular/core";
-import { Storage } from "@ionic/storage";
-import { AuthHttp, tokenNotExpired } from "angular2-jwt";
+import {Injectable, NgZone} from "@angular/core";
+import {Storage} from "@ionic/storage";
+import {AuthHttp, tokenNotExpired} from "angular2-jwt";
 
-import { Http } from "@angular/http";
-import { InAppBrowser } from "ionic-native";
-import { environment } from "../environments/environment";
+import {Http} from "@angular/http";
+import {InAppBrowser} from "ionic-native";
+import {environment} from "../environments/environment";
 
-import { Observable } from "rxjs";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthService {
@@ -36,6 +36,48 @@ export class AuthService {
    */
   public authenticated() {
     return tokenNotExpired("id_token", this.idToken);
+  }
+
+  public OTPauthenticate(phone_number) {
+    console.log(phone_number);
+    let data = new Observable((observer) => {
+      this.authHttp.post(environment.server_url + "/api/auth/otp", {
+        phone_number: phone_number,
+      })
+
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+        },
+          (err) => {
+            let data = err.json().errors.message;
+            console.log(data + "OTPRES");
+            observer.next(data);
+            observer.complete();
+        },
+        );
+    });
+
+    return data;
+  }
+
+  public OTPcodeauth(token) {
+    let data = new Observable((observer) => {
+      this.authHttp.post(environment.server_url + "/api/auth/otp/unlock", {
+        token: token,
+      }).subscribe((res) => {
+            observer.next(res);
+            observer.complete();
+          }, (err) => {
+            let data = err.json().errors.message;
+            console.log(data + "OTPRES");
+
+            observer.next(data);
+            observer.complete();
+          },
+        );
+    });
+    return data;
   }
 
   /**

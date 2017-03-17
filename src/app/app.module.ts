@@ -14,12 +14,12 @@ import { WalletSlideComponent } from "../pages/home/wallet-slide/wallet-slide.co
 import { LoginPage } from "../pages/login/login";
 
 import { ManagePage } from "../pages/manage/manage";
+import { OTPPage } from "../pages/OTP/otp";
 import {TransfersModalPage} from "../pages/modals/transfers-modal/transfers-modal";
 import { MorePage } from "../pages/more/more";
 import { SendMoneyPage } from "../pages/send-money/send-money";
 import { TabsPage } from "../pages/tabs/tabs";
 import {TransfersPage} from "../pages/transfers/transfers";
-
 import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
 import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 import { AuthService } from "../providers/auth.service";
@@ -41,6 +41,7 @@ export function getAuthHttp(http) {
     MyApp,
     ContactPage,
     HomePage,
+    OTPPage,
     TabsPage,
     LoginPage,
     SendMoneyPage,
@@ -64,6 +65,7 @@ export function getAuthHttp(http) {
     ContactPage,
     HomePage,
     TabsPage,
+    OTPPage,
     LoginPage,
     SendMoneyPage,
     TransfersPage,

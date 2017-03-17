@@ -3,6 +3,7 @@ import { Storage } from "@ionic/storage";
 import { AuthHttp } from "angular2-jwt";
 import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
+import { OTPPage } from "../OTP/otp";
 import { TabsPage } from "../tabs/tabs";
 import {Http} from "@angular/http";
 
@@ -11,7 +12,7 @@ import {Http} from "@angular/http";
   templateUrl: "login.html",
 })
 export class LoginPage {
-
+  public locked:boolean = true;
   constructor(
       public navCtrl: NavController,
       public navParams: NavParams,
@@ -28,14 +29,28 @@ export class LoginPage {
    * @param provider
    */
   showAuth(provider){
-    this.auth.login(provider).subscribe((user) => {
-
-      if (user){
-        this.app.getRootNav().setRoot(TabsPage);
+    this.auth.login(provider).subscribe((user: any) => {
+      if (user.locked){
+        this.app.getRootNav().setRoot(OTPPage);
       }
+        else
+        {
+        this.app.getRootNav().setRoot(TabsPage);
+        }
+      
     });
   }
+  OTPlogin()
+  {
+          this.app.getRootNav().setRoot(OTPPage);
+  }
 
+  return()
+{
+          this.app.getRootNav().setRoot(OTPPage);
+  
+  
+}
   /**
    * Auto login for development
    *  

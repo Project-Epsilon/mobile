@@ -27,6 +27,7 @@ export class ManagePage {
     private alertCtrl: AlertController,
     public loadingCtrl: LoadingController
   ) {
+
       this.loader = this.loadingCtrl.create({
         content: "Processing bank transfer.",
       });
