@@ -15,4 +15,5 @@ describe('Wallet Service', () => {
     it('Get wallets response should not be null', () => {
         expect(this.service.getWallets()).not.toBeNull();
     });
+
 });

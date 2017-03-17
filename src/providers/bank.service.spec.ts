@@ -20,8 +20,6 @@ describe('Bank Service', () => {
                 },
                     deps: [MockBackend, BaseRequestOptions]
                 },
-                Storage,
-                AuthHttp,
                 MockBackend,
                 BaseRequestOptions,
                 BankTransferService
@@ -29,15 +27,18 @@ describe('Bank Service', () => {
 
         });
 
-
-    it('Deposit response should not be null', () => {
-        expect(this.BankTransferService.deposit(2.00, 'USD')).not.toBeNull();
     });
+        it('service should be defined', async(inject([BankTransferService], (service) => {
+            expect(service).toBeDefined();
+        })));
 
-    it('Withdrawl response should  be null', () => {
-        expect(this.BankTransferService.Withdrawl(2, 'USD')).not.toBeNull();
-    });
+        it('Deposit response should not be null', async(inject([BankTransferService], (service) => {
+            expect(service.deposit(2.00, 'USD')).not.toBeNull();
+        })));
+
+        it('USD should not be null', async(inject([BankTransferService], (service) => {
+            expect(service.deposit(2.00, 'USD')).not.toBeNull();
+        })));
+
 
 });
-
-})
