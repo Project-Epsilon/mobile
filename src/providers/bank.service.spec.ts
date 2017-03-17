@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {environment} from "../environments/environment";
 import {BankTransferService} from './bank.service';
-import {AuthHttp} from "angular2-jwt";
+import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth } from 'angular2-jwt';
 import {TestBed, async, inject} from '@angular/core/testing';
 import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from '@angular/http';
 import {MockBackend} from '@angular/http/testing';
@@ -19,6 +19,13 @@ describe('Bank Service', () => {
                     return new Http(backend, options);
                 },
                     deps: [MockBackend, BaseRequestOptions]
+                },
+                {
+                    provide: AuthHttp,
+                    useFactory: (http) => {
+                        return new AuthHttp(new AuthConfig(), http);
+                    },
+                    deps: [Http]
                 },
                 MockBackend,
                 BaseRequestOptions,
