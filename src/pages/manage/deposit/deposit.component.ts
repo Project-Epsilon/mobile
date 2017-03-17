@@ -4,6 +4,8 @@ import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { NavParams } from "ionic-angular";
+import { InAppBrowser } from "ionic-native";
+import { environment } from "../../../environments/environment";
 
 
 @Component({
@@ -75,21 +77,22 @@ export class DepositComponent {
    */
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
-      .subscribe((res) => {
-        // console.log(res);
-        /**
-         * Relavent information
-         * data.transactions.description
-         * data.transactions.invoice_number
-         * data.create_time
-         * data.id
-         * data.links[i].href
-         *    0 - GET
-         *    1 - REDIRECT
-         *    2 - POST
-         */
-        // let paypalUrl = res.links[1].href;
-        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
+      .subscribe((res: any) => {
+        if (res['data']){
+          let browser = new InAppBrowser(res.data.url, "_blank");
+          browser.on("loadstart")
+            .subscribe((event) => {
+              if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
+                browser.close();
+
+                let wallet = event.url.substring(event.url.indexOf("wallet=") + 7);
+
+                wallet = JSON.parse(decodeURIComponent(wallet));
+                this.walletSrv.updateWallet(wallet);
+              }
+            });
+        }
       });
   }
+
 }
