@@ -14,7 +14,7 @@ export class BankTransferService {
   ) {}
 
   public deposit(amount, currency) {
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/bank/deposit", {
           amount,
           currency,
@@ -26,7 +26,6 @@ export class BankTransferService {
           observer.complete();
         });
     });
-    return data;
   }
 
   public withdraw(wallet_id, amount, email){

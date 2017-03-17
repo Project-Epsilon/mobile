@@ -2,12 +2,7 @@ import { Component } from "@angular/core";
 import { ModalController, NavController, NavParams} from "ionic-angular";
 import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 
-/*
-  Generated class for the Transfers page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   selector: "page-transfers",
   templateUrl: "transfers.html",
@@ -20,6 +15,9 @@ export class TransfersPage {
     console.log("ionViewDidLoad TransfersPage");
   }
 
+  /**
+   * Expands transaction to show more details
+   */
   showTransferModal() {
     let modal = this.modalCtrl.create(TransfersModalPage);
     modal.present();

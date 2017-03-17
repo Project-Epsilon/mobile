@@ -12,6 +12,7 @@ import { HomePage } from "../pages/home/home";
 import { WalletHeaderComponent } from "../pages/home/wallet-header/wallet-header.component";
 import { WalletSlideComponent } from "../pages/home/wallet-slide/wallet-slide.component";
 import { LoginPage } from "../pages/login/login";
+
 import { ManagePage } from "../pages/manage/manage";
 import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
 import { MorePage } from "../pages/more/more";
@@ -20,8 +21,11 @@ import { TabsPage } from "../pages/tabs/tabs";
 import { TransfersPage } from "../pages/transfers/transfers";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
 
+import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
+import { DepositComponent } from '../pages/manage/deposit/deposit.component';
 import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
+import { TransferService } from "../providers/transfer.service";
 import { CurrencyService } from "../providers/currency.service";
 import { WalletsService } from "../providers/wallet.service";
 
@@ -50,6 +54,8 @@ export function getAuthHttp(http) {
     TransactionLogComponent,
     TransactionComponent,
     EditAccountPage,
+    WithdrawComponent,
+    DepositComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -75,6 +81,7 @@ export function getAuthHttp(http) {
     WalletsService,
     CurrencyService,
     BankTransferService,
+    TransferService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
