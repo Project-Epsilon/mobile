@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-
+  server_url: "http://server.laurendylam.com",
 
 };
