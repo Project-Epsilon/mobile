@@ -64,7 +64,8 @@ export class TransfersPage {
   public handleReceive (res) {
     if( res.data ) {
       this.token = "";
-      this.walletSrv.getWallets().subscribe( (walletRes) => this.wallets = walletRes);
+      this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
+
       Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."])
     } else {
       Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."])
