@@ -42,7 +42,7 @@ export class EditAccountPage {
       username: [this.user.username,
         Validators.compose([
           Validators.maxLength(30),
-          Validators.pattern('[a-zA-Z0-9]*'),
+          Validators.pattern('[a-zA-Z]*'),
           Validators.required]
         )],
     });
