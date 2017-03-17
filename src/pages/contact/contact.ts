@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
+import { AuthHttp } from "angular2-jwt";
+import { Pipe } from "@angular/core";
 
 import { NavController } from "ionic-angular";
 
-import { Pipe } from "@angular/core";
+import { environment } from "../../environments/environment";
 
 @Component({
   selector: "page-contact",
@@ -10,16 +12,17 @@ import { Pipe } from "@angular/core";
 })
 export class ContactPage {
 
-  contacts = [
-    {name: 'Alessandro Power', phone_number: '5143184311', email: 'alessandrojpower@gmail.com'},
-    {name: 'Alessandro Power', phone_number: '5143184311', email: 'alessandrojpower@gmail.com'},
-    {name: 'Alessandro Power', phone_number: '5143184311', email: 'alessandrojpower@gmail.com'},
-    {name: 'Alessandro Power', phone_number: '5143184311', email: 'alessandrojpower@gmail.com'},
-    {name: 'Alessandro Power', phone_number: '5143184311', email: 'alessandrojpower@gmail.com'}
-  ];
+  public contacts: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public http: AuthHttp) {
+    this.init();
+  }
 
+  public init() {
+    this.http.get(environment.server_url + "/api/user/contact")
+        .map((res) => res.json())
+        .subscribe((result) => this.contacts = result.data);
   }
 
 }
