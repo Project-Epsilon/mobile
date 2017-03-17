@@ -18,12 +18,12 @@ export class TransferService {
    *
    * @param receiver
    * @param amount
-   * @param wallet_id
+   * @param walletId
    * @param message
    * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
    */
   public send(receiver, amount, walletId, message) {
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/user/send", {
         receiver,
         amount,
@@ -36,7 +36,6 @@ export class TransferService {
           observer.complete();
         });
     });
-    return data;
   }
 
   /**
@@ -44,7 +43,7 @@ export class TransferService {
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public receive() {
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/user/receive", {})
         .map((res) => res.json())
         .subscribe((res) => {
@@ -52,6 +51,5 @@ export class TransferService {
           observer.complete();
         });
     });
-    return data;
   }
 }

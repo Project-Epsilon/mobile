@@ -18,7 +18,7 @@ export class WalletsService {
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public getWallets() {
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
       this.http.get(environment.server_url + "/api/wallet")
         .map((res) => res.json())
         .subscribe((res) => {
@@ -27,7 +27,6 @@ export class WalletsService {
           observer.complete();
         });
     });
-    return data;
   }
 
   /**
