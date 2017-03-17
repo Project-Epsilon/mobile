@@ -2,6 +2,7 @@ import {Component, Input, AfterContentChecked} from "@angular/core";
 import {CurrencyService} from "../../../providers/currency.service";
 import {NavController} from "ionic-angular";
 import {ManagePage} from "../../manage/manage";
+import {SendMoneyPage} from "../../send-money/send-money";
 
 @Component({
   selector: "wallet-header",
@@ -36,6 +37,9 @@ export class WalletHeaderComponent implements AfterContentChecked {
     }
     else if(string=="withdraw"){
       this.navCtrl.setRoot(ManagePage, {wallet : this.wallet, action : "withdraw"});
+    }
+    else if(string=="send"){
+      this.navCtrl.setRoot(SendMoneyPage, {wallet : this.wallet});
     }
   }
 
