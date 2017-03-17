@@ -22,7 +22,6 @@ export class ManagePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
     private alertCtrl: AlertController,
