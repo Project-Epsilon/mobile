@@ -24,8 +24,8 @@ export class ContactPage {
         .subscribe((result) => this.contacts = result.data);
   }
 
-  showContactModal() {
-    let modal = this.modalCtrl.create(ContactModalPage);
+  showContactModal(contact) {
+    let modal = this.modalCtrl.create(ContactModalPage, { contact: contact });
     modal.present();
   }
 

@@ -7,13 +7,13 @@ import { MyApp } from "./app.component";
 
 import { TransactionLogComponent } from "../components/transaction-log/transaction-log.component";
 import { TransactionComponent } from "../components/transaction/transaction.component";
-import {ContactPage, PhonePipe} from "../pages/contact/contact";
+import { ContactPage, PhonePipe } from "../pages/contact/contact";
 import { HomePage } from "../pages/home/home";
 import { WalletHeaderComponent } from "../pages/home/wallet-header/wallet-header.component";
 import { WalletSlideComponent } from "../pages/home/wallet-slide/wallet-slide.component";
 import { LoginPage } from "../pages/login/login";
 import { ManagePage } from "../pages/manage/manage";
-import {TransfersModalPage} from "../pages/modals/transfers-modal/transfers-modal";
+import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
 import { MorePage } from "../pages/more/more";
 import { SendMoneyPage } from "../pages/send-money/send-money";
 import { TabsPage } from "../pages/tabs/tabs";
@@ -23,6 +23,7 @@ import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
 import { CurrencyService } from "../providers/currency.service";
 import { WalletsService } from "../providers/wallet.service";
+import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();
@@ -43,6 +44,7 @@ export function getAuthHttp(http) {
     TransfersPage,
     ManagePage,
     MorePage,
+    ContactModalPage,
     TransfersModalPage,
     WalletSlideComponent,
     WalletHeaderComponent,
@@ -64,6 +66,7 @@ export function getAuthHttp(http) {
     TransfersPage,
     ManagePage,
     MorePage,
+    ContactModalPage,
     TransfersModalPage,
   ],
   providers: [

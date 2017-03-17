@@ -2,7 +2,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            Details
+            Contact Details
         </ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
@@ -16,15 +16,8 @@
 <ion-content>
     <ion-list>
         <ion-item>
-            <h2>{{character.name}}</h2>
-            <p>{{character.quote}}</p>
-        </ion-item>
-
-        <ion-item *ngFor="let item of character['items']">
-            {{item.title}}
-            <ion-note item-right>
-                {{item.note}}
-            </ion-note>
+            <h2>{{contact.name}}</h2>
+            <p>{{contact.phone_number}}</p>
         </ion-item>
     </ion-list>
 </ion-content>

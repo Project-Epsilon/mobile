@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ViewController } from "ionic-angular";
+import { NavParams, ViewController } from "ionic-angular";
 
 @Component({
     selector: "page-contact-modal",
@@ -7,7 +7,12 @@ import { ViewController } from "ionic-angular";
 })
 export class ContactModalPage {
 
-    constructor(public viewCtrl: ViewController) {}
+    public contact;
+
+    constructor(public viewCtrl: ViewController,
+                public params: NavParams) {
+        this.contact = this.params.get('contact');
+    }
 
     dismiss() {
         this.viewCtrl.dismiss();
