@@ -1,10 +1,9 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import {AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
-import { InAppBrowser } from "ionic-native";
+import { AlertController, Loading, LoadingController, NavController, NavParams} from "ionic-angular";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
-import {HomePage} from "../home/home";
+import { HomePage } from "../home/home";
 
 @Component({
   selector: "page-manage",
@@ -15,8 +14,10 @@ export class ManagePage {
   currencies: Object;
   wallets: any;
 
-  action: string = "add_money";
+  action: string = "deposit";
   loader: Loading;
+
+  private transferErrors: Error;
 
   constructor(
     public navCtrl: NavController,
@@ -25,11 +26,12 @@ export class ManagePage {
     public storage: Storage,
     public walletSrv: WalletsService,
     private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController,
+    public loadingCtrl: LoadingController
   ) {
-    this.loader = this.loadingCtrl.create({
-      content: "Processing bank transfer.",
-    });
+
+      this.loader = this.loadingCtrl.create({
+        content: "Processing bank transfer.",
+      });
   }
 
   /**
@@ -42,134 +44,15 @@ export class ManagePage {
   }
 
   /**
-   * Determines if user selected deposit or withdraw and displays appropriate currency
+   * Determines which manage page to show user depending on button clicked
    */
   ionViewDidEnter(){
     if(this.navParams.get("wallet")){
       if(this.navParams.get("action")=="withdraw"){
         this.action = "withdraw";
-        this.withdrawMoney = {
-          wallet: this.navParams.get("wallet"),
-          amount: 0,
-          email: "",
-        }
       } else {
-        this.action = "add_money";
-        this.addMoney = {
-          currency: this.navParams.get("currency"),
-          amount: 0,
-          decimalPlaces: 0.01,
-        };
+        this.action = "deposit";
       }
     }
   }
-
-  /**
-   * Sets up currencies when page is created
-   */
-  ionViewDidLoad() {
-    this.storage.get("currencies")
-      .then((currencies) => {
-        this.currencies = currencies;
-        this.addMoney.currency = this.navParams.get("currency") == null ? this.currencies[0] : this.navParams.get("currency");
-        this.setDecimalPlaces();
-      });
-    this.wallets = this.walletSrv.wallets;
-  }
-
-  //******************************************************
-  // AddMoney
-  //******************************************************
-
-  addMoney = {
-    currency: null,
-    amount: 0,
-    decimalPlaces: 0,
-  };
-
-  public setDecimalPlaces() {
-    let minorUnit = this.addMoney.currency.minor_unit;
-    if (minorUnit == 0) {
-      this.addMoney.decimalPlaces = 1;
-    } else {
-      this.addMoney.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
-    }
-  }
-
-  public submitAddMoney() {
-    this.bankSrv.deposit(this.addMoney.amount, this.addMoney.currency.code)
-      .subscribe((res) => {
-        console.log(res);
-        /**
-         * Relavent information
-         * data.transactions.description
-         * data.transactions.invoice_number
-         * data.create_time
-         * data.id
-         * data.links[i].href
-         *    0 - GET
-         *    1 - REDIRECT
-         *    2 - POST
-         */
-        // let paypalUrl = res.links[1].href;
-        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
-      });
-  }
-
-  //******************************************************
-  // Withdraw Money
-  //******************************************************
-
-  public withdrawMoney = {
-    wallet: null,
-    amount: null,
-    email: "",
-  };
-
-  public submitWithDrawMoney(form) {
-    console.log(form);
-    let displayAmount = this.withdrawMoney.amount  + " " + this.withdrawMoney.wallet.currency_code;
-
-    this.alertCtrl.create({
-      title: "Confirm withdraw",
-      message: "Do you want to withdraw " + displayAmount,
-      buttons: [
-        { text: "Cancel", role: "cancel"},
-        {
-          text: "Confirm",
-          handler: () => {
-            this.loader.present();
-
-            this.bankSrv.withdraw(
-              this.withdrawMoney.wallet.id,
-              this.withdrawMoney.amount,
-              this.withdrawMoney.email,
-            ).subscribe((res) => {
-
-              this.loader.dismiss();
-              if (res.data){
-
-                this.walletSrv.updateWallet(res.data);
-                this.alertCtrl.create({
-                  title: "Withdrawal Success",
-                  subTitle: displayAmount + " has been successfully withdrawn from your account.",
-                  buttons: ["Dismiss"],
-                }).present();
-
-              } else {
-
-                this.alertCtrl.create({
-                  title: "Withdrawal Failed",
-                  subTitle: displayAmount + " could not have been processed.",
-                  buttons: ["Dismiss"],
-                }).present();
-
-              }
-            });
-          },
-        },
-      ],
-    }).present();
-  }
-
 }
