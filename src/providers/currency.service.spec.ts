@@ -21,7 +21,7 @@ describe('Currency Service', () => {
                 },
                     deps: [MockBackend, BaseRequestOptions]
                 },
-                Storage
+                Storage,
                 MockBackend,
                 BaseRequestOptions,
                 CurrencyService
