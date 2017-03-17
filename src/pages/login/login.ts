@@ -38,7 +38,7 @@ export class LoginPage {
 
   /**
    * Auto login for development
-   *  
+   *
    */
   autoLogin(){
     this.http.post('http://server.laurendylam.com/api/login', {

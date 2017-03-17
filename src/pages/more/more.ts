@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
-import {ContactPage} from "../contact/contact";
+import { EditAccountPage } from "../edit-account/edit-account";
 
 /*
   Generated class for the More page.
@@ -14,7 +14,7 @@ import {ContactPage} from "../contact/contact";
 })
 export class MorePage {
 
-  contactsPage = ContactPage;
+  editAccountPage = EditAccountPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 

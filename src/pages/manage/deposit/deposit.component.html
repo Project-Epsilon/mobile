@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="deposit()" novalidate>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label stacked>Amount</ion-label>
+        <ion-input formControlName="amount"
+                   type="number"
+                   placeholder="0.00"
+                   step="0.01"
+                   min="0"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Select Currency</ion-label>
+        <ion-select formControlName="currency" (ionChange)="setDecimalPlaces()">
+          <ng-container *ngFor="let currency of currencies">
+            <ion-option *ngIf="isSameCurrency(default_currency, currency)" [value]="default_currency" selected="true">
+              {{default_currency.code}} - {{default_currency.name}}
+            </ion-option>
+            <ion-option *ngIf="!isSameCurrency(default_currency, currency)" [value]="currency">
+              {{ currency.code }} - {{ currency.name }}
+            </ion-option>
+          </ng-container>
+        </ion-select>
+      </ion-item>
+
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-label text-center stacked>Deposit money with</ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <div text-center>
+        <button ion-button type="submit" block [disabled]="!form.valid">PayPal</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</form>
