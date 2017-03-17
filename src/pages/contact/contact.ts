@@ -15,9 +15,8 @@ export class ContactPage {
   public contacts: any;
 
   constructor(public navCtrl: NavController,
-              public http: AuthHttp) {
-    // Set the contacts parameter by making a GET request to the server.
-    this.http.get(environment.server_url + "/api/user/contact")
+              public auth_http: AuthHttp) {
+    this.auth_http.get(environment.server_url + "/api/user/contact")
         .map((res) => res.json())
         .subscribe((result) => this.contacts = result.data);
   }
@@ -29,10 +28,8 @@ export class ContactPage {
 })
 export class PhonePipe {
   transform(val, args) {
-    // If telephone number has seven characters, return in form 123-4567.
     if (val.length == 7) return val.slice(0, 3) + '-' + val.slice(3, 7);
 
-    // If telephone number has ten characters, return in form 123-456-7890.
     else if (val.length == 10) {
       let area_code = val.slice(0, 3);
       let three_digit = val.slice(3, 6);
@@ -41,7 +38,6 @@ export class PhonePipe {
       return '(' + area_code + ')' + ' ' + three_digit + '-' + four_digit;
     }
 
-    // Otherwise return the telephone number unmodified.
     return val;
   }
 }
