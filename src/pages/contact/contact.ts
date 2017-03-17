@@ -27,6 +27,13 @@ export class ContactPage {
   name: 'phone'
 })
 export class PhonePipe {
+  /**
+   * Modifies the input telephone number to match standard representations.
+   *
+   * @param val Telephone number as string.
+   * @param args
+   * @returns {String}
+   */
   transform(val, args) {
     if (val.length == 7) return val.slice(0, 3) + '-' + val.slice(3, 7);
 
