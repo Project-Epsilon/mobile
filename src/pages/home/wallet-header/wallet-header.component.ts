@@ -1,21 +1,42 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, Input, AfterContentChecked} from "@angular/core";
 import {CurrencyService} from "../../../providers/currency.service";
+import {NavController} from "ionic-angular";
+import {ManagePage} from "../../manage/manage";
 
 @Component({
-  selector: 'wallet-header',
-  templateUrl: 'wallet-header.component.html'
+  selector: "wallet-header",
+  templateUrl: "wallet-header.component.html",
 })
-export class WalletHeaderComponent implements OnInit {
+export class WalletHeaderComponent implements AfterContentChecked {
 
   @Input() wallet: any;
   currencyName: string;
 
   constructor(
-    public currencySrv: CurrencyService
+    public currencySrv: CurrencyService,
+    public navCtrl: NavController
   ) {}
 
-  ngOnInit() {
+  /**
+   * Lifecycle hook whenever content changes update the currency name
+   */
+  public ngAfterContentChecked(){
     this.currencyName = this.currencySrv.getCurrency(this.wallet.currency_code).name;
+  }
+
+  /**
+   * Redirects to appropriate page based off clicked action tab (deposit, withdraw, send)
+   *
+   * @param string
+   */
+  public redirect(string){
+    if(string=="deposit") {
+      let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
+      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "deposit", currency : currency});
+    }
+    else if(string=="withdraw"){
+      this.navCtrl.setRoot(ManagePage, {wallet : this.wallet, action : "withdraw"});
+    }
   }
 
 }

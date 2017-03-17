@@ -1,21 +1,15 @@
-import {Injectable} from '@angular/core';
-import 'rxjs/add/operator/map';
-import {AuthHttp} from "angular2-jwt";
+import { Injectable } from "@angular/core";
+import { AuthHttp } from "angular2-jwt";
 import {Observable} from "rxjs";
+import "rxjs/add/operator/map";
 import {environment} from "../environments/environment";
 
-/*
- Generated class for the WalletsService provider.
-
- See https://angular.io/docs/ts/latest/guide/dependency-injection.html
- for more info on providers and Angular 2 DI.
- */
 @Injectable()
 export class WalletsService {
 
-    wallets;
+    public wallets: any;
 
-    constructor(public http: AuthHttp) {
+    constructor(public http: AuthHttp,) {
     }
 
     /**
@@ -23,17 +17,15 @@ export class WalletsService {
      * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
      */
     public getWallets() {
-        let data = new Observable(observer => {
-            this.http.get(environment.server_url + '/api/wallet')
-                .map(res => res.json())
-                .subscribe(res => {
+        return new Observable((observer) => {
+            this.http.get(environment.server_url + "/api/wallet")
+                .map((res) => res.json())
+                .subscribe((res) => {
                     this.wallets = res.data;
-
                     observer.next(this.wallets);
                     observer.complete();
                 });
         });
-        return data;
     }
 
     /**
@@ -43,9 +35,8 @@ export class WalletsService {
     public updateWallet(walletUpdate) {
         let exists = false;
 
-        //Find and update the wallet.
         for (let wallet of this.wallets) {
-            if (wallet.id == walletUpdate.id) {
+            if (wallet.id === walletUpdate.id) {
                 wallet.balance = walletUpdate.balance;
                 wallet.shown = walletUpdate.shown;
                 wallet.order = walletUpdate.order;
@@ -54,10 +45,9 @@ export class WalletsService {
             }
         }
 
-        //If the wallet does not exists push it to the array
         if (!exists) {
             this.wallets.push(walletUpdate);
         }
-    }
 
+    }
 }

@@ -1,20 +1,20 @@
-import {TestBed, ComponentFixture, async} from '@angular/core/testing';
-import {TabsPage} from '../pages/tabs/tabs';
-import {IonicModule} from 'ionic-angular';
-import {MyApp} from './app.component';
+import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {IonicModule} from "ionic-angular";
+import {TabsPage} from "../pages/tabs/tabs";
+import {MyApp} from "./app.component";
 
 let fixture: ComponentFixture<MyApp>;
 let comp: MyApp;
 
-describe('Component: Root Component', () => {
+describe("Component: Root Component", () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             declarations: [MyApp],
             providers: [],
             imports: [
-                IonicModule.forRoot(MyApp)
-            ]
+                IonicModule.forRoot(MyApp),
+            ],
         }).compileComponents();
     }));
 
@@ -28,13 +28,13 @@ describe('Component: Root Component', () => {
         comp = null;
     });
 
-    it('is created', () => {
+    it("is created", () => {
         expect(fixture).toBeTruthy();
         expect(comp).toBeTruthy();
     });
 
-    it('initialises with a root page of HomePage', () => {
-        expect(comp['rootPage']).toBe(TabsPage);
+    it("initialises with a root page of HomePage", () => {
+        expect(comp["rootPage"]).toBe(TabsPage);
     });
 
 });

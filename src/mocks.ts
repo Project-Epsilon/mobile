@@ -1,6 +1,6 @@
 export class ConfigMock {
     public get(): any {
-        return '';
+        return "";
     }
     public getBoolean(): boolean {
         return true;
@@ -29,8 +29,8 @@ export class NavMock {
     }
     public getActive(): any {
         return {
-            'instance': {
-                'model': 'something',
+            instance: {
+                model: "something",
             },
         };
     }
