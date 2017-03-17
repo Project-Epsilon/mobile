@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
-import {AuthService} from "../../providers/auth.service";
+import { Component } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from "../../providers/auth.service";
 
 @Component({
   selector: 'page-edit-account',
