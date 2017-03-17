@@ -16,10 +16,7 @@ export class ContactPage {
 
   constructor(public navCtrl: NavController,
               public http: AuthHttp) {
-    this.init();
-  }
-
-  public init() {
+    // Set the contacts parameter by making a GET request to the server.
     this.http.get(environment.server_url + "/api/user/contact")
         .map((res) => res.json())
         .subscribe((result) => this.contacts = result.data);
