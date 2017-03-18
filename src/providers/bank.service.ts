@@ -1,6 +1,5 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
-
 import {AuthHttp} from "angular2-jwt";
 import {Observable} from "rxjs";
 import {environment} from "../environments/environment";
@@ -9,33 +8,39 @@ import {environment} from "../environments/environment";
 export class BankTransferService {
   data: any;
 
-  constructor(
-    public http: AuthHttp,
-  ) {}
 
+  constructor(public http: AuthHttp,) {
+  }
+
+  /**
+   * Conducts the deposit operation with paypal.
+   *
+   * @param amount
+   * @param currency
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   */
   public deposit(amount, currency) {
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/bank/deposit", {
-          amount,
-          currency,
-        })
-        .map((res) => res.json())
+        amount: amount,
+        currency: currency
+      })
         .subscribe((res) => {
+          let data = res.json();
 
-          observer.next(res);
+          observer.next(data);
           observer.complete();
         });
     });
-    return data;
   }
 
-  public withdraw(wallet_id, amount, email){
-      return this.http.post(environment.server_url + "/api/transfer/bank/withdraw", {
-          wallet_id,
-          amount,
-          email,
-        })
-        .map((res) => res.json());
+  public withdraw(wallet_id, amount, email) {
+    return this.http.post(environment.server_url + "/api/transfer/bank/withdraw", {
+      wallet_id,
+      amount,
+      email,
+    })
+      .map((res) => res.json());
   }
 
 }

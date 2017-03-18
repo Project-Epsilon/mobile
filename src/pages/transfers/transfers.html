@@ -1,9 +1,3 @@
-<!--
-  Generated template for the Manage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
   <ion-navbar>
@@ -27,36 +21,13 @@
 
   <div [ngSwitch]="action">
     <ion-list *ngSwitchCase="'pending'">
-      <ion-item-group>
-        <ion-item-divider color="light">January 13, 2016</ion-item-divider>
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
-          </ion-avatar>
-          <h2>FName LName</h2>
-          <button ion-button (click)="showTransferModal()">Details</button>
-          <p item-right color="in">+10.45$</p>
-        </ion-item>
-      </ion-item-group>
-
-      <ion-item-group>
-        <ion-item-divider color="light">January 10, 2016</ion-item-divider>
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
-          </ion-avatar>
-          <h2>FName LName</h2>
-          <p item-right color="out">-7.25$</p>
-        </ion-item>
-
-        <ion-item>
-          <ion-avatar item-left>
-            <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
-          </ion-avatar>
-          <h2>FName LName</h2>
-          <p item-right color="in">+10.45$</p>
-        </ion-item>
-      </ion-item-group>
+      <ion-item>
+        <ion-label text-center stacked>Transfer Token</ion-label>
+        <ion-input [(ngModel)] = "token" placeholder="Token" min="128" max="128" required>{{token}}</ion-input>
+      </ion-item>
+      <div text-center>
+        <button ion-button type="submit" (click)="receive()">Accept</button>
+      </div>
     </ion-list>
 
     <ion-list *ngSwitchCase="'history'">
