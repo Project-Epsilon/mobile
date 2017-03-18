@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
-import {environment} from "../environments/environment";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class WalletsService {
@@ -10,8 +10,8 @@ export class WalletsService {
   public wallets: any;
 
   constructor(
-    public http: AuthHttp,
-  ) {}
+    public http: AuthHttp
+  ) { }
 
   /**
    * Gets all wallets of the user.
@@ -46,7 +46,7 @@ export class WalletsService {
       }
     }
 
-    if (! exists) {
+    if (!exists) {
       this.wallets.push(walletUpdate);
     }
   }
@@ -64,5 +64,5 @@ export class WalletsService {
         this.updateWallet(wallet);
     });
   }
-
+  
 }
