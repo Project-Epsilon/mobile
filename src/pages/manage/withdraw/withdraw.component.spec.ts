@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { WithdrawComponent } from './withdraw.component';
+import { WithdrawComponent } from "./withdraw.component";
 
-describe('WithdrawComponent', () => {
+describe("WithdrawComponent", () => {
   let component: WithdrawComponent;
   let fixture: ComponentFixture<WithdrawComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ WithdrawComponent ]
+      declarations: [ WithdrawComponent ],
     })
     .compileComponents();
   }));
@@ -19,7 +19,7 @@ describe('WithdrawComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

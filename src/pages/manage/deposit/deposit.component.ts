@@ -1,33 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { BankTransferService } from "../../../providers/bank.service";
+import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
+import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { NavParams } from "ionic-angular";
+import { InAppBrowser } from "ionic-native";
+import { environment } from "../../../environments/environment";
 
 
 @Component({
-  selector: 'deposit-component',
-  templateUrl: './deposit.component.html'
+  selector: "deposit-component",
+  templateUrl: "./deposit.component.html",
 })
-export class DepositComponent implements OnInit {
-  public currencies: Object;
-  public default_currency: Object;
-  public wallets: any;
-  public form: FormGroup;
+export class DepositComponent {
+  private currencies: Object;
+  private wallets: any;
+  private form: FormGroup;
+  private default_currency: Object;
 
   constructor(
     public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
     public navParams: NavParams,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder
+  ) {
     this.form = this.formBuilder.group({
-      amount: ['', Validators.required],
+      amount: ["", Validators.required],
       currency: [this.default_currency, Validators.required]
     });
   }
-
   /**
    * Retrieves currencies from local storage and sets the appropriate decimal places.
    * Function is called when page loads.
@@ -50,10 +52,9 @@ export class DepositComponent implements OnInit {
    */
   public setDecimalPlaces() {
     let minorUnit = this.form.value.currency.minor_unit;
-    if (minorUnit == 0) {
+    if (minorUnit === 0) {
       this.form.value.decimalPlaces = 1;
-    }
-    else {
+    } else {
       this.form.value.decimalPlaces = 1.0 / Math.pow(10, minorUnit);
     }
   }
@@ -76,21 +77,22 @@ export class DepositComponent implements OnInit {
    */
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
-      .subscribe(res => {
-        console.log(res);
-        /**
-         * Relavent information
-         * data.transactions.description
-         * data.transactions.invoice_number
-         * data.create_time
-         * data.id
-         * data.links[i].href
-         *    0 - GET
-         *    1 - REDIRECT
-         *    2 - POST
-         */
-        //let paypalUrl = res.links[1].href;
-        // let browser = new InAppBrowser(paypalUrl, '_blank', 'location=yes');
+      .subscribe((res: any) => {
+        if (res['data']){
+          let browser = new InAppBrowser(res.data.url, "_blank");
+          browser.on("loadstart")
+            .subscribe((event) => {
+              if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
+                browser.close();
+
+                let wallet = event.url.substring(event.url.indexOf("wallet=") + 7);
+
+                wallet = JSON.parse(decodeURIComponent(wallet));
+                this.walletSrv.updateWallet(wallet);
+              }
+            });
+        }
       });
   }
+
 }

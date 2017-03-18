@@ -2,7 +2,7 @@ import { ErrorHandler, NgModule } from "@angular/core";
 import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import {IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
+import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { MyApp } from "./app.component";
 
 import { TransactionLogComponent } from "../components/transaction-log/transaction-log.component";
@@ -20,6 +20,7 @@ import { SendMoneyPage } from "../pages/send-money/send-money";
 import { TabsPage } from "../pages/tabs/tabs";
 import { TransfersPage } from "../pages/transfers/transfers";
 import { OtpPage } from "../pages/otp/otp";
+import { EditAccountPage } from "../pages/edit-account/edit-account";
 
 import { WithdrawComponent } from '../pages/manage/withdraw/withdraw.component';
 import { DepositComponent } from '../pages/manage/deposit/deposit.component';
@@ -54,6 +55,7 @@ export function getAuthHttp(http) {
     WalletHeaderComponent,
     TransactionLogComponent,
     TransactionComponent,
+    EditAccountPage,
     WithdrawComponent,
     DepositComponent
   ],
@@ -73,6 +75,7 @@ export function getAuthHttp(http) {
     MorePage,
     OtpPage,
     TransfersModalPage,
+    EditAccountPage,
   ],
   providers: [
     AuthHttp,

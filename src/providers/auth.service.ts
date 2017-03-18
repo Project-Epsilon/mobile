@@ -46,7 +46,7 @@ export class AuthService {
    */
   public login(provider) {
 
-    let data = new Observable((observer) => {
+    return new Observable((observer) => {
 
       this.http.get(environment.server_url + "/api/auth/" + provider).subscribe((res) => {
         let url = res.json().data.url;
@@ -66,7 +66,6 @@ export class AuthService {
           });
       });
     });
-    return data;
   }
 
   /**
@@ -107,4 +106,17 @@ export class AuthService {
     });
   }
 
+  public updateUserInfo(user: Object){
+    let data = new Observable(observer => {
+      this.authHttp.post(environment.server_url + "/api/user", user).subscribe((res) => {
+        let data = res.json().data;
+        this.user = data;
+
+        observer.next(this.user);
+        observer.complete();
+      });
+    });
+
+    return data;
+  }
 }
