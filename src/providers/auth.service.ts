@@ -1,4 +1,3 @@
-
 import { Injectable, NgZone } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { AuthHttp, tokenNotExpired } from "angular2-jwt";

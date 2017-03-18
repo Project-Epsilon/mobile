@@ -1,12 +1,10 @@
-import {Injectable} from '@angular/core';
 import 'rxjs/add/operator/map';
-import {AuthHttp} from "angular2-jwt";
-import {Observable} from "rxjs";
-import {TestBed, async, inject} from '@angular/core/testing';
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from '@angular/http';
-import {MockBackend} from '@angular/http/testing';
-import {Storage} from "@ionic/storage";
-import {CurrencyService} from "./currency.service";
+import { TestBed, async, inject } from '@angular/core/testing';
+import { BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { Storage } from "@ionic/storage";
+import { CurrencyService } from "./currency.service";
+
 /**
  * Currency test suite
  */
