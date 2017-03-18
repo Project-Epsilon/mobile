@@ -6,7 +6,6 @@
 
 </ion-header>
 
-<ion-content padding>
   <ion-card>
     <ion-card-header>
       General Options
@@ -18,7 +17,7 @@
         Account Settings
       </button>
 
-      <button ion-item>
+      <button ion-item [navPush]="contactsPage">
         <ion-icon name="contacts" item-left></ion-icon>
         Manage Contacts
       </button>
@@ -35,4 +34,3 @@
 
     </ion-list>
   </ion-card>
-</ion-content>
