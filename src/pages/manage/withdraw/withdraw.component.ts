@@ -17,12 +17,14 @@ export class WithdrawComponent {
   private maxCurrency: number;
   private wallets: any;
 
-  constructor(public alertCtrl: AlertController,
-              public loadingCtrl: LoadingController,
-              public bankSrv: BankTransferService,
-              public walletSrv: WalletsService,
-              private formBuilder: FormBuilder,
-              public navParams: NavParams,) {
+  constructor(
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController,
+    public bankSrv: BankTransferService,
+    public walletSrv: WalletsService,
+    private formBuilder: FormBuilder,
+    public navParams: NavParams,
+  ) {
     this.loader = this.loadingCtrl.create({
       content: "Processing bank transfer.",
     });
