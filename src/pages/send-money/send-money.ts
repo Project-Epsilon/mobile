@@ -80,8 +80,8 @@ export class SendMoneyPage {
    */
   public send() {
     let receiver = this.form.value.receiver;
-    if (receiver === "") {
-      let receiver = this.createContact();
+    if (receiver === "add") {
+      receiver = this.createContact();
     }
 
     let amount = this.form.value.amount;
