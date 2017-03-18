@@ -50,4 +50,19 @@ export class WalletsService {
       this.wallets.push(walletUpdate);
     }
   }
+
+  /**
+   * Updates a wallet in this service.
+   *
+   * @param walletId
+   */
+  public updateWalletId(walletId) {
+    this.http.get(environment.server_url + "/api/wallet/" + walletId)
+      .map((res) => res.json())
+      .subscribe((res) => {
+        let wallet = res.data;
+        this.updateWallet(wallet);
+    });
+  }
+  
 }

@@ -78,9 +78,15 @@ export class SendMoneyPage {
             wallet.id,
             message,
           ).subscribe(
-            (res) => { this.loader.dismiss().catch(f => f); this.handleSend(res, displayAmount)},
-            (error) => { this.loader.dismiss().catch(f => f); Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]); },
-            );
+            (res) => {
+              this.loader.dismiss().catch(f => f);
+              this.handleSend(res, displayAmount)
+            },
+            (error) => {
+              this.loader.dismiss().catch(f => f);
+              Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+            },
+          );
         },
         text: "Confirm",
       },
