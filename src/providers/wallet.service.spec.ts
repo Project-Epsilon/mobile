@@ -39,4 +39,8 @@ describe('Wallet Service', () => {
     expect(service).toBeDefined();
   })));
 
+  it('Get wallets response should defined', async(inject([WalletsService], (service) => {
+    expect(service.getWallets()).toBeDefined();
+  })));
+
 });
