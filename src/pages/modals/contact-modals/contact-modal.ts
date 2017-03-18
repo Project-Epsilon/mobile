@@ -9,9 +9,10 @@ export class ContactModalPage {
 
     public contact;
 
-    constructor(public viewCtrl: ViewController,
-                public params: NavParams) {
-        this.contact = this.params.get('contact');
+    constructor(
+        public viewCtrl: ViewController,
+        public params: NavParams) {
+      this.contact = this.params.get('contact');
     }
 
     /**

@@ -16,14 +16,20 @@ export class ContactPage {
 
   public contacts: any;
 
-  constructor(public navCtrl: NavController,
-              public modalCtrl: ModalController,
-              public auth_http: AuthHttp) {
+  constructor(
+      public navCtrl: NavController,
+      public modalCtrl: ModalController,
+      public auth_http: AuthHttp) {
     this.auth_http.get(environment.server_url + "/api/user/contact")
         .map((res) => res.json())
         .subscribe((result) => this.contacts = result.data);
   }
 
+  /**
+   * Displays the modal page for the given contact.
+   *
+   * @param contact
+   */
   showContactModal(contact) {
     let modal = this.modalCtrl.create(ContactModalPage, { contact: contact });
     modal.present();
