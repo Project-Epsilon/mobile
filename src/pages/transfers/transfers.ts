@@ -39,6 +39,9 @@ export class TransfersPage {
     modal.present().then();
   }
 
+  /**
+   * Allows user to accept a payment by inputting a token corresponding to the payment.
+   */
   public receive () {
     if ( this.token.length !== 128 ) {
       Alert( this.alertCtrl, "Whoops!", "Please enter a valid transfer token.", ["Dismiss."] );
@@ -61,6 +64,10 @@ export class TransfersPage {
     }
   }
 
+  /**
+   * Updates the user's wallets if the receive was successful. Alerts the user if unsuccessful.
+   * @param res
+   */
   public handleReceive (res) {
     if( res.data ) {
       this.token = "";
