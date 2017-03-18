@@ -43,7 +43,6 @@ export class DepositComponent {
       });
     if (this.navParams.get("currency"))
       this.default_currency = this.navParams.get("currency");
-    console.log(this.navParams.get("currency"));
     this.wallets = this.walletSrv.wallets;
   }
 
