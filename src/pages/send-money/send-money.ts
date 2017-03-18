@@ -4,7 +4,7 @@ import { AlertController, Loading, LoadingController, NavController, NavParams }
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import {HomePage} from "../home/home";
+import { HomePage } from "../home/home";
 
 @Component({
   selector: "page-send-money",
