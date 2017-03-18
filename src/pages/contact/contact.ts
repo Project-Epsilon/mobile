@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { AuthHttp } from "angular2-jwt";
 import { Pipe } from "@angular/core";
 
 import { ModalController } from "ionic-angular";
@@ -7,6 +6,7 @@ import { NavController } from "ionic-angular";
 
 import { environment } from "../../environments/environment";
 import { ContactModalPage } from "../modals/contact-modals/contact-modal";
+import { ContactsService } from "../../providers/contact.service";
 
 @Component({
   selector: "page-contact",
@@ -19,10 +19,8 @@ export class ContactPage {
   constructor(
       public navCtrl: NavController,
       public modalCtrl: ModalController,
-      public auth_http: AuthHttp) {
-    this.auth_http.get(environment.server_url + "/api/user/contact")
-        .map((res) => res.json())
-        .subscribe((result) => this.contacts = result.data);
+      public contactsSrv: ContactsService) {
+    this.contacts = this.contactsSrv.contacts;
   }
 
   /**
