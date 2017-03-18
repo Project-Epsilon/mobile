@@ -28,6 +28,7 @@ import { BankTransferService } from "../providers/bank.service";
 import { TransferService } from "../providers/transfer.service";
 import { CurrencyService } from "../providers/currency.service";
 import { WalletsService } from "../providers/wallet.service";
+import { ContactsService } from "../providers/contact.service";
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();
@@ -82,6 +83,7 @@ export function getAuthHttp(http) {
     CurrencyService,
     BankTransferService,
     TransferService,
+    ContactsService,
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
