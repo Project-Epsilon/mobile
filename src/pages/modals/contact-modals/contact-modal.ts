@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { NavParams, ViewController } from "ionic-angular";
+import {NavParams, ViewController, AlertController} from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
-
+import { Alert } from "../../../utils/Alert";
 @Component({
     selector: "page-contact-modal",
     templateUrl: "contact-modal.html",
@@ -14,6 +14,7 @@ export class ContactModalPage {
     public viewCtrl: ViewController,
     public params: NavParams,
     public contactsSrv: ContactsService,
+    public alertCtrl: AlertController,
     ) {
     this.contact = this.params.get('contact');
   }
@@ -31,7 +32,18 @@ export class ContactModalPage {
    * @param contact
    */
   public deleteContact(contact) {
-    this.contactsSrv.deleteContact(contact);
-    this.dismiss();
+
+    let alertButtons = [
+      { text: "Cancel", role: "cancel"},
+      {
+        handler: () => {
+          this.contactsSrv.deleteContact(contact);
+          this.dismiss();
+        },
+        text: "Confirm",
+      },
+    ];
+
+    Alert(this.alertCtrl, "Delete Contact", "Are you sure you want to delete " + contact.name, alertButtons);
   }
 }
