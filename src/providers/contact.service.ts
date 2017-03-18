@@ -30,19 +30,15 @@ export class ContactsService {
   }
 
   public addContact(name, phoneNumber, email) {
-    let contactAdd =
-    {
-      name: name,
-      phone_number: phoneNumber,
-      email: email,
-    };
-    this.contacts.push(contactAdd);
 
     this.http.post(environment.server_url + "/api/user/contact",{
-      contactAdd
+      name,
+      phone_number: phoneNumber,
+      email,
+
     })
       .map((res) => res.json())
-      .subscribe((res) => res);
+      .subscribe((res) => this.contacts.push(res.data));
   }
 
   public deleteContact(contactDelete) {

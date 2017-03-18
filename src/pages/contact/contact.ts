@@ -5,6 +5,8 @@ import { ModalController } from "ionic-angular";
 import { NavController } from "ionic-angular";
 
 import { ContactModalPage } from "../modals/contact-modals/contact-modal";
+import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
+
 import { ContactsService } from "../../providers/contact.service";
 
 @Component({
@@ -34,14 +36,14 @@ export class ContactPage {
   }
 
   /**
-   * Adds a contact locally and then updates the server.
+   * Opens madal to add contact
    *
-   * @param contact
    */
-  public addContact() {
-    // this.contactsSrv.addContact();
-  }
 
+  public showAddContactModal() {
+    let modal = this.modalCtrl.create(AddContactModalPage);
+    modal.present();
+  }
 }
 
 @Pipe({

@@ -12,5 +12,11 @@
       <h2>{{contact.name}}</h2>
       <p>{{contact.phone_number | phone}}</p>
     </ion-item>
+
+    <ion-item>
+      <div text-center>
+        <button ion-button full color="primary" (click)="showAddContactModal()">Create new contact</button>
+      </div>
+    </ion-item>
   </ion-list>
 </ion-content>
