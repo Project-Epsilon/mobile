@@ -30,9 +30,10 @@
         <ion-item>
           <ion-label stacked>Select Receiver</ion-label>
           <ion-select formControlName="receiver">
-            <ion-option value="johndoe">John Doe</ion-option>
-            <ion-option value="janedoe">Jane Doe</ion-option>
-            <ion-option value="trump">Donald Trump (therealdonaldtrump@gmail.com)</ion-option>
+            <ion-option value="add">Add New contact</ion-option>
+            <ion-option *ngFor="let contact of contacts" [value]="contact" >
+              {{ contact.name }}
+            </ion-option>
           </ion-select>
         </ion-item>
       </ion-card-content>

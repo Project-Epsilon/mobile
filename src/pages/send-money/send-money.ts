@@ -13,6 +13,7 @@ import { Alert } from "../../utils/Alert";
 export class SendMoneyPage {
   private form: FormGroup;
   private wallets: any;
+  private contacts: any;
   private validAmount = true;
   private maxAmount: number;
   private maxCurrency: number;
@@ -41,6 +42,25 @@ export class SendMoneyPage {
     });
 
     this.wallets = this.walletSrv.wallets;
+
+    this.contacts = [
+      {
+        name: 'bob',
+        phone_number: 5141111111,
+        email:"hello@world.com",
+      },
+      {
+        name: 'frank',
+        phone_number: 14842222222,
+        email:"example@example.com",
+      },
+      {
+        name: 'jane',
+        phone_number: 4503333333,
+        email:"my@email.com",
+      }
+    ];
+
   }
   /**
    * Updates the maximum amount of money the user can send based on his selected wallet.
@@ -59,8 +79,7 @@ export class SendMoneyPage {
    * Uses transfer server to send money to another user.
    */
   public send() {
-    let receiver = {phone_number : "5145555555"};
-      // this.sendMoneyForm.value.receiver;
+    let receiver = this.form.value.receiver;
     let amount = this.form.value.amount;
     let wallet = this.form.value.wallet;
     let message = this.form.value.message;
@@ -73,7 +92,7 @@ export class SendMoneyPage {
         handler: () => {
           this.loader.present().catch(f => f);
           this.transfSrv.send(
-            receiver,
+            [receiver.phone_number, receiver.email],
             amount,
             wallet.id,
             message,
