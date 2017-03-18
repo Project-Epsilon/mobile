@@ -14,18 +14,25 @@ export class BankTransferService {
     public http: AuthHttp,
   ) {}
 
+  /**
+   * Conducts the deposit operation with paypal.
+   *
+   * @param amount
+   * @param currency
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   */
   public deposit(amount, currency) {
     return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/bank/deposit", {
-          amount,
-          currency,
+          amount: amount,
+          currency: currency
         })
-        .map((res) => res.json())
         .subscribe((res) => {
+          let data = res.json();
 
-                    observer.next(res);
-                    observer.complete();
-                });
+
+          observer.next(data);
+          observer.complete();
         });
     };
 

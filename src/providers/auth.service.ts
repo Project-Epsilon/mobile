@@ -82,4 +82,18 @@ export class AuthService {
 
     // Unschedule the token refresh
   }
+
+  public updateUserInfo(user: Object){
+    let data = new Observable(observer => {
+      this.authHttp.post(environment.server_url + "/api/user", user).subscribe((res) => {
+        let data = res.json().data;
+        this.user = data;
+
+        observer.next(this.user);
+        observer.complete();
+      });
+    });
+
+    return data;
+  }
 }
