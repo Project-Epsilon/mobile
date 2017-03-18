@@ -19,6 +19,9 @@
             <h2>{{contact.name}}</h2>
             <p>Phone: {{contact.phone_number}}</p>
             <p>Email: {{contact.email}}</p>
+
         </ion-item>
     </ion-list>
+  <button ion-button color="danger" (click)="deleteContact(contact);">Delete</button>
+
 </ion-content>

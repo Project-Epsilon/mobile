@@ -4,7 +4,6 @@ import { Pipe } from "@angular/core";
 import { ModalController } from "ionic-angular";
 import { NavController } from "ionic-angular";
 
-import { environment } from "../../environments/environment";
 import { ContactModalPage } from "../modals/contact-modals/contact-modal";
 import { ContactsService } from "../../providers/contact.service";
 
@@ -17,9 +16,10 @@ export class ContactPage {
   public contacts: any;
 
   constructor(
-      public navCtrl: NavController,
-      public modalCtrl: ModalController,
-      public contactsSrv: ContactsService) {
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public contactsSrv: ContactsService
+  ) {
     this.contacts = this.contactsSrv.contacts;
   }
 
@@ -28,9 +28,18 @@ export class ContactPage {
    *
    * @param contact
    */
-  showContactModal(contact) {
+  public showContactModal(contact) {
     let modal = this.modalCtrl.create(ContactModalPage, { contact: contact });
     modal.present();
+  }
+
+  /**
+   * Adds a contact locally and then updates the server.
+   *
+   * @param contact
+   */
+  public addContact() {
+    // this.contactsSrv.addContact();
   }
 
 }
@@ -46,7 +55,7 @@ export class PhonePipe {
    * @param args
    * @returns {String}
    */
-  transform(val, args) {
+  public transform(val, args) {
     if (val.length == 7) return val.slice(0, 3) + '-' + val.slice(3, 7);
 
     else if (val.length == 10) {

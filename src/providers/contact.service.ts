@@ -45,18 +45,13 @@ export class ContactsService {
       .subscribe((res) => res);
   }
 
-  public deleteContact(name, phoneNumber, email)  {
-    let contactDelete =
-      {
-        name: name,
-        phone_number: phoneNumber,
-        email: email,
-      };
+  public deleteContact(contactDelete) {
+
     let contactDeleteId = this.contacts.indexOf(contactDelete);
+
     this.contacts.splice(contactDeleteId, 1);
 
-    this.http.delete(environment.server_url + "/api/user/contact/" + contactDeleteId)
-      .map((res) => res.json())
+    this.http.delete(environment.server_url + "/api/user/contact/" + contactDelete.id)
       .subscribe((res) => res);
   }
 }
