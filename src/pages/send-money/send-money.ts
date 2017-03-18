@@ -45,17 +45,17 @@ export class SendMoneyPage {
 
     this.contacts = [
       {
-        name: 'bob',
+        name: 'Bob Smith',
         phone_number: 5141111111,
         email:"hello@world.com",
       },
       {
-        name: 'frank',
+        name: 'John Doe',
         phone_number: 14842222222,
         email:"example@example.com",
       },
       {
-        name: 'jane',
+        name: 'Jane Doe',
         phone_number: 4503333333,
         email:"my@email.com",
       }
@@ -80,6 +80,10 @@ export class SendMoneyPage {
    */
   public send() {
     let receiver = this.form.value.receiver;
+    if (receiver === "") {
+      let receiver = this.createContact();
+    }
+
     let amount = this.form.value.amount;
     let wallet = this.form.value.wallet;
     let message = this.form.value.message;
@@ -115,6 +119,14 @@ export class SendMoneyPage {
 
   }
 
+  /**
+   * Redirects create contact from contact service to add contact, then returns.
+   *
+   * @returns {{name: string}, {phone_number: string}, {email: string}}
+   */
+  public createContact() {
+    return {name: "hello"};
+  }
   /**
    * Updates user wallet and alerts user on successful transfer of money.
    * If unsuccessful, alerts user of the problem.
