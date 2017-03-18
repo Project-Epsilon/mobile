@@ -14,7 +14,10 @@ export class ContactModalPage {
         this.contact = this.params.get('contact');
     }
 
+    /**
+     * Close the modal page.
+     */
     dismiss() {
-        this.viewCtrl.dismiss();
+        this.viewCtrl.dismiss().catch( f => f);
     }
 }
