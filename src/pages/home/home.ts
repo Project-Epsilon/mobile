@@ -29,12 +29,11 @@ export class HomePage {
       public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: "Loggin in.",
+      content: "Loading.",
     });
 
     this.loader.present().catch(f => f);
     this.currencySrv.init();
-
     this.walletSrv.getWallets()
       .subscribe((wallets) => {
         this.wallets = wallets;
