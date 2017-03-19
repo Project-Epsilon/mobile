@@ -1,9 +1,9 @@
 import 'rxjs/add/operator/map';
-import {BankTransferService} from './bank.service';
-import {AuthHttp, AuthConfig} from 'angular2-jwt';
-import {TestBed, async, inject} from '@angular/core/testing';
-import {BaseRequestOptions, Http} from '@angular/http';
-import {MockBackend} from '@angular/http/testing';
+import { BankTransferService } from './bank.service';
+import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { TestBed, async, inject } from '@angular/core/testing';
+import { BaseRequestOptions, Http } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
 
 /**
  * Bank test suite
@@ -43,6 +43,10 @@ describe('Bank Service', () => {
 
   it('USD should not be null', async(inject([BankTransferService], (service) => {
     expect(service.deposit(2.00, 'USD')).not.toBeNull();
+  })));
+
+  it('Withdraw response should not be null', async(inject([BankTransferService], (service) => {
+    expect(service.withdraw(1, 0.01, 'user@gmail.com')).not.toBeNull();
   })));
 
 });

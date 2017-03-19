@@ -38,8 +38,12 @@ describe('Auth Service', () => {
   });
 
 
-  it('Get authentication response should not be null', async(inject([AuthService], (service) => {
-    expect(this.AuthService.authenticated()).not.toBeNull();
+  it('Get authentication response should not be null', (inject([AuthService], (service) => {
+    expect(service.authenticated()).not.toBeNull();
+  })));
+
+  it('Login response should not be null', (inject([AuthService], (service) => {
+    expect(service.login ("Google")).not.toBeNull();
   })));
 
 });

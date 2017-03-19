@@ -4,6 +4,7 @@ import { AlertController, Loading, LoadingController, NavController, NavParams }
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
+import { HomePage } from "../home/home";
 
 @Component({
   selector: "page-send-money",
@@ -37,7 +38,7 @@ export class SendMoneyPage {
       amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
       message: ["", Validators.maxLength(255)],
       receiver: ["", Validators.required],
-      wallet: [null, Validators.required],
+      wallet: [this.navParams.get("wallet"), Validators.required],
 
     });
 
@@ -62,6 +63,16 @@ export class SendMoneyPage {
     ];
 
   }
+
+  /**
+   * If came here through homepage must reset to homepage before leaving
+   */
+  public ionViewDidLeave(){
+    if(this.navParams.get("wallet")) {
+      this.navCtrl.setRoot(HomePage);
+    }
+  }
+
   /**
    * Updates the maximum amount of money the user can send based on his selected wallet.
    */
