@@ -4,7 +4,6 @@ import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { MyApp } from "./app.component";
-import { IonicStorageModule } from '@ionic/storage';
 
 import { TransactionLogComponent } from "../components/transaction-log/transaction-log.component";
 import { TransactionComponent } from "../components/transaction/transaction.component";
@@ -34,7 +33,8 @@ import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
 import { PhonePipe } from "../utils/PhonePipe";
 
-export function getAuthHttp(http, storage) {
+export function getAuthHttp(http) {
+  let storage: Storage = new Storage();
   return new AuthHttp(new AuthConfig({
     globalHeaders: [{Accept: "application/json"}],
     tokenGetter: (() => storage.get("token")),
@@ -66,7 +66,6 @@ export function getAuthHttp(http, storage) {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -86,6 +85,7 @@ export function getAuthHttp(http, storage) {
   ],
   providers: [
     AuthHttp,
+    Storage,
     AuthService,
     WalletsService,
     CurrencyService,
@@ -95,7 +95,7 @@ export function getAuthHttp(http, storage) {
     {
       provide: AuthHttp,
       useFactory: getAuthHttp,
-      deps: [Http, Storage],
+      deps: [Http],
     },
     {
       provide: ErrorHandler,
