@@ -90,7 +90,6 @@ export class SendMoneyPage {
             message,
           ).subscribe(
             (res) => {
-              this.loader.dismiss().catch(f => f);
               this.handleSend(res, displayAmount)
             },
             (error) => {
@@ -118,16 +117,21 @@ export class SendMoneyPage {
 
     if (res.data) {
       this.form.reset();
-      this.walletSrv.updateWalletId(this.form.value.wallet.id);
-
-      Alert(
-        this.alertCtrl,
-        "Transfer Success",
-        displayAmount + " has been successfully transfer from your account.",
-        ["Dismiss"],
-      );
+      this.walletSrv.updateWalletId(this.form.value.wallet.id)
+        .subscribe (() =>
+          {
+            this.loader.dismiss().catch(f => f);
+            Alert(
+              this.alertCtrl,
+              "Transfer Success",
+              displayAmount + " has been successfully transfer from your account.",
+              ["Dismiss"],
+            );
+          }
+        );
 
     } else {
+      this.loader.dismiss().catch(f => f);
       Alert(
         this.alertCtrl,
         "Transfer Failed",
