@@ -1,11 +1,11 @@
-import { Alert } from "../../utils/Alert";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, Loading, LoadingController, NavController, NavParams, ModalController } from "ionic-angular";
+import { AlertController, Loading, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
+import { ContactsService } from "../../providers/contact.service";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
+import { Alert } from "../../utils/Alert";
 import { HomePage } from "../home/home";
-import { ContactsService } from "../../providers/contact.service";
 import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 
 @Component({
@@ -55,8 +55,8 @@ export class SendMoneyPage {
   /**
    * If came here through homepage must reset to homepage before leaving
    */
-  public ionViewDidLeave(){
-    if(this.navParams.get("wallet")) {
+  public ionViewDidLeave() {
+    if (this.navParams.get("wallet")) {
       this.navCtrl.setRoot(HomePage);
     }
   }
@@ -89,7 +89,7 @@ export class SendMoneyPage {
       { text: "Cancel", role: "cancel"},
       {
         handler: () => {
-          this.loader.present().catch(f => f);
+          this.loader.present().catch((f) => f);
           this.transfSrv.send(
             [receiver.phone_number, receiver.email],
             amount,
@@ -97,11 +97,11 @@ export class SendMoneyPage {
             message,
           ).subscribe(
             (res) => {
-              this.loader.dismiss().catch(f => f);
-              this.handleSend(res, displayAmount)
+              this.loader.dismiss().catch((f) => f);
+              this.handleSend(res, displayAmount);
             },
             (error) => {
-              this.loader.dismiss().catch(f => f);
+              this.loader.dismiss().catch((f) => f);
               Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
             },
           );
@@ -123,9 +123,9 @@ export class SendMoneyPage {
       let modal = this.modalCtrl.create(AddContactModalPage);
       modal.present();
       modal.onDidDismiss(
-        res => {
-          this.form.get('receiver').setValue(res);
-        }
+        (res) => {
+          this.form.get("receiver").setValue(res);
+        },
       );
     }
   }

@@ -49,7 +49,7 @@ export class AddContactModalPage {
         (res) => {
           this.addedContact = res;
           this.dismiss();
-        }
+        },
       );
     this.form.reset();
   }
