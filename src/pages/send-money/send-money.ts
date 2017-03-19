@@ -5,7 +5,6 @@ import { ContactsService } from "../../providers/contact.service";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import { HomePage } from "../home/home";
 import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 
 @Component({
@@ -57,7 +56,7 @@ export class SendMoneyPage {
    */
   public ionViewDidLeave() {
     if (this.navParams.get("wallet")) {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.pop().catch(f => f);
     }
   }
 
