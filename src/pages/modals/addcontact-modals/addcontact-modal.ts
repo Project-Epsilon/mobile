@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavParams, ViewController } from "ionic-angular";
+import { NavParams, ViewController, ToastController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 
 @Component({
@@ -15,6 +15,7 @@ export class AddContactModalPage {
     public viewCtrl: ViewController,
     public params: NavParams,
     public contactsSrv: ContactsService,
+    private toastCtrl: ToastController,
     private formBuilder: FormBuilder,
 
   ) {
@@ -33,9 +34,7 @@ export class AddContactModalPage {
   }
 
   /**
-   * Removes a contact locally and then updates the server.
-   *
-   * @param contact
+   * Adds a contact locally and then updates the server.
    */
   public addContact() {
     this.contactsSrv.addContact(
@@ -44,6 +43,20 @@ export class AddContactModalPage {
       this.form.value.email,
     );
     this.dismiss();
+    this.presentToast();
     this.form.reset();
+  }
+
+  /**
+   * Shows notification that contact was added successfully
+   */
+  private presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Contact was added successfully',
+      duration: 3000,
+      position: 'top'
+    });
+
+    toast.present();
   }
 }

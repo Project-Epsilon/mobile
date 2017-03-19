@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import {AlertController, NavParams, ViewController} from "ionic-angular";
+import {AlertController, NavParams, ViewController, ToastController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 import { Alert } from "../../../utils/Alert";
 @Component({
@@ -15,6 +15,7 @@ export class ContactModalPage {
     public params: NavParams,
     public contactsSrv: ContactsService,
     public alertCtrl: AlertController,
+    private toastCtrl: ToastController
     ) {
     this.contact = this.params.get("contact");
   }
@@ -39,11 +40,22 @@ export class ContactModalPage {
         handler: () => {
           this.contactsSrv.deleteContact(contact);
           this.dismiss();
+          this.presentToast();
         },
         text: "Confirm",
       },
     ];
 
     Alert(this.alertCtrl, "Delete Contact", "Are you sure you want to delete " + contact.name, alertButtons);
+  }
+
+  private presentToast() {
+    let toast = this.toastCtrl.create({
+      message: 'Contact was deleted successfully',
+      duration: 2500,
+      position: 'top'
+    });
+
+    toast.present();
   }
 }
