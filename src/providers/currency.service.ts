@@ -10,9 +10,8 @@ export class CurrencyService {
   public currencies: any;
   public currencyMap: any = {};
 
-
   public constructor(public http: Http,
-                     public storage: Storage,) {
+                     public storage: Storage) {
     this.storage.get("currencies")
       .then((currencies) => {
         this.currencies = currencies;

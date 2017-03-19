@@ -1,10 +1,10 @@
 import { Component } from "@angular/core";
+import {Http} from "@angular/http";
 import { Storage } from "@ionic/storage";
 import { AuthHttp } from "angular2-jwt";
 import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { TabsPage } from "../tabs/tabs";
-import {Http} from "@angular/http";
 
 @Component({
   selector: "page-login",
@@ -41,9 +41,9 @@ export class LoginPage {
    *
    */
   autoLogin(){
-    this.http.post('http://server.laurendylam.com/api/login', {
+    this.http.post("http://server.laurendylam.com/api/login", {
       email: "user@user.com",
-      password: "password"
+      password: "password",
     }).subscribe((res) => {
       let data = res.json().data;
       console.log(data);
@@ -55,7 +55,6 @@ export class LoginPage {
         this.app.getRootNav().setRoot(TabsPage);
       });
     });
-
 
   }
 

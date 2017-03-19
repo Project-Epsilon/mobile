@@ -1,9 +1,9 @@
 import { Component } from "@angular/core";
-import { ModalController, NavController, NavParams, AlertController, Loading, LoadingController } from "ionic-angular";
-import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
-import { Alert } from "../../utils/Alert";
+import { AlertController, Loading, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
+import { Alert } from "../../utils/Alert";
+import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 
 @Component({
   selector: "page-transfers",
@@ -48,19 +48,19 @@ export class TransfersPage {
 
     } else {
 
-      this.loader.present().catch(f => f);
+      this.loader.present().catch((f) => f);
 
       this.transfSrv.receive(this.token)
         .subscribe(
           (res) => {
-            this.loader.dismiss().catch(f => f);
+            this.loader.dismiss().catch((f) => f);
             this.handleReceive(res);
           },
           (error) => {
-            this.loader.dismiss().catch(f => f);
-           Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+            this.loader.dismiss().catch((f) => f);
+            Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
           },
-        )
+        );
     }
   }
 
@@ -69,15 +69,14 @@ export class TransfersPage {
    * @param res
    */
   public handleReceive (res) {
-    if( res.data ) {
+    if ( res.data ) {
       this.token = "";
       this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
 
-      Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."])
+      Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."]);
     } else {
-      Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."])
+      Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
     }
 
   }
 }
-

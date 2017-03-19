@@ -1,10 +1,9 @@
 import { TabsPage } from "./tabs";
 
-
 /**
  * Tabs Page test suite
  */
-describe("TabsPage", () =>{
+describe("TabsPage", () => {
 
   beforeEach(() => {
     this.tabs = new TabsPage();
