@@ -123,7 +123,9 @@ export class SendMoneyPage {
       let modal = this.modalCtrl.create(AddContactModalPage);
       modal.present();
       modal.onDidDismiss(
-        res => {console.log(1);this.form.value.receiver = res; console.log(res)},
+        res => {
+          this.form.get('receiver').setValue(res);
+        }
       );
     }
   }

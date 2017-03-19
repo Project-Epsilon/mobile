@@ -45,9 +45,12 @@ export class AddContactModalPage {
       this.form.value.phoneNumber,
       this.form.value.email,
     )
-      .subscribe( res => this.addedContact = res );
-
-    this.dismiss();
+      .subscribe(
+        (res) => {
+          this.addedContact = res;
+          this.dismiss();
+        }
+      );
     this.form.reset();
   }
 }
