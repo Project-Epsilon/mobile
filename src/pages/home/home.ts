@@ -51,13 +51,9 @@ export class HomePage {
   /**
    * Handles the logout process
    */
-  public logout(){
+  public logout() {
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
-  }
-
-  public ionViewDidLoad() {
-
   }
 
 }

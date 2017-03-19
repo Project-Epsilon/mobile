@@ -18,23 +18,22 @@ export class EditAccountPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public auth: AuthService,
-  )
-  {
+  ) {
     this.user = Object.assign({}, this.auth.user);
     this.updateAccount = this.formBuilder.group({
-      name: [this.user.name,
-        Validators.compose(
-          [
-            Validators.maxLength(30),
-            Validators.pattern("[a-zA-Z ]*"),
-            Validators.required,
-          ],
-        )],
       email: [this.user.email,
         Validators.compose(
           [
             Validators.maxLength(255),
             Validators.pattern("[a-zA-Z]{1,}([a-zA-Z0-9\_\.\-]*)*@[a-zA-Z]{1,}[\.]{1}[a-zA-Z]{1,}"),
+            Validators.required,
+          ],
+        )],
+      name: [this.user.name,
+        Validators.compose(
+          [
+            Validators.maxLength(30),
+            Validators.pattern("[a-zA-Z ]*"),
             Validators.required,
           ],
         )],
@@ -58,13 +57,8 @@ export class EditAccountPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad EditAccountPage");
-  }
-
-  updateInfo() {
+  public updateInfo() {
     this.auth.updateUserInfo(this.updateAccount.value).subscribe((user: any) => {
-      console.log(user);
       this.user = user;
     });
   }
