@@ -114,9 +114,7 @@ export class SendMoneyPage {
   }
 
   /**
-   * Redirects create contact from add contact modal to add contact.
-   *
-   * @returns {{name: string}, {phone_number: string}, {email: string}}
+   * Redirects to add contact modal so that user can add contact. Then updates form.
    */
   public createContact() {
     if (this.form.value.receiver === "add") {
