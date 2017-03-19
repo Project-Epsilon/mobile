@@ -57,11 +57,16 @@ export class WalletsService {
    * @param walletId
    */
   public updateWalletId(walletId) {
-    this.http.get(environment.server_url + "/api/wallet/" + walletId)
-      .map((res) => res.json())
-      .subscribe((res) => {
-        let wallet = res.data;
-        this.updateWallet(wallet);
+
+    return new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/wallet/" + walletId)
+        .map((res) => res.json())
+        .subscribe((res) => {
+          let wallet = res.data;
+          this.updateWallet(wallet);
+          observer.next(wallet);
+          observer.complete();
+        });
     });
   }
 
