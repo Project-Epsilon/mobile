@@ -10,7 +10,7 @@ export class WalletsService {
   public wallets: any;
 
   constructor(
-    public http: AuthHttp
+    public http: AuthHttp,
   ) { }
 
   /**
