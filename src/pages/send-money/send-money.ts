@@ -1,10 +1,12 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, Loading, LoadingController, NavController, NavParams } from "ionic-angular";
+import { AlertController, Loading, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
+import { ContactsService } from "../../providers/contact.service";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
 import { HomePage } from "../home/home";
+import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 
 @Component({
   selector: "page-send-money",
@@ -14,6 +16,7 @@ import { HomePage } from "../home/home";
 export class SendMoneyPage {
   private form: FormGroup;
   private wallets: any;
+  private contacts: any;
   private validAmount = true;
   private maxAmount: number;
   private maxCurrency: number;
@@ -27,6 +30,8 @@ export class SendMoneyPage {
     public alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
+    public contactSrv: ContactsService,
+    public modalCtrl: ModalController,
 
   ) {
     this.loader = this.loadingCtrl.create({
@@ -42,13 +47,16 @@ export class SendMoneyPage {
     });
 
     this.wallets = this.walletSrv.wallets;
+
+    this.contacts = this.contactSrv.contacts;
+
   }
 
   /**
    * If came here through homepage must reset to homepage before leaving
    */
-  public ionViewDidLeave(){
-    if(this.navParams.get("wallet")) {
+  public ionViewDidLeave() {
+    if (this.navParams.get("wallet")) {
       this.navCtrl.setRoot(HomePage);
     }
   }
@@ -70,8 +78,7 @@ export class SendMoneyPage {
    * Uses transfer server to send money to another user.
    */
   public send() {
-    let receiver = {phone_number : "5145555555"};
-      // this.sendMoneyForm.value.receiver;
+    let receiver = this.form.value.receiver;
     let amount = this.form.value.amount;
     let wallet = this.form.value.wallet;
     let message = this.form.value.message;
@@ -82,19 +89,19 @@ export class SendMoneyPage {
       { text: "Cancel", role: "cancel"},
       {
         handler: () => {
-          this.loader.present().catch(f => f);
+          this.loader.present().catch((f) => f);
           this.transfSrv.send(
-            receiver,
+            [receiver.phone_number, receiver.email],
             amount,
             wallet.id,
             message,
           ).subscribe(
             (res) => {
-              this.loader.dismiss().catch(f => f);
-              this.handleSend(res, displayAmount)
+              this.loader.dismiss().catch((f) => f);
+              this.handleSend(res, displayAmount);
             },
             (error) => {
-              this.loader.dismiss().catch(f => f);
+              this.loader.dismiss().catch((f) => f);
               Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
             },
           );
@@ -104,7 +111,21 @@ export class SendMoneyPage {
     ];
 
     Alert(this.alertCtrl, "Confirm transfer", "Do you want to transfer " + displayAmount, alertButtons);
+  }
 
+  /**
+   * Redirects to add contact modal so that user can add contact. Then updates form.
+   */
+  public createContact() {
+    if (this.form.value.receiver === "add") {
+      let modal = this.modalCtrl.create(AddContactModalPage);
+      modal.present();
+      modal.onDidDismiss(
+        (res) => {
+          this.form.get("receiver").setValue(res);
+        },
+      );
+    }
   }
 
   /**
@@ -115,7 +136,6 @@ export class SendMoneyPage {
    * @param displayAmount
    */
   private handleSend(res, displayAmount) {
-
 
     if (res.data) {
       this.form.reset();

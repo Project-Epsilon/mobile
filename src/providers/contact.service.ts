@@ -37,20 +37,27 @@ export class ContactsService {
    * @param name
    * @param phoneNumber
    * @param email
+   *
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public addContact(name, phoneNumber, email) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/user/contact", {
+        name,
+        phone_number: phoneNumber,
+        email,
+      })
+        .map((res) => res.json())
+        .subscribe(
+          (res) => {
+            this.contacts.push(res.data);
+            observer.next(res.data);
+            observer.complete();
+          },
+          (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
+        );
+    });
 
-    this.http.post(environment.server_url + "/api/user/contact", {
-      name,
-      phone_number: phoneNumber,
-      email,
-
-    })
-      .map((res) => res.json())
-      .subscribe(
-        (res) => this.contacts.push(res.data),
-        (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
-      );
   }
 
   /**
