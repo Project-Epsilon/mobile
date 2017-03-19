@@ -83,7 +83,7 @@ export class AuthService {
   }
 
   public updateUserInfo(user: Object){
-    let data = new Observable(observer => {
+    let data = new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/user", user).subscribe((res) => {
         let data = res.json().data;
         this.user = data;
