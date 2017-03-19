@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NavParams, ViewController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 @Component({
     selector: "page-addcontact-modal",
@@ -19,9 +19,9 @@ export class AddContactModalPage {
 
   ) {
     this.form = this.formBuilder.group({
-      name: ["", Validators.required,],
-      phoneNumber: ["", [Validators.required, Validators.minLength(7), Validators.maxLength(15)]],
       email: ["", Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")],
+      name: ["", Validators.required],
+      phoneNumber: ["", [Validators.required, Validators.minLength(7), Validators.maxLength(15)]],
     });
   }
 
@@ -29,7 +29,7 @@ export class AddContactModalPage {
    * Close the modal page.
    */
   public dismiss() {
-      this.viewCtrl.dismiss().catch( f => f);
+      this.viewCtrl.dismiss().catch( (f) => f);
   }
 
   /**

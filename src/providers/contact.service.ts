@@ -1,10 +1,10 @@
-import { Alert } from "../utils/Alert";
-import { AlertController } from "ionic-angular";
 import { Injectable } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
+import { AlertController } from "ionic-angular";
 import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
 import { environment } from "../environments/environment";
+import { Alert } from "../utils/Alert";
 
 @Injectable()
 export class ContactsService {
@@ -53,6 +53,10 @@ export class ContactsService {
       );
   }
 
+  /**
+   * Deletes a contact locally and updates the server.
+   * @param contactDelete
+   */
   public deleteContact(contactDelete) {
 
     let contactDeleteId = this.contacts.indexOf(contactDelete);

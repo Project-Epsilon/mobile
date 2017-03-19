@@ -1,13 +1,9 @@
 import { Component } from "@angular/core";
-import { Pipe } from "@angular/core";
-
 import { ModalController } from "ionic-angular";
 import { NavController } from "ionic-angular";
-
-import { ContactModalPage } from "../modals/contact-modals/contact-modal";
-import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
-
 import { ContactsService } from "../../providers/contact.service";
+import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
+import { ContactModalPage } from "../modals/contact-modals/contact-modal";
 
 @Component({
   selector: "page-contact",
@@ -20,7 +16,7 @@ export class ContactPage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public contactsSrv: ContactsService
+    public contactsSrv: ContactsService,
   ) {
     this.contacts = this.contactsSrv.contacts;
   }
@@ -31,43 +27,16 @@ export class ContactPage {
    * @param contact
    */
   public showContactModal(contact) {
-    let modal = this.modalCtrl.create(ContactModalPage, { contact: contact });
+    let modal = this.modalCtrl.create(ContactModalPage, { contact });
     modal.present();
   }
 
   /**
-   * Opens madal to add contact
+   * Opens modal to add contact
    *
    */
-
   public showAddContactModal() {
     let modal = this.modalCtrl.create(AddContactModalPage);
     modal.present();
-  }
-}
-
-@Pipe({
-  name: 'phone'
-})
-export class PhonePipe {
-  /**
-   * Modifies the input telephone number to match standard representations.
-   *
-   * @param val Telephone number as string.
-   * @param args
-   * @returns {String}
-   */
-  public transform(val, args) {
-    if (val.length == 7) return val.slice(0, 3) + '-' + val.slice(3, 7);
-
-    else if (val.length == 10) {
-      let area_code = val.slice(0, 3);
-      let three_digit = val.slice(3, 6);
-      let four_digit = val.slice(6, 10);
-
-      return '(' + area_code + ')' + ' ' + three_digit + '-' + four_digit;
-    }
-
-    return val;
   }
 }

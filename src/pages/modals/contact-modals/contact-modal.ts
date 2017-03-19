@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import {NavParams, ViewController, AlertController} from "ionic-angular";
+import {AlertController, NavParams, ViewController} from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 import { Alert } from "../../../utils/Alert";
 @Component({
@@ -16,14 +16,14 @@ export class ContactModalPage {
     public contactsSrv: ContactsService,
     public alertCtrl: AlertController,
     ) {
-    this.contact = this.params.get('contact');
+    this.contact = this.params.get("contact");
   }
 
   /**
    * Close the modal page.
    */
   public dismiss() {
-      this.viewCtrl.dismiss().catch( f => f);
+      this.viewCtrl.dismiss().catch( (f) => f);
   }
 
   /**

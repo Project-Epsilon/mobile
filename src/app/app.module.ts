@@ -7,7 +7,7 @@ import { MyApp } from "./app.component";
 
 import { TransactionLogComponent } from "../components/transaction-log/transaction-log.component";
 import { TransactionComponent } from "../components/transaction/transaction.component";
-import { ContactPage, PhonePipe } from "../pages/contact/contact";
+import { ContactPage } from "../pages/contact/contact";
 import { HomePage } from "../pages/home/home";
 import { WalletHeaderComponent } from "../pages/home/wallet-header/wallet-header.component";
 import { WalletSlideComponent } from "../pages/home/wallet-slide/wallet-slide.component";
@@ -31,6 +31,7 @@ import { WalletsService } from "../providers/wallet.service";
 import { ContactsService } from "../providers/contact.service";
 import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
+import { PhonePipe } from "../utils/PhonePipe";
 
 export function getAuthHttp(http) {
   let storage: Storage = new Storage();
