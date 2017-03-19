@@ -1,6 +1,6 @@
-import { Component, Input, AfterContentChecked } from "@angular/core";
-import { CurrencyService } from "../../../providers/currency.service";
+import { AfterContentChecked, Component, Input } from "@angular/core";
 import { NavController } from "ionic-angular";
+import { CurrencyService } from "../../../providers/currency.service";
 import { ManagePage } from "../../manage/manage";
 import { SendMoneyPage } from "../../send-money/send-money";
 
@@ -15,7 +15,7 @@ export class WalletHeaderComponent implements AfterContentChecked {
 
   constructor(
     public currencySrv: CurrencyService,
-    public navCtrl: NavController
+    public navCtrl: NavController,
   ) {}
 
   /**
@@ -33,7 +33,7 @@ export class WalletHeaderComponent implements AfterContentChecked {
   public redirect(string) {
     if (string == "deposit") {
       let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
-      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "deposit", currency: currency});
+      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "deposit", currency});
     }
     else if (string == "withdraw") {
       this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "withdraw"});

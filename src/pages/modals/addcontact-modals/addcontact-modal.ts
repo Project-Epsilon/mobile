@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavParams, ViewController, ToastController } from "ionic-angular";
+import { NavParams, ToastController, ViewController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 
 @Component({
@@ -60,9 +60,9 @@ export class AddContactModalPage {
    */
   private presentToast() {
     let toast = this.toastCtrl.create({
-      message: 'Contact was added successfully',
+      message: "Contact was added successfully",
       duration: 3000,
-      position: 'top'
+      position: "top",
     });
 
     toast.present();

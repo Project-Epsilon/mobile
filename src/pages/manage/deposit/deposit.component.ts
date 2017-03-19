@@ -1,12 +1,11 @@
 import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-import { BankTransferService } from "../../../providers/bank.service";
-import { WalletsService } from "../../../providers/wallet.service";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { NavParams } from "ionic-angular";
 import { InAppBrowser } from "ionic-native";
 import { environment } from "../../../environments/environment";
-
+import { BankTransferService } from "../../../providers/bank.service";
+import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
   selector: "deposit-component",
@@ -23,11 +22,11 @@ export class DepositComponent {
     public storage: Storage,
     public walletSrv: WalletsService,
     public navParams: NavParams,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
       amount: ["", Validators.required],
-      currency: [this.default_currency, Validators.required]
+      currency: [this.default_currency, Validators.required],
     });
   }
   /**
@@ -35,8 +34,8 @@ export class DepositComponent {
    * Function is called when page loads.
    */
   public ngOnInit() {
-    this.storage.get('currencies')
-      .then(currencies => {
+    this.storage.get("currencies")
+      .then((currencies) => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
@@ -77,7 +76,7 @@ export class DepositComponent {
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
       .subscribe((res: any) => {
-        if (res['data']){
+        if (res["data"]){
           let browser = new InAppBrowser(res.data.url, "_blank");
           browser.on("loadstart")
             .subscribe((event) => {

@@ -56,7 +56,7 @@ export class SendMoneyPage {
    */
   public ionViewDidLeave() {
     if (this.navParams.get("wallet")) {
-      this.navCtrl.pop().catch(f => f);
+      this.navCtrl.pop().catch((f) => f);
     }
   }
 
@@ -140,7 +140,7 @@ export class SendMoneyPage {
         .subscribe (() => {
           this.form.reset();
           this.loader.dismiss().catch((f) => f);
-            Alert(
+          Alert(
               this.alertCtrl,
               "Transfer Success",
               displayAmount + " has been successfully transfer from your account.",

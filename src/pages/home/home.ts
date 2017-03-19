@@ -2,12 +2,12 @@ import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
 import { Http } from "@angular/http";
-import { App, NavController, LoadingController, Loading } from "ionic-angular";
+import { App, Loading, LoadingController, NavController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
+import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { LoginPage } from "../login/login";
-import { ContactsService } from "../../providers/contact.service";
 
 @Component({
   selector: "page-home",
@@ -35,16 +35,16 @@ export class HomePage {
       content: "Loading.",
     });
 
-    this.loader.present().catch(f => f);
+    this.loader.present().catch((f) => f);
     this.currencySrv.init();
     this.walletSrv.getWallets()
       .subscribe((wallets) => {
         this.wallets = wallets;
-        this.loader.dismiss().catch(f => f);
+        this.loader.dismiss().catch((f) => f);
       });
     this.contactsSrv.getContacts()
         .subscribe((contacts) =>
-            this.contacts = contacts
+            this.contacts = contacts,
         );
   }
 
@@ -53,7 +53,7 @@ export class HomePage {
    */
   public logout(){
     this.auth.logout();
-    this.app.getRootNav().setRoot(LoginPage).catch(f => f);
+    this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
   }
 
   public ionViewDidLoad() {
