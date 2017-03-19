@@ -33,13 +33,13 @@ export class WalletHeaderComponent implements AfterContentChecked {
   public redirect(string) {
     if (string == "deposit") {
       let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
-      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "deposit", currency: currency});
+      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "deposit", currency: currency});
     }
     else if (string == "withdraw") {
-      this.navCtrl.setRoot(ManagePage, {wallet: this.wallet, action: "withdraw"});
+      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "withdraw"});
     }
     else if (string == "send") {
-      this.navCtrl.setRoot(SendMoneyPage, {wallet: this.wallet});
+      this.navCtrl.push(SendMoneyPage, {wallet: this.wallet});
     }
   }
 
