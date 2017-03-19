@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {NavParams, ViewController, ToastController } from "ionic-angular";
+import { NavParams, ViewController, ToastController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 
 @Component({
@@ -37,7 +37,7 @@ export class AddContactModalPage {
    * Adds a contact locally and then updates the server.
    */
   public addContact() {
-      this.contactsSrv.addContact(
+    this.contactsSrv.addContact(
       this.form.value.name,
       this.form.value.phoneNumber,
       this.form.value.email,
