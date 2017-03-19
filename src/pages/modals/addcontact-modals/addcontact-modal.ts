@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavParams, ViewController, AlertController } from "ionic-angular";
+import { NavParams, ViewController } from "ionic-angular";
 import { ContactsService } from "../../../providers/contact.service";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
@@ -15,13 +15,12 @@ export class AddContactModalPage {
     public viewCtrl: ViewController,
     public params: NavParams,
     public contactsSrv: ContactsService,
-    public alertCtrl: AlertController,
     private formBuilder: FormBuilder,
 
   ) {
     this.form = this.formBuilder.group({
       name: ["", Validators.required,],
-      phoneNumber: ["", [Validators.required, Validators.minLength(7), Validators.maxLength(10)]],
+      phoneNumber: ["", [Validators.required, Validators.minLength(7), Validators.maxLength(15)]],
       email: ["", Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")],
     });
   }

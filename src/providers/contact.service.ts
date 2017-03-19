@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Alert } from "../utils/Alert";
+import { AlertController } from "ionic-angular";
+import { Injectable } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
-import 'rxjs/add/operator/map';
 import { Observable } from "rxjs";
+import "rxjs/add/operator/map";
 import { environment } from "../environments/environment";
 
 @Injectable()
@@ -10,7 +12,8 @@ export class ContactsService {
   public contacts: any;
 
   constructor(
-    public http: AuthHttp
+    public http: AuthHttp,
+    public alertCtrl: AlertController,
   ) { }
 
   /**
@@ -29,25 +32,35 @@ export class ContactsService {
     });
   }
 
+  /**
+   * Adds a user contact locally and updates the server
+   * @param name
+   * @param phoneNumber
+   * @param email
+   */
   public addContact(name, phoneNumber, email) {
 
-    this.http.post(environment.server_url + "/api/user/contact",{
+    this.http.post(environment.server_url + "/api/user/contact", {
       name,
       phone_number: phoneNumber,
       email,
 
     })
       .map((res) => res.json())
-      .subscribe((res) => this.contacts.push(res.data));
+      .subscribe(
+        (res) => this.contacts.push(res.data),
+        (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
+      );
   }
 
   public deleteContact(contactDelete) {
 
     let contactDeleteId = this.contacts.indexOf(contactDelete);
 
-    this.contacts.splice(contactDeleteId, 1);
-
     this.http.delete(environment.server_url + "/api/user/contact/" + contactDelete.id)
-      .subscribe((res) => res);
+      .subscribe(
+        (res) => this.contacts.splice(contactDeleteId, 1),
+        (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
+      );
   }
 }
