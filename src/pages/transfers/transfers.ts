@@ -11,7 +11,7 @@ import { WalletsService } from "../../providers/wallet.service";
 })
 export class TransfersPage {
   private loader: Loading;
-  public token: string;
+  public token = "";
   public currencies: string = "CAD";
   public action: string= "pending";
   public wallets: any;
