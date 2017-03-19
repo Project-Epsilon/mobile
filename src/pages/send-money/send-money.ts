@@ -137,10 +137,10 @@ export class SendMoneyPage {
   private handleSend(res, displayAmount) {
 
     if (res.data) {
-      this.form.reset();
       this.walletSrv.updateWalletId(this.form.value.wallet.id)
         .subscribe (() => {
-            this.loader.dismiss().catch((f) => f);
+          this.form.reset();
+          this.loader.dismiss().catch((f) => f);
             Alert(
               this.alertCtrl,
               "Transfer Success",
