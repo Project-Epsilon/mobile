@@ -4,9 +4,10 @@ import { Storage } from "@ionic/storage";
 import { Http } from "@angular/http";
 import { App, NavController, LoadingController, Loading } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
-import {CurrencyService} from "../../providers/currency.service";
+import { CurrencyService } from "../../providers/currency.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { LoginPage } from "../login/login";
+import { ContactsService } from "../../providers/contact.service";
 
 @Component({
   selector: "page-home",
@@ -15,6 +16,7 @@ import { LoginPage } from "../login/login";
 export class HomePage {
 
   public wallets: Object = [];
+  public contacts: any;
   public currentWalletIndex: number = -1;
   private loader: Loading;
 
@@ -27,6 +29,7 @@ export class HomePage {
       public currencySrv: CurrencyService,
       public http: Http,
       public loadingCtrl: LoadingController,
+      public contactsSrv: ContactsService,
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Loading.",
@@ -39,6 +42,10 @@ export class HomePage {
         this.wallets = wallets;
         this.loader.dismiss().catch(f => f);
       });
+    this.contactsSrv.getContacts()
+        .subscribe((contacts) =>
+            this.contacts = contacts
+        );
   }
 
   /**
