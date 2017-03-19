@@ -116,10 +116,9 @@ export class SendMoneyPage {
    */
   private handleSend(res, displayAmount) {
 
-
     if (res.data) {
       this.form.reset();
-      this.walletSrv.getWallets().subscribe( (walletRes) => this.wallets = walletRes);
+      this.walletSrv.updateWalletId(this.form.value.wallet.id);
 
       Alert(
         this.alertCtrl,
