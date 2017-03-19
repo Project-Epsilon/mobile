@@ -10,6 +10,7 @@ import { ContactsService } from "../../../providers/contact.service";
 export class AddContactModalPage {
 
   private form: FormGroup;
+  private addedContact: any;
 
   constructor(
     public viewCtrl: ViewController,
@@ -29,20 +30,23 @@ export class AddContactModalPage {
    * Close the modal page.
    */
   public dismiss() {
-      this.viewCtrl.dismiss().catch( (f) => f);
+      this.viewCtrl.dismiss(
+        this.addedContact,
+      ).catch( (f) => f);
   }
 
   /**
    * Removes a contact locally and then updates the server.
    *
-   * @param contact
    */
   public addContact() {
     this.contactsSrv.addContact(
       this.form.value.name,
       this.form.value.phoneNumber,
       this.form.value.email,
-    );
+    )
+      .subscribe( res => this.addedContact = res );
+
     this.dismiss();
     this.form.reset();
   }

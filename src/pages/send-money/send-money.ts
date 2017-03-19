@@ -1,10 +1,12 @@
+import { Alert } from "../../utils/Alert";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, Loading, LoadingController, NavController, NavParams } from "ionic-angular";
+import { AlertController, Loading, LoadingController, NavController, NavParams, ModalController } from "ionic-angular";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
-import { Alert } from "../../utils/Alert";
 import { HomePage } from "../home/home";
+import { ContactsService } from "../../providers/contact.service";
+import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 
 @Component({
   selector: "page-send-money",
@@ -28,6 +30,8 @@ export class SendMoneyPage {
     public alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     public loadingCtrl: LoadingController,
+    public contactSrv: ContactsService,
+    public modalCtrl: ModalController,
 
   ) {
     this.loader = this.loadingCtrl.create({
@@ -44,23 +48,7 @@ export class SendMoneyPage {
 
     this.wallets = this.walletSrv.wallets;
 
-    this.contacts = [
-      {
-        name: 'Bob Smith',
-        phone_number: 5141111111,
-        email:"hello@world.com",
-      },
-      {
-        name: 'John Doe',
-        phone_number: 14842222222,
-        email:"example@example.com",
-      },
-      {
-        name: 'Jane Doe',
-        phone_number: 4503333333,
-        email:"my@email.com",
-      }
-    ];
+    this.contacts = this.contactSrv.contacts;
 
   }
 
@@ -91,10 +79,6 @@ export class SendMoneyPage {
    */
   public send() {
     let receiver = this.form.value.receiver;
-    if (receiver === "add") {
-      receiver = this.createContact();
-    }
-
     let amount = this.form.value.amount;
     let wallet = this.form.value.wallet;
     let message = this.form.value.message;
@@ -127,17 +111,23 @@ export class SendMoneyPage {
     ];
 
     Alert(this.alertCtrl, "Confirm transfer", "Do you want to transfer " + displayAmount, alertButtons);
-
   }
 
   /**
-   * Redirects create contact from contact service to add contact, then returns.
+   * Redirects create contact from add contact modal to add contact.
    *
    * @returns {{name: string}, {phone_number: string}, {email: string}}
    */
   public createContact() {
-    return {name: "hello"};
+    if (this.form.value.receiver === "add") {
+      let modal = this.modalCtrl.create(AddContactModalPage);
+      modal.present();
+      modal.onDidDismiss(
+        res => {console.log(1);this.form.value.receiver = res; console.log(res)},
+      );
+    }
   }
+
   /**
    * Updates user wallet and alerts user on successful transfer of money.
    * If unsuccessful, alerts user of the problem.
@@ -146,7 +136,6 @@ export class SendMoneyPage {
    * @param displayAmount
    */
   private handleSend(res, displayAmount) {
-
 
     if (res.data) {
       this.form.reset();

@@ -29,13 +29,15 @@
 
         <ion-item>
           <ion-label stacked>Select Receiver</ion-label>
-          <ion-select formControlName="receiver">
+          <ion-select formControlName="receiver" (ionChange)="createContact()">
             <ion-option value="add">Add New contact</ion-option>
             <ion-option *ngFor="let contact of contacts" [value]="contact" >
               {{ contact.name }}
             </ion-option>
           </ion-select>
+
         </ion-item>
+
       </ion-card-content>
     </ion-card>
 
