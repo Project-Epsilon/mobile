@@ -52,7 +52,7 @@ export class WalletsService {
   }
 
   /**
-   * Updates a wallet in this service.
+   * Updates a wallet in this service given an id.
    *
    * @param walletId
    */
@@ -64,5 +64,5 @@ export class WalletsService {
         this.updateWallet(wallet);
     });
   }
-  
+
 }
