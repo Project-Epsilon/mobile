@@ -43,8 +43,8 @@ export class LoginPage {
     }).subscribe((res) => {
       let data = res.json().data;
 
-      this.auth.user = data.user;
-      this.auth.idToken = data.token;
+      this.auth.user = data.data;
+      this.auth.idToken = data.meta.token;
 
       this.storage.set("token", data.token).then((value) => {
         this.app.getRootNav().setRoot(TabsPage);
