@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
 import {Http} from "@angular/http";
 import { Storage } from "@ionic/storage";
-import { AuthHttp } from "angular2-jwt";
-import { App, NavController, NavParams } from "ionic-angular";
+import { App } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { TabsPage } from "../tabs/tabs";
 
