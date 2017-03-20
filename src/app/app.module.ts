@@ -82,7 +82,10 @@ export function getAuthHttp(http) {
     MorePage,
     OtpPage,
     ContactModalPage,
+<<<<<<< HEAD
     AddContactModalPage,
+=======
+>>>>>>> 70f3881fb16680f3b59b91f4034c7041353cd8ac
     TransfersModalPage,
     EditAccountPage,
   ],
