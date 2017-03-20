@@ -23,7 +23,7 @@ describe("WalletSlideComponent", () => {
 
   beforeEach(() => {
     this.walletSlideComponent = new WalletSlideComponent();
-    this.walletSlideComponent.wallets = [1,2,3];
+    this.walletSlideComponent.wallets = [1, 2, 3];
     this.walletSlideComponent.activeWallet = this.walletSlideComponent.wallets[0];
   });
 

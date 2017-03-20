@@ -1,4 +1,4 @@
-<ion-header>
+  <ion-header>
   <ion-navbar>
     <ion-title text-center>
       Contact
@@ -7,11 +7,15 @@
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <div text-center>
+      <button ion-button full color="primary" (click)="showAddContactModal()">Create new contact</button>
+    </div>
+  </ion-item>
   <ion-list>
-    <ion-list-header>Follow us on Twitter</ion-list-header>
-    <ion-item>
-      <ion-icon name="ionic" item-left></ion-icon>
-      @ionicframework
+    <ion-item *ngFor="let contact of contacts" (click)="showContactModal(contact)">
+      <h2>{{contact.name}}</h2>
+      <p>{{contact.phone_number | phone}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

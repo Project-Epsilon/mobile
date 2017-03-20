@@ -1,6 +1,6 @@
-import { AlertController, LoadingController, Loading, NavParams } from "ionic-angular";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AlertController, Loading, LoadingController, NavParams } from "ionic-angular";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
 import { Alert } from "../../../utils/Alert";
@@ -55,22 +55,28 @@ export class WithdrawComponent {
    * Sends a withdraw request to server. Alerts user for confirmation.
    */
   public withdraw() {
-    let displayAmount = this.form.value.amount  + " " + this.form.value.wallet.currency_code;
+    let displayAmount = this.form.value.amount + " " + this.form.value.wallet.currency_code;
 
     let alertButtons = [
-      { text: "Cancel", role: "cancel"},
+      {text: "Cancel", role: "cancel"},
       {
         handler: () => {
-          this.loader.present().catch(f => f);
+          this.loader.present().catch((f) => f);
 
           this.bankSrv.withdraw(
             this.form.value.wallet.id,
             this.form.value.amount,
             this.form.value.email,
           ).subscribe(
-              (res) => { this.loader.dismiss().catch(f => f); this.handleWithdrawal(res, displayAmount);  },
-              (error) => { this.loader.dismiss().catch(f => f); Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]); },
-          )
+            (res) => {
+              this.loader.dismiss().catch((f) => f);
+              this.handleWithdrawal(res, displayAmount);
+            },
+            (error) => {
+              this.loader.dismiss().catch((f) => f);
+              Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+            },
+          );
         },
         text: "Confirm",
       },

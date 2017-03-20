@@ -2,10 +2,10 @@ import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
 import { Http } from "@angular/http";
-import { App, NavController } from "ionic-angular";
-import { environment } from "../../environments/environment";
+import { App, Loading, LoadingController, NavController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
-import {CurrencyService} from "../../providers/currency.service";
+import { ContactsService } from "../../providers/contact.service";
+import { CurrencyService } from "../../providers/currency.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { LoginPage } from "../login/login";
 
@@ -15,8 +15,10 @@ import { LoginPage } from "../login/login";
 })
 export class HomePage {
 
-  wallets: Object = [];
-  currentWalletIndex: number = -1;
+  public wallets: Object = [];
+  public contacts: any;
+  public currentWalletIndex: number = -1;
+  private loader: Loading;
 
   constructor(
       public navCtrl: NavController,
@@ -26,23 +28,36 @@ export class HomePage {
       public walletSrv: WalletsService,
       public currencySrv: CurrencyService,
       public http: Http,
-  ) {}
+      public loadingCtrl: LoadingController,
+      public contactsSrv: ContactsService,
+  ) {
+    this.loader = this.loadingCtrl.create({
+      content: "Loading.",
+    });
+
+    this.loader.present().catch((f) => f);
+    this.currencySrv.init();
+    this.walletSrv.getWallets()
+      .subscribe((wallets) => {
+        this.wallets = wallets;
+        this.loader.dismiss().catch((f) => f);
+      });
+    this.contactsSrv.getContacts()
+        .subscribe((contacts) =>
+            this.contacts = contacts,
+        );
+  }
 
   /**
    * Handles the logout process
    */
-  logout(){
+  public logout(){
     this.auth.logout();
-    this.app.getRootNav().setRoot(LoginPage);
+    this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
   }
 
-  ionViewDidLoad(){
-    this.currencySrv.init();
+  public ionViewDidLoad() {
 
-    this.walletSrv.getWallets()
-      .subscribe((wallets) => {
-        this.wallets = wallets;
-      });
   }
 
 }

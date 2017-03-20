@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
 import { AuthHttp } from "angular2-jwt";
-import {Observable} from "rxjs";
+import { Observable } from "rxjs";
 import "rxjs/add/operator/map";
-import {environment} from "../environments/environment";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class WalletsService {
@@ -11,7 +11,7 @@ export class WalletsService {
 
   constructor(
     public http: AuthHttp,
-  ) {}
+  ) { }
 
   /**
    * Gets all wallets of the user.
@@ -46,9 +46,28 @@ export class WalletsService {
       }
     }
 
-    if (! exists) {
+    if (!exists) {
       this.wallets.push(walletUpdate);
     }
+  }
+
+  /**
+   * Updates a wallet in this service given an id.
+   *
+   * @param walletId
+   */
+  public updateWalletId(walletId) {
+
+    return new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/wallet/" + walletId)
+        .map((res) => res.json())
+        .subscribe((res) => {
+          let wallet = res.data;
+          this.updateWallet(wallet);
+          observer.next(wallet);
+          observer.complete();
+        });
+    });
   }
 
 }
