@@ -22,7 +22,7 @@ describe("TransactionComponent", () => {
     fixture.detectChanges();
   });
 
-  it("should create", () => {
+  it("TransactionComponent create", () => {
     expect(component).toBeTruthy();
   });
 });
