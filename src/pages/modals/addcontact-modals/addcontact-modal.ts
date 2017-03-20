@@ -60,8 +60,8 @@ export class AddContactModalPage {
    */
   private presentToast() {
     let toast = this.toastCtrl.create({
-      message: "Contact was added successfully",
       duration: 3000,
+      message: "Contact was added successfully",
       position: "top",
     });
 

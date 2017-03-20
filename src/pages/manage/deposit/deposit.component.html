@@ -14,10 +14,10 @@
         <ion-label stacked>Select Currency</ion-label>
         <ion-select formControlName="currency" (ionChange)="setDecimalPlaces()">
           <ng-container *ngFor="let currency of currencies">
-            <ion-option *ngIf="isSameCurrency(default_currency, currency)" [value]="default_currency" selected="true">
-              {{default_currency.code}} - {{default_currency.name}}
+            <ion-option *ngIf="isSameCurrency(defaultCurrency, currency)" [value]="defaultCurrency" selected="true">
+              {{defaultCurrency.code}} - {{defaultCurrency.name}}
             </ion-option>
-            <ion-option *ngIf="!isSameCurrency(default_currency, currency)" [value]="currency">
+            <ion-option *ngIf="!isSameCurrency(defaultCurrency, currency)" [value]="currency">
               {{ currency.code }} - {{ currency.name }}
             </ion-option>
           </ng-container>

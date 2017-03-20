@@ -13,17 +13,17 @@ describe("Bank Service", () => {
     TestBed.configureTestingModule({
       providers: [
         {
+          deps: [MockBackend, BaseRequestOptions],
           provide: Http, useFactory: (backend, options) => {
           return new Http(backend, options);
         },
-          deps: [MockBackend, BaseRequestOptions],
         },
         {
+          deps: [Http],
           provide: AuthHttp,
           useFactory: (http) => {
             return new AuthHttp(new AuthConfig(), http);
           },
-          deps: [Http],
         },
         MockBackend,
         BaseRequestOptions,

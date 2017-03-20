@@ -13,10 +13,10 @@ describe("Currency Service", () => {
     TestBed.configureTestingModule({
       providers: [
         {
+          deps: [MockBackend, BaseRequestOptions],
           provide: Http, useFactory: (backend, options) => {
           return new Http(backend, options);
         },
-          deps: [MockBackend, BaseRequestOptions],
         },
         Storage,
         MockBackend,

@@ -10,15 +10,17 @@ import { TransfersPage} from "../transfers/transfers";
   templateUrl: "tabs.html",
 })
 export class TabsPage {
-  // this tells the tabs component which Pages
-  // should be each tab's root Page
-  tab1Root: any = HomePage;
-  tab2Root: any = ManagePage;
-  tab3Root: any = SendMoneyPage;
-  tab4Root: any = TransfersPage;
-  tab5Root: any = MorePage;
+  public tab1Root: any;
+  public tab2Root: any;
+  public tab3Root: any;
+  public tab4Root: any;
+  public tab5Root: any;
 
   constructor() {
-
+    this.tab1Root = HomePage;
+    this.tab2Root = ManagePage;
+    this.tab3Root = SendMoneyPage;
+    this.tab4Root = TransfersPage;
+    this.tab5Root = MorePage;
   }
 }

@@ -10,15 +10,13 @@ import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
   templateUrl: "transfers.html",
 })
 export class TransfersPage {
-  private loader: Loading;
   public token = "";
   public currencies: string = "CAD";
-  public action: string= "pending";
+  public action: string = "pending";
   public wallets: any;
+  private loader: Loading;
 
   constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
     public modalCtrl: ModalController,
     public alertCtrl: AlertController,
     public transfSrv: TransferService,

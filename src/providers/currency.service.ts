@@ -18,10 +18,6 @@ export class CurrencyService {
       });
   }
 
-  public getCurrencies() {
-
-  }
-
   public getCurrency(code) {
     return this.currencyMap[code];
   }
