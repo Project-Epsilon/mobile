@@ -66,7 +66,7 @@ export class DepositComponent {
    * @returns {boolean}
    */
   public isSameCurrency(currency1, currency2) {
-    if (currency1 === null || currency2 === null) {
+    if ( !currency1  || !currency2 ) {
       return null;
     }
     return (currency1.code === currency2.code);
