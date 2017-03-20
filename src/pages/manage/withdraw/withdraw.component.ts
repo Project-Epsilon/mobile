@@ -66,7 +66,10 @@ export class WithdrawComponent {
     let displayAmount = this.form.value.amount + " " + this.form.value.wallet.currency_code;
 
     let alertButtons = [
-      {text: "Cancel", role: "cancel"},
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
       {
         handler: () => {
           this.loader.present().catch((f) => f);

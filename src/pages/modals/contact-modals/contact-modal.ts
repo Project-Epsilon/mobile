@@ -35,7 +35,10 @@ export class ContactModalPage {
   public deleteContact(contact) {
 
     let alertButtons = [
-      { text: "Cancel", role: "cancel"},
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
       {
         handler: () => {
           this.contactsSrv.deleteContact(contact);

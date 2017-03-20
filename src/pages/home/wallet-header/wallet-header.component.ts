@@ -33,10 +33,10 @@ export class WalletHeaderComponent implements AfterContentChecked {
   public redirect(inputString) {
     if (inputString === "deposit") {
       let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
-      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "deposit", currency});
+      this.navCtrl.push(ManagePage, { action: "deposit", wallet: this.wallet, currency});
     } else
     if (inputString === "withdraw") {
-      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "withdraw"});
+      this.navCtrl.push(ManagePage, { action: "withdraw", wallet: this.wallet});
     } else
     if (inputString === "send") {
       this.navCtrl.push(SendMoneyPage, {wallet: this.wallet});
