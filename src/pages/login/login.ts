@@ -45,11 +45,11 @@ export class LoginPage {
       email: "user@user.com",
       password: "password",
     }).subscribe((res) => {
-      let data = res.json().data;
+      let data = res.json();
       console.log(data);
 
-      this.auth.user = data.user;
-      this.auth.idToken = data.token;
+      this.auth.user = data.data;
+      this.auth.idToken = data.meta.token;
 
       this.storage.set("token", data.token).then((value) => {
         this.app.getRootNav().setRoot(TabsPage);
