@@ -38,7 +38,7 @@ export class LoginPage {
    * Auto login for development
    *
    */
-  autoLogin(){
+  public autoLogin(){
     this.http.post("http://server.laurendylam.com/api/login", {
       email: "user@user.com",
       password: "password",
@@ -49,7 +49,7 @@ export class LoginPage {
       this.auth.user = data.data;
       this.auth.idToken = data.meta.token;
 
-      this.storage.set("token", data.token).then((value) => {
+      this.storage.set("token", data.meta.token).then((value) => {
         this.otpCheck(data.data);
       });
     });
@@ -62,9 +62,9 @@ export class LoginPage {
    */
   public otpCheck(user){
     if (user.locked){
-      this.app.getRootNav().setRoot(TabsPage);
-    } else {
       this.app.getRootNav().setRoot(OtpPage);
+    } else {
+      this.app.getRootNav().setRoot(TabsPage);
     }
   }
 

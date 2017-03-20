@@ -84,13 +84,13 @@ export class AuthService {
 
   /**
    * Sends http requests for otp authentication, requesting otp and unlocking user.
-   * 
+   *
    * @param data
    * @param unlock
-   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
-  otp(data, unlock){
-    return new Observable((observer) => {
+  public otp(data, unlock){
+    let response = new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock)? "/unlock" : ""), data)
         .subscribe((res) => {
           observer.next(res.text());
@@ -104,6 +104,7 @@ export class AuthService {
           observer.complete();
         });
     });
+    return response;
   }
 
   public updateUserInfo(user: Object){
