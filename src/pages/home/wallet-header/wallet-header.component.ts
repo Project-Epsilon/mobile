@@ -10,8 +10,8 @@ import { SendMoneyPage } from "../../send-money/send-money";
 })
 export class WalletHeaderComponent implements AfterContentChecked {
 
-  @Input() wallet: any;
-  currencyName: string;
+  @Input() public wallet: any;
+  public currencyName: string;
 
   constructor(
     public currencySrv: CurrencyService,
@@ -28,17 +28,17 @@ export class WalletHeaderComponent implements AfterContentChecked {
   /**
    * Redirects to appropriate page based off clicked action tab (deposit, withdraw, send)
    *
-   * @param string
+   * @param inputString
    */
-  public redirect(string) {
-    if (string == "deposit") {
+  public redirect(inputString) {
+    if (inputString === "deposit") {
       let currency = this.currencySrv.getCurrency(this.wallet.currency_code);
-      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "deposit", currency});
-    }
-    else if (string == "withdraw") {
-      this.navCtrl.push(ManagePage, {wallet: this.wallet, action: "withdraw"});
-    }
-    else if (string == "send") {
+      this.navCtrl.push(ManagePage, { action: "deposit", wallet: this.wallet, currency});
+    } else
+    if (inputString === "withdraw") {
+      this.navCtrl.push(ManagePage, { action: "withdraw", wallet: this.wallet});
+    } else
+    if (inputString === "send") {
       this.navCtrl.push(SendMoneyPage, {wallet: this.wallet});
     }
   }

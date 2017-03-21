@@ -1,3 +1,4 @@
+/*tslint:disable:no-string-literal*/
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { IonicModule } from "ionic-angular";
 import { TabsPage } from "../pages/tabs/tabs";
@@ -11,10 +12,10 @@ describe("Component: Root Component", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [MyApp],
-      providers: [],
       imports: [
         IonicModule.forRoot(MyApp),
       ],
+      providers: [],
     }).compileComponents();
   }));
 

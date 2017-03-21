@@ -1,10 +1,8 @@
-import { Injectable, NgZone } from "@angular/core";
-import { async, inject, TestBed } from "@angular/core/testing";
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { inject, TestBed } from "@angular/core/testing";
+import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
-import { AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth, tokenNotExpired } from "angular2-jwt";
-import { environment } from "../environments/environment";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
 import { AuthService } from "./auth.service";
 
 /**
@@ -16,17 +14,17 @@ describe("Auth Service", () => {
     TestBed.configureTestingModule({
       providers: [
         {
+          deps: [MockBackend, BaseRequestOptions],
           provide: Http, useFactory: (backend, options) => {
           return new Http(backend, options);
         },
-          deps: [MockBackend, BaseRequestOptions],
         },
         {
+          deps: [Http],
           provide: AuthHttp,
           useFactory: (http) => {
             return new AuthHttp(new AuthConfig(), http);
           },
-          deps: [Http],
         },
         Storage,
         MockBackend,

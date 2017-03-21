@@ -43,6 +43,7 @@ export function getAuthHttp(http) {
 }
 
 @NgModule({
+  bootstrap: [IonicApp],
   declarations: [
     MyApp,
     ContactPage,
@@ -66,10 +67,6 @@ export function getAuthHttp(http) {
     WithdrawComponent,
     DepositComponent,
   ],
-  imports: [
-    IonicModule.forRoot(MyApp),
-  ],
-  bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     ContactPage,
@@ -86,6 +83,9 @@ export function getAuthHttp(http) {
     TransfersModalPage,
     EditAccountPage,
   ],
+  imports: [
+    IonicModule.forRoot(MyApp),
+  ],
   providers: [
     AuthHttp,
     Storage,
@@ -96,9 +96,9 @@ export function getAuthHttp(http) {
     TransferService,
     ContactsService,
     {
+      deps: [Http],
       provide: AuthHttp,
       useFactory: getAuthHttp,
-      deps: [Http],
     },
     {
       provide: ErrorHandler,

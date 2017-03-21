@@ -1,11 +1,11 @@
-import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Alert } from "../../utils/Alert";
+import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 import { AlertController, Loading, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component } from "@angular/core";
 import { ContactsService } from "../../providers/contact.service";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
-import { Alert } from "../../utils/Alert";
-import { AddContactModalPage } from "../modals/addcontact-modals/addcontact-modal";
 
 @Component({
   selector: "page-send-money",
@@ -85,7 +85,10 @@ export class SendMoneyPage {
     let displayAmount = amount + " " + wallet.currency_code;
 
     let alertButtons = [
-      { text: "Cancel", role: "cancel"},
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
       {
         handler: () => {
           this.loader.present().catch((f) => f);

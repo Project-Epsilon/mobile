@@ -1,14 +1,12 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 
 @Component({
   selector: "transaction",
   templateUrl: "transaction.component.html",
 })
-export class TransactionComponent implements OnInit {
+export class TransactionComponent {
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    //
   }
-
 }

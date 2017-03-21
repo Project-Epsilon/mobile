@@ -35,7 +35,10 @@ export class ContactModalPage {
   public deleteContact(contact) {
 
     let alertButtons = [
-      { text: "Cancel", role: "cancel"},
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
       {
         handler: () => {
           this.contactsSrv.deleteContact(contact);
@@ -51,8 +54,8 @@ export class ContactModalPage {
 
   private presentToast() {
     let toast = this.toastCtrl.create({
-      message: "Contact was deleted successfully",
       duration: 2500,
+      message: "Contact was deleted successfully",
       position: "top",
     });
 

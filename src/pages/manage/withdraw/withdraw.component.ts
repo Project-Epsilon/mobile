@@ -10,9 +10,9 @@ import { Alert } from "../../../utils/Alert";
   templateUrl: "./withdraw.component.html",
 })
 export class WithdrawComponent {
+  public validAmount = true;
   private loader: Loading;
   private form: FormGroup;
-  public validAmount = true;
   private maxAmount: number;
   private maxCurrency: number;
   private wallets: any;
@@ -30,8 +30,16 @@ export class WithdrawComponent {
     });
 
     this.form = this.formBuilder.group({
-      amount: ["", [Validators.required, Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$")]],
-      email: ["", [Validators.required, Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")]],
+      amount: ["", [
+                      Validators.required,
+                      Validators.pattern("^[0-9]{1,3}(?:,?[0-9]{3})*(?:\.[0-9]{2})?$"),
+                    ],
+              ],
+      email: ["", [
+                    Validators.required,
+                    Validators.pattern("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"),
+                  ],
+              ],
       wallet: [this.navParams.get("wallet"), Validators.required],
     });
 
@@ -58,7 +66,10 @@ export class WithdrawComponent {
     let displayAmount = this.form.value.amount + " " + this.form.value.wallet.currency_code;
 
     let alertButtons = [
-      {text: "Cancel", role: "cancel"},
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
       {
         handler: () => {
           this.loader.present().catch((f) => f);
