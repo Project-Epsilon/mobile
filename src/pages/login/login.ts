@@ -42,7 +42,7 @@ export class LoginPage {
       email: "user@user.com",
       password: "password",
     }).subscribe((res) => {
-      let data = res.json().data;
+      let data = res.json();
 
       this.auth.user = data.data;
       this.auth.idToken = data.meta.token;
