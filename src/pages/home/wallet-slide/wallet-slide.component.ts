@@ -25,7 +25,8 @@ export class WalletSlideComponent implements OnInit {
         this.activeWallet = this.wallets[next];
       }
     }
-    if ($event.direction === 4) {
+    i
+    f ($event.direction === 4) {
       if (this.wallets.indexOf(this.activeWallet) !== 0) {
         let next = this.wallets.indexOf(this.activeWallet) - 1;
         this.activeWallet = this.wallets[next];
