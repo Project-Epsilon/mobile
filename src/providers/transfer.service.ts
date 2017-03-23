@@ -25,7 +25,7 @@ export class TransferService {
   public send(receiver, amount, walletId, message) {
     return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/user/send", {
-        receiver: { email: receiver[1], phone_number: receiver[0] },
+        receiver: { email: receiver.email, name: receiver.name, phone_number: receiver.phone_number },
         amount,
         wallet_id: walletId,
         message,

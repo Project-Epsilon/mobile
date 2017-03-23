@@ -93,7 +93,7 @@ export class SendMoneyPage {
         handler: () => {
           this.loader.present().catch((f) => f);
           this.transfSrv.send(
-            [receiver.phone_number, receiver.email],
+            receiver,
             amount,
             wallet.id,
             message,
