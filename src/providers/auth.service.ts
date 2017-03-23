@@ -88,7 +88,7 @@ export class AuthService {
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public otp(data, unlock) {
-    let response = new Observable((observer) => {
+    return new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock) ? "/unlock" : ""), data)
         .subscribe((res) => {
           observer.next(res.text());
@@ -102,7 +102,6 @@ export class AuthService {
           observer.complete();
         });
     });
-    return response;
   }
 
   public updateUserInfo(user: Object) {
