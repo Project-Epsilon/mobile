@@ -1,20 +1,17 @@
-/**
- * Created by ronniepang on 2017-03-19.
- */
 import {Injectable} from "@angular/core";
-import {async, inject, TestBed,ComponentFixture} from "@angular/core/testing";
-import{DebugElement} from "@angular/core/";
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
-import {Storage} from "@ionic/storage";
+import { async, inject, TestBed,ComponentFixture } from "@angular/core/testing";
+import{ DebugElement } from "@angular/core/";
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
+import { Storage } from "@ionic/storage";
 import { AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth } from "angular2-jwt";
 import "rxjs/add/operator/map";
-import {environment} from "../environments/environment";
-import{LoginPage} from "./login";
-import {IonicModule} from "ionic-angular";
-import {MyApp} from "../../app/app.component";
+import { environment } from "../environments/environment";
+import{ LoginPage } from "./login";
+import { IonicModule } from "ionic-angular";
+import { MyApp } from "../../app/app.component";
 import { NavController,NavParams,App } from 'ionic-angular';
-import {AuthService} from "../../providers/auth.service";
+import { AuthService } from "../../providers/auth.service";
 
 let comp: LoginPage;
 let fixture: ComponentFixture<LoginPage>;

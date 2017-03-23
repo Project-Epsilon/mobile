@@ -1,48 +1,45 @@
-import { AuthHttp, AuthConfig, AUTH_PROVIDERS, provideAuth, tokenNotExpired } from 'angular2-jwt';
-import { Injectable, NgZone } from '@angular/core';
-import { environment } from '../environments/environment';
-import { TestBed, async, inject } from '@angular/core/testing';
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import { AuthService } from './auth.service';
+import { inject, TestBed } from "@angular/core/testing";
+import { BaseRequestOptions, Http } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
+import { AuthService } from "./auth.service";
 
 /**
  * Auth test suite
  */
-describe('Auth Service', () => {
+describe("Auth Service", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         {
+          deps: [MockBackend, BaseRequestOptions],
           provide: Http, useFactory: (backend, options) => {
           return new Http(backend, options);
         },
-          deps: [MockBackend, BaseRequestOptions]
         },
         {
+          deps: [Http],
           provide: AuthHttp,
           useFactory: (http) => {
             return new AuthHttp(new AuthConfig(), http);
           },
-          deps: [Http]
         },
         Storage,
         MockBackend,
         BaseRequestOptions,
-        AuthService
-      ]
+        AuthService,
+      ],
 
     });
   });
 
-
-  it('Get authentication response should not be null', (inject([AuthService], (service) => {
+  it("Get authentication response should not be null", (inject([AuthService], (service) => {
     expect(service.authenticated()).not.toBeNull();
   })));
 
-  it('Login response should not be null', (inject([AuthService], (service) => {
+  it("Login response should not be null", (inject([AuthService], (service) => {
     expect(service.login ("Google")).not.toBeNull();
   })));
 

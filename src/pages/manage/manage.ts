@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { AlertController, Loading, LoadingController, NavController, NavParams } from "ionic-angular";
-import { WalletsService } from "../../providers/wallet.service";
-
+import { Loading, LoadingController, NavController, NavParams } from "ionic-angular";
 
 @Component({
   selector: "page-manage",
@@ -10,21 +8,17 @@ import { WalletsService } from "../../providers/wallet.service";
 })
 export class ManagePage {
 
-  currencies: Object;
-  wallets: any;
+  public currencies: Object;
+  public wallets: any;
 
-  action: string = "deposit";
-  loader: Loading;
-
-  private transferErrors: Error;
+  public action: string = "deposit";
+  private loader: Loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public storage: Storage,
-    public walletSrv: WalletsService,
-    private alertCtrl: AlertController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
   ) {
       this.loader = this.loadingCtrl.create({
         content: "Processing bank transfer.",
@@ -34,18 +28,18 @@ export class ManagePage {
   /**
    * If came here through homepage must reset to homepage before leaving
    */
-  public ionViewDidLeave(){
-    if(this.navParams.get("wallet")) {
-      this.navCtrl.pop().catch(f => f);
+  public ionViewDidLeave() {
+    if (this.navParams.get("wallet")) {
+      this.navCtrl.pop().catch((f) => f);
     }
   }
 
   /**
    * Determines which manage page to show user depending on button clicked
    */
-  public ionViewDidEnter(){
-    if(this.navParams.get("wallet")){
-      if(this.navParams.get("action")=="withdraw"){
+  public ionViewDidEnter() {
+    if (this.navParams.get("wallet")) {
+      if (this.navParams.get("action") === "withdraw") {
         this.action = "withdraw";
       } else {
         this.action = "deposit";

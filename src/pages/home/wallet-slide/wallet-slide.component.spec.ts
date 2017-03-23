@@ -1,15 +1,11 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement } from "@angular/core";
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
-
 import { WalletSlideComponent } from "./wallet-slide.component";
 
 /**
  * Fake event class for testing purposes only
  */
-class FakeEvent{
-  direction: number;
+class FakeEvent {
+  public direction: number;
 
   constructor(direction: number) {
     this.direction = direction;
@@ -23,7 +19,7 @@ describe("WalletSlideComponent", () => {
 
   beforeEach(() => {
     this.walletSlideComponent = new WalletSlideComponent();
-    this.walletSlideComponent.wallets = [1,2,3];
+    this.walletSlideComponent.wallets = [1, 2, 3];
     this.walletSlideComponent.activeWallet = this.walletSlideComponent.wallets[0];
   });
 

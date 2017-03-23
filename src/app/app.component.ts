@@ -9,7 +9,7 @@ import {AuthService} from "../providers/auth.service";
   templateUrl: "app.html",
 })
 export class MyApp {
-  rootPage = LoginPage;
+  public rootPage = LoginPage;
 
   constructor(platform: Platform, public auth: AuthService) {
     platform.ready().then(() => {

@@ -53,7 +53,7 @@ export class AuthService {
         let browser = new InAppBrowser(url, "_blank");
         browser.on("loadstart")
           .subscribe((event) => {
-            if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
+            if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
               let data: any = event.url.substring(event.url.indexOf("data=") + 5, event.url.indexOf("&success=true"));
               data = JSON.parse(decodeURIComponent(data));
               this.storage.set("token", data.meta.token).then((value) => {
@@ -78,12 +78,35 @@ export class AuthService {
     this.storage.remove("id_token");
     this.idToken = null;
     this.zone.run(() => this.user = null);
-
-    // Unschedule the token refresh
   }
 
-  public updateUserInfo(user: Object){
-    let data = new Observable(observer => {
+  /**
+   * Sends http requests for otp authentication, requesting otp and unlocking user.
+   *
+   * @param data
+   * @param unlock
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public otp(data, unlock){
+    let response = new Observable((observer) => {
+      this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock)? "/unlock" : ""), data)
+        .subscribe((res) => {
+          observer.next(res.text());
+          observer.complete();
+        }, (res) => {
+          let msg = res.json();
+          if (msg["errors"]){
+            msg = msg.errors;
+          }
+          observer.next(msg);
+          observer.complete();
+        });
+    });
+    return response;
+  }
+
+  public updateUserInfo(user: Object) {
+    return new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/user", user).subscribe((res) => {
         let data = res.json().data;
         this.user = data;
@@ -92,7 +115,5 @@ export class AuthService {
         observer.complete();
       });
     });
-
-    return data;
   }
 }

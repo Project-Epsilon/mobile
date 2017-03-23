@@ -6,10 +6,12 @@ import { Component, Input, OnInit } from "@angular/core";
 })
 export class WalletSlideComponent implements OnInit {
 
-  @Input() wallets: any;
-  activeWallet: Object;
+  @Input() public wallets: any;
+  public activeWallet: Object;
 
-  constructor() {}
+  constructor() {
+    //
+  }
 
   /**
    * Changes current displayed wallet
@@ -17,14 +19,14 @@ export class WalletSlideComponent implements OnInit {
    * @param $event
    */
   public changeWallet($event) {
-    if ($event.direction == 2) { //right swipe
-      if (this.wallets.indexOf(this.activeWallet) != this.wallets.length - 1) {
+    if ($event.direction === 2) {
+      if (this.wallets.indexOf(this.activeWallet) !== this.wallets.length - 1) {
         let next = this.wallets.indexOf(this.activeWallet) + 1;
         this.activeWallet = this.wallets[next];
       }
     }
-    if ($event.direction == 4) { //left swipe
-      if (this.wallets.indexOf(this.activeWallet) != 0) {
+    if ($event.direction === 4) {
+      if (this.wallets.indexOf(this.activeWallet) !== 0) {
         let next = this.wallets.indexOf(this.activeWallet) - 1;
         this.activeWallet = this.wallets[next];
       }

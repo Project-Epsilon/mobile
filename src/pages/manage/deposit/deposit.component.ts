@@ -1,12 +1,11 @@
 import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-import { BankTransferService } from "../../../providers/bank.service";
-import { WalletsService } from "../../../providers/wallet.service";
-import { Validators, FormBuilder, FormGroup } from "@angular/forms";
 import { NavParams } from "ionic-angular";
 import { InAppBrowser } from "ionic-native";
 import { environment } from "../../../environments/environment";
-
+import { BankTransferService } from "../../../providers/bank.service";
+import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
   selector: "deposit-component",
@@ -16,18 +15,18 @@ export class DepositComponent {
   private currencies: Object;
   private wallets: any;
   private form: FormGroup;
-  private default_currency: Object;
+  private defaultCurrency: Object;
 
   constructor(
     public bankSrv: BankTransferService,
     public storage: Storage,
     public walletSrv: WalletsService,
     public navParams: NavParams,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     this.form = this.formBuilder.group({
       amount: ["", Validators.required],
-      currency: [this.default_currency, Validators.required]
+      currency: [this.defaultCurrency, Validators.required],
     });
   }
   /**
@@ -35,14 +34,15 @@ export class DepositComponent {
    * Function is called when page loads.
    */
   public ngOnInit() {
-    this.storage.get('currencies')
-      .then(currencies => {
+    this.storage.get("currencies")
+      .then((currencies) => {
         this.currencies = currencies;
         this.form.value.currency = this.currencies[0];
         this.setDecimalPlaces();
       });
-    if (this.navParams.get("currency"))
-      this.default_currency = this.navParams.get("currency");
+    if (this.navParams.get("currency")) {
+      this.defaultCurrency = this.navParams.get("currency");
+    }
     this.wallets = this.walletSrv.wallets;
   }
 
@@ -66,9 +66,10 @@ export class DepositComponent {
    * @returns {boolean}
    */
   public isSameCurrency(currency1, currency2) {
-    if (currency1 == null || currency2 == null)
+    if ( !currency1  || !currency2 ) {
       return null;
-    return (currency1.code == currency2.code);
+    }
+    return (currency1.code === currency2.code);
   }
 
   /**
@@ -77,11 +78,11 @@ export class DepositComponent {
   public deposit() {
     this.bankSrv.deposit(this.form.value.amount, this.form.value.currency.code)
       .subscribe((res: any) => {
-        if (res['data']){
+        if (res.data) {
           let browser = new InAppBrowser(res.data.url, "_blank");
           browser.on("loadstart")
             .subscribe((event) => {
-              if (event.url.indexOf(environment.server_url + "/api/app/callback") == 0) {
+              if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
                 browser.close();
 
                 let wallet = event.url.substring(event.url.indexOf("wallet=") + 7);

@@ -1,19 +1,16 @@
-/**
- * Created by ronniepang on 2017-03-19.
- */
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {Validators, FormBuilder, FormGroup} from "@angular/forms";
-import {NavParams,AlertController, Loading, LoadingController,ModalController,NavController} from "ionic-angular";
-import {TransfersPage} from "./transfers";
-import {Storage} from "@ionic/storage";
-import {BankTransferService} from "../../providers/bank.service";
-import {MyApp} from "../../app/app.component";
-import {IonicModule} from "ionic-angular";
-import {MockBackend} from "@angular/http/testing";
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth} from "angular2-jwt";
-import {AuthService} from "../../providers/auth.service";
-import {WalletsService} from "../../providers/wallet.service";
+import {async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {Validators, FormBuilder, FormGroup } from "@angular/forms";
+import {NavParams,AlertController, Loading, LoadingController,ModalController,NavController } from "ionic-angular";
+import { TransfersPage } from "./transfers";
+import { Storage } from "@ionic/storage";
+import { BankTransferService } from "../../providers/bank.service";
+import { MyApp } from "../../app/app.component";
+import { IonicModule } from "ionic-angular";
+import { MockBackend } from "@angular/http/testing";
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth } from "angular2-jwt";
+import { AuthService } from "../../providers/auth.service";
+import { WalletsService } from "../../providers/wallet.service";
 import { TransferService } from "../../providers/transfer.service";
 let component: TransfersPage;
 
