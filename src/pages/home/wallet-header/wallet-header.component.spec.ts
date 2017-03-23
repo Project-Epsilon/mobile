@@ -1,23 +1,18 @@
 /* tslint:disable:no-unused-variable */
-import { DebugElement } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
-import { CurrencyService } from "../../../providers/currency.service";
+import { BaseRequestOptions, Http } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
+import { Storage } from "@ionic/storage";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
 import { NavController } from "ionic-angular";
-import {MyApp} from "../../../app/app.component";
-import {NavParams} from "ionic-angular";
-import {Storage} from "@ionic/storage";
-import {MockBackend} from "@angular/http/testing";
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth} from "angular2-jwt";
-import {IonicModule} from "ionic-angular";
+import { IonicModule } from "ionic-angular";
+import { MyApp } from "../../../app/app.component";
+import { CurrencyService } from "../../../providers/currency.service";
 import { WalletHeaderComponent } from "./wallet-header.component";
 let component: WalletHeaderComponent;
-
 let fixture: ComponentFixture<WalletHeaderComponent>;
 
 describe("WalletHeader", () => {
-
 
   beforeEach(async(() => {
 
@@ -61,4 +56,3 @@ describe("WalletHeader", () => {
     expect(component).toBeTruthy();
   });
 });
-

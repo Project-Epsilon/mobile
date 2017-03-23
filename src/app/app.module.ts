@@ -17,10 +17,10 @@ import { EditAccountPage } from "../pages/edit-account/edit-account";
 import { ManagePage } from "../pages/manage/manage";
 import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
 import { MorePage } from "../pages/more/more";
+import { OtpPage } from "../pages/otp/otp";
 import { SendMoneyPage } from "../pages/send-money/send-money";
 import { TabsPage } from "../pages/tabs/tabs";
 import { TransfersPage } from "../pages/transfers/transfers";
-import { OtpPage } from "../pages/otp/otp";
 
 import { DepositComponent } from "../pages/manage/deposit/deposit.component";
 import { WithdrawComponent } from "../pages/manage/withdraw/withdraw.component";

@@ -1,31 +1,30 @@
-import {Injectable} from "@angular/core";
-import { async, inject, TestBed,ComponentFixture } from "@angular/core/testing";
-import{ DebugElement } from "@angular/core/";
+import { DebugElement } from "@angular/core/";
+import { async, ComponentFixture, inject, TestBed } from "@angular/core/testing";
 import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
-import { AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth } from "angular2-jwt";
-import "rxjs/add/operator/map";
-import { environment } from "../environments/environment";
-import{ LoginPage } from "./login";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
+import { App, NavController, NavParams } from "ionic-angular";
 import { IonicModule } from "ionic-angular";
+import "rxjs/add/operator/map";
 import { MyApp } from "../../app/app.component";
-import { NavController,NavParams,App } from 'ionic-angular';
 import { AuthService } from "../../providers/auth.service";
+import { environment } from "../environments/environment";
+import { LoginPage } from "./login";
 
 let comp: LoginPage;
 let fixture: ComponentFixture<LoginPage>;
 let de: DebugElement;
 let el: HTMLElement;
 class MockNavParams {
-  data = {
+  public data = {
     currency: {
       currency: "USD",
       name: "Mike",
-    }
+    },
   };
 
-  get(param){
+ public get(param) {
     return this.data[param];
   }
 }
@@ -35,7 +34,9 @@ describe("Login Component", () => {
     TestBed.configureTestingModule({
 
       declarations: [MyApp, LoginPage],
-
+      imports: [
+        IonicModule.forRoot(MyApp),
+      ],
       providers: [
         {
           deps: [MockBackend, BaseRequestOptions],
@@ -60,14 +61,9 @@ describe("Login Component", () => {
         BaseRequestOptions,
       ],
 
-      imports: [
-        IonicModule.forRoot(MyApp)
-      ]
-
     }).compileComponents();
 
   }));
-
 
   beforeEach(() => {
 
@@ -83,18 +79,17 @@ describe("Login Component", () => {
     el = null;
   });
 
-  it('login service created', () => {
+  it("login service created", () => {
 
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
 
   });
 
-  it('autologin test', () => {
+  it("autologin test", () => {
 
     expect(comp.autoLogin()).toBeDefined();
 
   });
-
 
 });

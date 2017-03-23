@@ -1,34 +1,33 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
-import {Validators, FormBuilder, FormGroup} from "@angular/forms";
-import {NavParams,NavController} from "ionic-angular";
-import {DepositComponent} from "./deposit.component";
-import {Storage} from "@ionic/storage";
-import {BankTransferService} from "../../../providers/bank.service";
-import {MyApp} from "../../../app/app.component";
-import {IonicModule} from "ionic-angular";
-import {MockBackend} from "@angular/http/testing";
-import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
-import {AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth} from "angular2-jwt";
-import {AuthService} from "../../../providers/auth.service";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormBuilder } from "@angular/forms";
+import { BaseRequestOptions, Http } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
+import { Storage } from "@ionic/storage";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
+import { NavController, NavParams } from "ionic-angular";
+import { IonicModule } from "ionic-angular";
+import { MyApp } from "../../../app/app.component";
+import { AuthService } from "../../../providers/auth.service";
+import { BankTransferService } from "../../../providers/bank.service";
+import { DepositComponent } from "./deposit.component";
 let component: DepositComponent;
 import {WalletsService} from "../../../providers/wallet.service";
 
 let fixture: ComponentFixture<DepositComponent>;
 
 class MockNavParams {
-  data = {
+  public data = {
     currency: {
       currency: "USD",
       name: "Mike",
-    }
+    },
   };
 
-  get(param){
+  public get(param) {
     return this.data[param];
   }
 }
 describe("Deposit Component", () => {
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -44,7 +43,7 @@ describe("Deposit Component", () => {
         },
         },
         {
-          provide: NavParams, useClass: MockNavParams
+          provide: NavParams, useClass: MockNavParams,
         },
         {
           deps: [Http],

@@ -1,9 +1,9 @@
-import { Alert } from "../../utils/Alert";
-import { AlertController, Loading, LoadingController, ModalController } from "ionic-angular";
 import { Component } from "@angular/core";
-import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
+import { AlertController, Loading, LoadingController, ModalController } from "ionic-angular";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
+import { Alert } from "../../utils/Alert";
+import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
 
 @Component({
   selector: "page-transfers",
