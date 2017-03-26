@@ -1,9 +1,3 @@
-/**
- * Created by ronniepang on 2017-03-19.
- */
-/**
- * Created by ronniepang on 2017-03-19.
- */
 import {async, ComponentFixture, TestBed} from "@angular/core/testing";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {BaseRequestOptions, Http, HttpModule, Response, ResponseOptions} from "@angular/http";
