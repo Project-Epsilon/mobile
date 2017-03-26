@@ -87,22 +87,21 @@ export class AuthService {
    * @param unlock
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
-  public otp(data, unlock){
-    let response = new Observable((observer) => {
-      this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock)? "/unlock" : ""), data)
+  public otp(data, unlock) {
+    return new Observable((observer) => {
+      this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock) ? "/unlock" : ""), data)
         .subscribe((res) => {
           observer.next(res.text());
           observer.complete();
         }, (res) => {
           let msg = res.json();
-          if (msg["errors"]){
+          if (msg["errors"]) {
             msg = msg.errors;
           }
           observer.next(msg);
           observer.complete();
         });
     });
-    return response;
   }
 
   public updateUserInfo(user: Object) {

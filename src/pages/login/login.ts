@@ -3,8 +3,8 @@ import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
 import { App } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
-import { TabsPage } from "../tabs/tabs";
 import { OtpPage } from "../otp/otp";
+import { TabsPage } from "../tabs/tabs";
 
 @Component({
   selector: "page-login",
@@ -58,8 +58,8 @@ export class LoginPage {
    *
    * @param user
    */
-  public otpCheck(user){
-    if (user.locked){
+  public otpCheck(user) {
+    if (user.locked) {
       this.app.getRootNav().setRoot(OtpPage);
     } else {
       this.app.getRootNav().setRoot(TabsPage);

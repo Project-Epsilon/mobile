@@ -1,22 +1,23 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormBuilder } from "@angular/forms";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { NavController, NavParams } from "ionic-angular";
+import {AlertController, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
 import { IonicModule } from "ionic-angular";
-import { MyApp } from "../../../app/app.component";
-import { AuthService } from "../../../providers/auth.service";
-import { BankTransferService } from "../../../providers/bank.service";
-import { DepositComponent } from "./deposit.component";
-let component: DepositComponent;
-import {WalletsService} from "../../../providers/wallet.service";
+import { MyApp } from "../../app/app.component";
+import { AuthService } from "../../providers/auth.service";
+import { BankTransferService } from "../../providers/bank.service";
+import { TransferService } from "../../providers/transfer.service";
+import { WalletsService } from "../../providers/wallet.service";
+import { TransfersPage } from "./transfers";
+let component: TransfersPage;
 
-let fixture: ComponentFixture<DepositComponent>;
+let fixture: ComponentFixture<TransfersPage>;
 
 class MockNavParams {
-  public data = {
+   public data = {
     currency: {
       currency: "USD",
       name: "Mike",
@@ -27,11 +28,11 @@ class MockNavParams {
     return this.data[param];
   }
 }
-describe("Deposit Component", () => {
+describe("Transfer Component", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MyApp, DepositComponent],
+      declarations: [MyApp, TransfersPage],
       imports: [
         IonicModule.forRoot(MyApp),
       ],
@@ -56,28 +57,32 @@ describe("Deposit Component", () => {
         BaseRequestOptions,
         AuthService,
         Storage,
+        TransferService,
+        ModalController,
         WalletsService,
-        FormBuilder,
+        LoadingController,
+        AlertController,
         NavController,
+        FormBuilder,
         BankTransferService,
       ],
     }).compileComponents();
   }));
   beforeEach(() => {
-    fixture = TestBed.createComponent(DepositComponent);
+    fixture = TestBed.createComponent(TransfersPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it("create deposit component", () => {
+  it("Transfer component should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it("Set decimal method defined", () => {
-    expect(component.setDecimalPlaces()).toBeDefined();
+  it("Test showTransferModal", () => {
+    expect(component.showTransferModal()).toBeDefined();
   });
-  it("deposit test", () => {
-    expect(component.deposit()).toBeDefined();
+  it("Test receive", () => {
+    expect(component.receive()).toBeDefined();
   });
 
 });

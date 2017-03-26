@@ -9,7 +9,7 @@
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve",
     "test": "ng test",
-    "lint": "node ./node_modules/tslint/bin/tslint -c ./tslint.json ./src/**/*.ts --force"
+    "lint": "node ./node_modules/tslint/bin/tslint -c ./tslint.json ./src/**/*.ts --force --fix"
   },
   "dependencies": {
     "@angular/common": "2.2.1",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@ionic/app-scripts": "1.0.0",
+    "@ngtools/webpack": "^1.2.13",
     "@types/jasmine": "^2.5.41",
     "@types/node": "^7.0.5",
     "angular-cli": "^1.0.0-beta.28.3",

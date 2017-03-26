@@ -1,9 +1,12 @@
-/*tslint:disable:no-string-literal*/
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
+import { Storage } from "@ionic/storage";
+import { AUTH_PROVIDERS, AuthConfig, AuthHttp, provideAuth } from "angular2-jwt";
 import { IonicModule } from "ionic-angular";
 import { TabsPage } from "../pages/tabs/tabs";
+import { AuthService } from "../providers/auth.service";
 import { MyApp } from "./app.component";
-
 let fixture: ComponentFixture<MyApp>;
 let comp: MyApp;
 
@@ -15,7 +18,25 @@ describe("Component: Root Component", () => {
       imports: [
         IonicModule.forRoot(MyApp),
       ],
-      providers: [],
+      providers: [
+        {
+          deps: [MockBackend, BaseRequestOptions],
+          provide: Http, useFactory: (backend, options) => {
+          return new Http(backend, options);
+        },
+        },
+        {
+          deps: [Http],
+          provide: AuthHttp,
+          useFactory: (http) => {
+            return new AuthHttp(new AuthConfig(), http);
+          },
+        },
+        MockBackend,
+        BaseRequestOptions,
+        AuthService,
+        Storage,
+      ],
     }).compileComponents();
   }));
 
@@ -32,10 +53,6 @@ describe("Component: Root Component", () => {
   it("is created", () => {
     expect(fixture).toBeTruthy();
     expect(comp).toBeTruthy();
-  });
-
-  it("initialises with a root page of HomePage", () => {
-    expect(comp["rootPage"]).toBe(TabsPage);
   });
 
 });
