@@ -49,7 +49,6 @@ export class ContactPage {
 
     let val = event.target.value;
 
-    // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.contacts = this.contacts.filter((contact) => {
         return (contact.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
