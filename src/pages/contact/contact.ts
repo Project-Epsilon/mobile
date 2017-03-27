@@ -39,4 +39,21 @@ export class ContactPage {
     let modal = this.modalCtrl.create(AddContactModalPage);
     modal.present();
   }
+
+  /**
+   * Used by Ionic search bar to filter contacts
+   *  @param event
+   */
+  public filterContacts (event) {
+    this.contacts = this.contactsSrv.contacts;
+
+    let val = event.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.contacts = this.contacts.filter((contact) => {
+        return (contact.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
 }
