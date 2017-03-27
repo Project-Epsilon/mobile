@@ -52,6 +52,10 @@ export class ContactModalPage {
     Alert(this.alertCtrl, "Delete Contact", "Are you sure you want to delete " + contact.name, alertButtons);
   }
 
+  /**
+   * Display successful contact deletion confirmation
+   *
+   */
   private presentToast() {
     let toast = this.toastCtrl.create({
       duration: 2500,

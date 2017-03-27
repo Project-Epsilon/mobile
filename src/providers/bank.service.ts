@@ -33,6 +33,11 @@ export class BankTransferService {
     });
   }
 
+  /**
+   * Conducts the withdraw operation with paypal.
+   *
+   * @param walletId, amount, email
+   */
   public withdraw(walletId, amount, email) {
     return this.http.post(environment.server_url + "/api/transfer/bank/withdraw", {
       wallet_id: walletId,
