@@ -57,6 +57,10 @@ export class EditAccountPage {
     });
   }
 
+  /**
+   * Persist information taken from submitted form in the user db
+   *
+   */
   public updateInfo() {
     this.auth.updateUserInfo(this.updateAccount.value).subscribe((user: any) => {
       this.user = user;
