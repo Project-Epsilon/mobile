@@ -7,6 +7,11 @@
 </ion-header>
 
 <ion-content>
+  <ion-searchbar
+    (ionInput)="filterContacts ($event)"
+  >
+  </ion-searchbar>
+
   <ion-item>
     <div text-center>
       <button ion-button full color="primary" (click)="showAddContactModal()">Create new contact</button>
