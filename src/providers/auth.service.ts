@@ -50,7 +50,7 @@ export class AuthService {
 
       this.http.get(environment.server_url + "/api/auth/" + provider).subscribe((res) => {
         let url = res.json().data.url;
-        let browser = new InAppBrowser(url, "_blank");
+        let browser = new InAppBrowser(url, "_blank", "clearcache=yes,clearsessioncache=yes");
         browser.on("loadstart")
           .subscribe((event) => {
             if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
