@@ -104,6 +104,12 @@ export class AuthService {
     });
   }
 
+  /**
+   * Update user information
+   *
+   * @param user
+   * @returns {Observable}
+   */
   public updateUserInfo(user: Object) {
     return new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/user", user).subscribe((res) => {
