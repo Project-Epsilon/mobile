@@ -1,9 +1,5 @@
 <div class="transaction-list">
-
-  <!--<ng-container *ngIf="getWallet().length>0">-->
-    <ng-container *ngFor="let transaction of transactions">
-      <transaction [transaction]="transaction"></transaction>
-    </ng-container>
-  <!--</ng-container>-->
-
+  <ng-container *ngFor="let transaction of transactions">
+    <transaction [transaction]="transaction"></transaction>
+  </ng-container>
 </div>

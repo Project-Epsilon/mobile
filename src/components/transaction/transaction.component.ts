@@ -9,8 +9,7 @@ export class TransactionComponent {
 
   @Input() public transaction: any;
 
-  constructor(public home: HomePage) {
-  }
+  constructor() {}
 
 
 }
