@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import {Component, Input} from "@angular/core";
+import {HomePage} from "../../pages/home/home";
 
 @Component({
   selector: "transaction",
@@ -6,7 +7,12 @@ import { Component } from "@angular/core";
 })
 export class TransactionComponent {
 
-  constructor() {
-    //
+  @Input() public transaction: any;
+
+  constructor(
+    public home: HomePage
+  ) {
   }
+
+
 }
