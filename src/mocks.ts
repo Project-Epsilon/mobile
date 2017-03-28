@@ -1,3 +1,5 @@
+/* tslint:disable */
+
 export class ConfigMock {
     public get(): any {
         return "";
