@@ -48,10 +48,6 @@ export class HomePage {
         );
   }
 
-  foo(){
-    console.log(this.wallets);
-    console.log(this.wallets[0].transactions.data[0].amount);
-  }
   /**
    * Handles the logout process
    */

@@ -2,7 +2,7 @@
 <ion-content [ngClass]="{'no-wallets': wallets.length == 0}">
   <a class="sign-out" (tap)="logout()">Sign Out</a>
 
-  <wallet-slide (tap) = "foo()"
+  <wallet-slide
           *ngIf="wallets.length > 0"
           [wallets]="wallets"
   ></wallet-slide>
