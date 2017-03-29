@@ -15,5 +15,13 @@ transaction {
   > .amount{
     text-align: center;
     width: 50px;
+    &.negative{
+      color: red;
+    }
+
+    &.positive{
+      color: green;
+    }
   }
 }
+

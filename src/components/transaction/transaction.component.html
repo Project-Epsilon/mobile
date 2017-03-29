@@ -2,7 +2,7 @@
   <div class="details">
     {{transaction.title}}
   </div>
-  <div class="amount">
+  <div [ngClass]=" {'negative': transaction.amount < 0 , 'positive': transaction.amount>=0}" class="amount">
     {{transaction.amount}}
   </div>
 </div>
