@@ -14,7 +14,8 @@ transaction {
   }
   > .amount{
     text-align: center;
-    width: 50px;
+    width: 100px;
+    text-align: right;
     &.negative{
       color: red;
     }

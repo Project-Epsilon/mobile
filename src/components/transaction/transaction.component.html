@@ -3,6 +3,6 @@
     {{transaction.title}}
   </div>
   <div [ngClass]=" {'negative': transaction.amount < 0 , 'positive': transaction.amount>=0}" class="amount">
-    {{transaction.amount}}
+    {{ (transaction.amount>0) ? '+' : '' }}{{transaction.amount}} {{transaction.amount>0 ? 'IN' : 'OUT'}}
   </div>
 </div>
