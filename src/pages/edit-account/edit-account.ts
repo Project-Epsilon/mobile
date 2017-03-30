@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController, NavParams } from "ionic-angular";
+import {NavController, NavParams, AlertController, ToastController, ViewController} from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
+import { Alert } from "../../utils/Alert";
 
 @Component({
   selector: "page-edit-account",
@@ -18,6 +19,9 @@ export class EditAccountPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public auth: AuthService,
+    public alertCtrl: AlertController,
+    private toastCtrl: ToastController,
+    public viewCtrl: ViewController,
   ) {
     this.user = Object.assign({}, this.auth.user);
     this.updateAccount = this.formBuilder.group({
@@ -70,9 +74,45 @@ export class EditAccountPage {
   /**
    * Delete user from db
    *
+   * @param user
    */
   public deleteUser() {
-    console.log("delete user");
+    let alertButtons = [
+      {
+        role: "cancel",
+        text: "Cancel",
+      },
+      {
+        handler: () => {
+          this.auth.deleteUser();
+          this.dismiss();
+          this.presentToast();
+        },
+        text: "Confirm",
+      },
+    ];
+
+    Alert(this.alertCtrl, "Delete User", "Are you sure you want to delete your account?", alertButtons);
   }
 
+  /**
+   * Display successful contact deletion confirmation
+   *
+   */
+  private presentToast() {
+    let toast = this.toastCtrl.create({
+      duration: 2500,
+      message: "User was deleted successfully",
+      position: "top",
+    });
+
+    toast.present();
+  }
+
+  /**
+   * Close the modal page.
+   */
+  public dismiss() {
+    this.viewCtrl.dismiss().catch( (f) => f);
+  }
 }

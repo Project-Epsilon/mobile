@@ -121,4 +121,18 @@ export class AuthService {
       });
     });
   }
+
+  /**
+   * Delete user
+   *
+   * @returns {Observable}
+   */
+  public deleteUser() {
+    console.log("delete user");
+    // this.http.delete(environment.server_url + "/api/user/" + user.id)
+    //   .subscribe(
+    //     (res) => this.user.splice(user.id, 1),
+    //     (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
+    //   );
+  }
 }
