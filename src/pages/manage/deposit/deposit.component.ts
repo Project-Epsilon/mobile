@@ -26,7 +26,7 @@ export class DepositComponent {
   ) {
     this.form = this.formBuilder.group({
       amount: ["", Validators.required],
-      currency: [this.defaultCurrency, Validators.required],
+      currency: [this.navParams.get("currency"), Validators.required],
     });
   }
   /**
