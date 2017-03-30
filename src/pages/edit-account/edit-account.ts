@@ -67,4 +67,12 @@ export class EditAccountPage {
     });
   }
 
+  /**
+   * Delete user from db
+   *
+   */
+  public deleteUser() {
+    console.log("delete user");
+  }
+
 }
