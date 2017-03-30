@@ -1,4 +1,6 @@
+
 <div class="transaction-list">
-  <transaction></transaction>
-  <transaction></transaction>
+  <ng-container *ngFor="let transaction of transactions">
+    <transaction [transaction]="transaction"></transaction>
+  </ng-container>
 </div>
