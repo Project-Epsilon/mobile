@@ -63,8 +63,11 @@ export class LoginPage {
   public otpCheck(user) {
     if (user.locked) {
       this.app.getRootNav().setRoot(OtpPage);
-    } else if (!user.locked && this.transactionId) {
-      this.app.getRootNav().setRoot(TransfersPage, {transactionId: this.transactionId, action: "pending"});
+    } else if (user.locked && this.transactionId) {
+      this.app.getRootNav().setRoot(OtpPage, {transactionId: this.transactionId});
+    }
+    else if (!user.locked && this.transactionId) {
+      this.app.getRootNav().setRoot(TransfersPage, {transactionId: this.transactionId});
     } else {
         this.app.getRootNav().setRoot(TabsPage);
       }

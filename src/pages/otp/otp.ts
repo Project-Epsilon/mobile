@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {App, NavController, NavParams} from "ionic-angular";
 import {AuthService} from "../../providers/auth.service";
 import {TabsPage} from "../tabs/tabs";
+import {TransfersPage} from "../transfers/transfers";
 
 @Component({
   selector: "page-otp",
@@ -16,6 +17,8 @@ export class OtpPage {
   public unlock: FormGroup;
 
   public loading: boolean;
+
+  public transactionId;
 
   public constructor(
     public navCtrl: NavController,
@@ -32,6 +35,8 @@ export class OtpPage {
     this.unlock = this.fb.group({
       token: ["", Validators.required],
     });
+
+    this.transactionId = navParams.get('transationID');
   }
 
   /**
@@ -59,8 +64,10 @@ export class OtpPage {
       this.auth.otp(this.unlock.value, true)
         .subscribe((res: any) => {
           this.loading = false;
-          if (res === "ok") {
+          if (res === "ok" && !this.transactionId) {
             this.app.getRootNav().setRoot(TabsPage);
+          } else if (res === "ok" && this.transactionId) {
+            this.app.getRootNav().setRoot(TransfersPage, {transactionId: this.transactionId});
           }
         });
     }
