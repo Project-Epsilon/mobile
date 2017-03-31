@@ -5,7 +5,6 @@ import { App,NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { OtpPage } from "../otp/otp";
 import { TabsPage } from "../tabs/tabs";
-import { TabsPage } from "../tabs/tabs";
 import {TransfersPage} from "../transfers/transfers";
 
 @Component({
