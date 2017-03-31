@@ -27,9 +27,7 @@ export class LoginPage {
   public showAuth(provider) {
     this.auth.login(provider).subscribe((user) => {
 
-      if (user) {
-        this.app.getRootNav().setRoot(TabsPage);
-      }
+      this.otpCheck(user);
     });
   }
 

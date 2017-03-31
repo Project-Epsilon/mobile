@@ -49,10 +49,10 @@ export class ContactPage {
 
     let val = event.target.value;
 
-    if (val && val.trim() != '') {
+    if (val && val.trim() !== "") {
       this.contacts = this.contacts.filter((contact) => {
         return (contact.name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
+      });
     }
   }
 }
