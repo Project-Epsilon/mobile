@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-
+import { TransfersModalPage } from "../transfers-modal/transfers-modal"
 import { Http } from "@angular/http";
-import { App, Loading, LoadingController, NavController } from "ionic-angular";
+import { App, Loading, LoadingController, NavController,ModalController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
@@ -19,6 +19,7 @@ export class HomePage {
   public contacts: any;
   public currentWalletIndex: number = -1;
   private loader: Loading;
+  public params:'';
 
   constructor(
       public navCtrl: NavController,
@@ -30,6 +31,9 @@ export class HomePage {
       public http: Http,
       public loadingCtrl: LoadingController,
       public contactsSrv: ContactsService,
+      public modalCtrl: ModalController,
+      public navParams: NavParams,
+
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Loading.",
@@ -43,9 +47,19 @@ export class HomePage {
         this.loader.dismiss().catch((f) => f);
       });
     this.contactsSrv.getContacts()
-        .subscribe((contacts) =>
-            this.contacts = contacts,
-        );
+      .subscribe((contacts) =>
+        this.contacts = contacts,
+      );
+
+    this.params = navParams.get('userId');
+
+    if (this.params != '')
+    {
+
+      let profileModal = this.modalCtrl.create(TransfersModalPage, { userId: this.params });
+      profileModal.present();
+
+    }
   }
 
   /**

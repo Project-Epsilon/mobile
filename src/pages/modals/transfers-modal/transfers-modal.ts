@@ -9,6 +9,9 @@ export class TransfersModalPage {
 
   constructor(public viewCtrl: ViewController) {}
 
+
+
+
   public dismiss() {
     this.viewCtrl.dismiss();
   }

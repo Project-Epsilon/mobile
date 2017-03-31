@@ -1,8 +1,7 @@
-import { Component } from "@angular/core";
-import { Platform } from "ionic-angular";
-import { Splashscreen, StatusBar,Deeplinks } from "ionic-native";
+import { Component,ViewChild } from "@angular/core";
+import { Platform,Nav } from "ionic-angular";
+import { Splashscreen, StatusBar, Deeplinks } from "ionic-native";
 import { LoginPage } from "../pages/login/login";
-
 import {AuthService} from "../providers/auth.service";
 
 @Component({
@@ -10,6 +9,8 @@ import {AuthService} from "../providers/auth.service";
 })
 export class MyApp {
   public rootPage = LoginPage;
+  @ViewChild(Nav) nav:Nav;
+
 
   constructor(platform: Platform, public auth: AuthService) {
     platform.ready().then(() => {
@@ -17,6 +18,10 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      Deeplinks.routeWithNavController(this.nav, {
+        '/login/:transationID': LoginPage,
+      });
     });
   }
 }

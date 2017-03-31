@@ -38,6 +38,21 @@ export class TransferService {
     });
   }
 
+  public gettransferinfo(token) {
+
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user/", {
+        token,
+      }).map((res) => res.json()).subscribe((res) => {
+        observer.next(res);
+        observer.complete();
+    });
+
+    });
+
+  }
+
+
   /**
    * Sends a post request to the server to receive money from another user.
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
