@@ -25,6 +25,9 @@ export class MorePage {
     this.editAccountPage = EditAccountPage;
   }
 
+  /**
+   * Displays an alert page prompting the user to confirm whether they would like to logout or not.
+   */
   public logoutPrompt() {
     let alert = this.alertCtrl.create({
       title: 'Sign Out',
@@ -39,6 +42,9 @@ export class MorePage {
     alert.present();
   }
 
+  /**
+   * Logs the user out and redirects them to the login page.
+   */
   public logout() {
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
