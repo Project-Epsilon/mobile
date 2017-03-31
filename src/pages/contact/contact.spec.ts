@@ -13,7 +13,6 @@ import { ContactsService } from "../../providers/contact.service";
 let component: ContactPage;
 let fixture: ComponentFixture<ContactPage>;
 
-
 class MockModalCtrl {
   public present() {return true}
   public dismiss(): any {return}
@@ -33,7 +32,6 @@ class MockValue{
   public string = "text";
   trim(){return this.string}
 }
-
 
 /**
  * Contact test suite
