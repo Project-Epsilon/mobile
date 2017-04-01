@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-import { TransfersModalPage } from "../transfers-modal/transfers-modal"
 import { Http } from "@angular/http";
 import { App, Loading, LoadingController, NavController,ModalController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
@@ -8,6 +7,7 @@ import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { LoginPage } from "../login/login";
+import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 
 @Component({
   selector: "page-home",

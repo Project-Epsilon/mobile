@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavParams, ToastController, ViewController, Loading, AlertController, LoadingController } from "ionic-angular";
 import { Alert } from "../../../utils/Alert";
-import { TransferService } from "providers/transfer.service";
+import { TransferService } from "../../../providers/transfer.service";
 import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
