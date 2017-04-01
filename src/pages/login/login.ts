@@ -61,7 +61,9 @@ export class LoginPage {
    * @param user
    */
   public otpCheck(user) {
-    if (user.locked) {
+    console.log(user.locked);
+    console.log(this.transferToken);
+    if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
