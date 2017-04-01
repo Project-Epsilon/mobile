@@ -14,7 +14,9 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "pending";
   public wallets: any;
-  private loader: Loading;
+  private acceptLoader: Loading;
+  private addLoader: Loading;
+  public pendingTransfers: any[];
 
   constructor(
     public modalCtrl: ModalController,
@@ -24,15 +26,19 @@ export class TransfersPage {
     public walletSrv: WalletsService,
     public loadingCtrl: LoadingController,
   ) {
-    this.loader = this.loadingCtrl.create({
+    this.acceptLoader = this.loadingCtrl.create({
       content: "Processing transfer.",
     });
+    this.addLoader = this.loadingCtrl.create({
+      content: "Adding transfer.",
+    });
+
 
     this.wallets = this.walletSrv.wallets;
 
     let transferToken = this.navParams.get("transferToken");
     if (transferToken) {
-      addTransaction(transferToken);
+      this.addTransaction(transferToken);
     }
 
   }
@@ -45,54 +51,22 @@ export class TransfersPage {
   }
 
   /**
-   * Gets transaction information from server and adds it to list of transactions.
+   * Gets transaction information from server and adds it to list of transfers.
    * @param transferToken
    */
   public addTransaction (transferToken) {
-    this.transfSrv.getTransferByToken(transferToken) {
-
-    }
+    this.transfSrv.getTransferByToken(transferToken)
+      .subscribe(
+        (res) => {
+          this.acceptLoader.dismiss().catch((f) => f);
+          this.pendingTransfers.push(res);
+        },
+        (error) => {
+          this.acceptLoader.dismiss().catch((f) => f);
+          Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+        },
+      );
   }
 
-
-  /**
-   * Allows user to accept a payment by inputting a token corresponding to the payment.
-   */
-  public receive () {
-    if ( this.token.length !== 128 ) {
-      Alert( this.alertCtrl, "Whoops!", "Please enter a valid transfer token.", ["Dismiss."] );
-
-    } else {
-
-      this.loader.present().catch((f) => f);
-
-      this.transfSrv.receive(this.token)
-        .subscribe(
-          (res) => {
-            this.loader.dismiss().catch((f) => f);
-            this.handleReceive(res);
-          },
-          (error) => {
-            this.loader.dismiss().catch((f) => f);
-            Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
-          },
-        );
-    }
-  }
-
-  /**
-   * Updates the user's wallets if the receive was successful. Alerts the user if unsuccessful.
-   * @param res
-   */
-  public handleReceive (res) {
-    if ( res.data ) {
-      this.token = "";
-      this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
-
-      Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."]);
-    } else {
-      Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
-    }
-
-  }
+  
 }
