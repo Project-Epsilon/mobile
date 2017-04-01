@@ -12,7 +12,7 @@ import {TransfersPage} from "../transfers/transfers";
   templateUrl: "login.html",
 })
 export class LoginPage {
-  private transactionId;
+  private transferToken;
 
   constructor(
       public auth: AuthService,
@@ -21,7 +21,7 @@ export class LoginPage {
       public storage: Storage,
       public navParams: NavParams,
   ) {
-    this.transactionId = navParams.get('transationID');
+    this.transferToken = navParams.get('transferToken');
   }
 
   /**
@@ -63,11 +63,11 @@ export class LoginPage {
   public otpCheck(user) {
     if (user.locked) {
       this.app.getRootNav().setRoot(OtpPage);
-    } else if (user.locked && this.transactionId) {
-      this.app.getRootNav().setRoot(OtpPage, {transactionId: this.transactionId});
+    } else if (user.locked && this.transferToken) {
+      this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
     }
-    else if (!user.locked && this.transactionId) {
-      this.app.getRootNav().setRoot(TransfersPage, {transactionId: this.transactionId});
+    else if (!user.locked && this.transferToken) {
+      this.app.getRootNav().setRoot(TransfersPage, {transferToken: this.transferToken});
     } else {
         this.app.getRootNav().setRoot(TabsPage);
       }

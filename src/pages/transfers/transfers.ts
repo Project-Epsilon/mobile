@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { AlertController, Loading, LoadingController, ModalController } from "ionic-angular";
+import { AlertController, Loading, LoadingController, ModalController, NavParams } from "ionic-angular";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
@@ -18,6 +18,7 @@ export class TransfersPage {
 
   constructor(
     public modalCtrl: ModalController,
+    public navParams: NavParams,
     public alertCtrl: AlertController,
     public transfSrv: TransferService,
     public walletSrv: WalletsService,
@@ -28,6 +29,12 @@ export class TransfersPage {
     });
 
     this.wallets = this.walletSrv.wallets;
+
+    let transferToken = this.navParams.get("transferToken");
+    if (transferToken) {
+      addTransaction(transferToken);
+    }
+
   }
   /**
    * Expands transaction to show more details
@@ -36,6 +43,17 @@ export class TransfersPage {
     let modal = this.modalCtrl.create(TransfersModalPage);
     modal.present().then();
   }
+
+  /**
+   * Gets transaction information from server and adds it to list of transactions.
+   * @param transferToken
+   */
+  public addTransaction (transferToken) {
+    this.transfSrv.getTransferByToken(transferToken) {
+
+    }
+  }
+
 
   /**
    * Allows user to accept a payment by inputting a token corresponding to the payment.

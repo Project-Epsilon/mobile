@@ -38,18 +38,22 @@ export class TransferService {
     });
   }
 
-  public gettransferinfo(token) {
-
+  /**
+   * Returns transfer based on the input token assosiated with the transafer.
+   * @param token
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public getTransferByToken(token) {
     return new Observable((observer) => {
       this.http.post(environment.server_url + "/api/transfer/user/", {
         token,
-      }).map((res) => res.json()).subscribe((res) => {
-        observer.next(res);
-        observer.complete();
+      })
+        .map((res) => res.json())
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+      });
     });
-
-    });
-
   }
 
 

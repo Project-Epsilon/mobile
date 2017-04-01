@@ -18,7 +18,7 @@ export class OtpPage {
 
   public loading: boolean;
 
-  public transactionId;
+  public transferToken;
 
   public constructor(
     public navCtrl: NavController,
@@ -36,7 +36,7 @@ export class OtpPage {
       token: ["", Validators.required],
     });
 
-    this.transactionId = navParams.get('transationID');
+    this.transferToken = navParams.get('transferToken');
   }
 
   /**
@@ -64,10 +64,10 @@ export class OtpPage {
       this.auth.otp(this.unlock.value, true)
         .subscribe((res: any) => {
           this.loading = false;
-          if (res === "ok" && !this.transactionId) {
+          if (res === "ok" && !this.transferToken) {
             this.app.getRootNav().setRoot(TabsPage);
-          } else if (res === "ok" && this.transactionId) {
-            this.app.getRootNav().setRoot(TransfersPage, {transactionId: this.transactionId});
+          } else if (res === "ok" && this.transferToken) {
+            this.app.getRootNav().setRoot(TransfersPage, {transferToken: this.transferToken});
           }
         });
     }

@@ -20,7 +20,7 @@ export class MyApp {
       Splashscreen.hide();
 
       Deeplinks.routeWithNavController(this.nav, {
-        '/login/:transationID': LoginPage,
+        '/login/:transferToken': LoginPage,
       });
     });
   }
