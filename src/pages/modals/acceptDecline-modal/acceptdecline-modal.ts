@@ -26,7 +26,6 @@ export class AcceptDeclineModalPage {
     });
 
     this.transfer = this.params.get("transfer");
-
   }
 
   /**
@@ -69,7 +68,7 @@ export class AcceptDeclineModalPage {
   private presentToast() {
     let toast = this.toastCtrl.create({
       duration: 3000,
-      message: "Contact was added successfully",
+      message: "Transfer Success! Your wallet has been updated.",
       position: "top",
     });
 
@@ -84,11 +83,10 @@ export class AcceptDeclineModalPage {
     if ( res.data ) {
       this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
 
-      Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."]);
+      this.presentToast();
     } else {
       Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
     }
-
   }
 
 }
