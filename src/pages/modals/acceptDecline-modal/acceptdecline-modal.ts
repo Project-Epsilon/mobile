@@ -1,19 +1,31 @@
 import { Component } from "@angular/core";
-import { NavParams, ToastController, ViewController } from "ionic-angular";
-import {Alert} from "../../../utils/Alert";
+import { NavParams, ToastController, ViewController, Loading, AlertController, LoadingController } from "ionic-angular";
+import { Alert } from "../../../utils/Alert";
+import { TransferService } from "providers/transfer.service";
+import { WalletsService } from "../../../providers/wallet.service";
 
 @Component({
     selector: "page-acceptdecline-modal",
     templateUrl: "acceptdecline-modal.html",
 })
 export class AcceptDeclineModalPage {
+  private loader: Loading;
+  private transfer: any;
 
   constructor(
     public viewCtrl: ViewController,
     public params: NavParams,
     private toastCtrl: ToastController,
-
+    public alertCtrl: AlertController,
+    public transfSrv: TransferService,
+    public walletSrv: WalletsService,
+    public loadingCtrl: LoadingController,
   ) {
+    this.loader = this.loadingCtrl.create({
+      content: "Accepting funds.",
+    });
+
+    this.transfer = this.params.get("transfer");
 
   }
 
@@ -23,7 +35,7 @@ export class AcceptDeclineModalPage {
   public accept() {
     this.loader.present().catch((f) => f);
 
-    this.transfSrv.receive(this.token)
+    this.transfSrv.receive(this.transfer.token)
       .subscribe(
         (res) => {
           this.loader.dismiss().catch((f) => f);

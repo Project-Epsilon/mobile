@@ -3,7 +3,7 @@ import { AlertController, Loading, LoadingController, ModalController, NavParams
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
+import { AcceptDeclineModalPage } from "../modals/acceptDecline-modal/acceptdecline-modal";
 
 @Component({
   selector: "page-transfers",
@@ -14,8 +14,7 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "pending";
   public wallets: any;
-  private acceptLoader: Loading;
-  private addLoader: Loading;
+  private loader: Loading;
   public pendingTransfers: any[];
 
   constructor(
@@ -26,10 +25,8 @@ export class TransfersPage {
     public walletSrv: WalletsService,
     public loadingCtrl: LoadingController,
   ) {
-    this.acceptLoader = this.loadingCtrl.create({
-      content: "Processing transfer.",
-    });
-    this.addLoader = this.loadingCtrl.create({
+
+    this.loader = this.loadingCtrl.create({
       content: "Adding transfer.",
     });
 
@@ -40,14 +37,6 @@ export class TransfersPage {
     if (transferToken) {
       this.addTransaction(transferToken);
     }
-
-  }
-  /**
-   * Expands transaction to show more details
-   */
-  public showTransferModal() {
-    let modal = this.modalCtrl.create(TransfersModalPage);
-    modal.present().then();
   }
 
   /**
@@ -58,15 +47,27 @@ export class TransfersPage {
     this.transfSrv.getTransferByToken(transferToken)
       .subscribe(
         (res) => {
-          this.acceptLoader.dismiss().catch((f) => f);
-          this.pendingTransfers.push(res);
+          this.loader.dismiss().catch((f) => f);
+          let transfer = res;
+          transfer["token"] = transferToken;
+          this.pendingTransfers.push(transfer);
         },
         (error) => {
-          this.acceptLoader.dismiss().catch((f) => f);
+          this.loader.dismiss().catch((f) => f);
           Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
         },
       );
   }
 
-  
+
+  /**
+   * Displays the modal page for the given transfer.
+   *
+   * @param transfer
+   */
+  public showAcceptDeclineModal (transfer) {
+    let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
+    modal.present();
+  }
+
 }
