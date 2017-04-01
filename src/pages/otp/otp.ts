@@ -25,6 +25,7 @@ export class OtpPage {
     public fb: FormBuilder,
   ) {
     this.showRequest = true;
+    this.loading = false;
 
     this.request = this.fb.group({
       phone_number: ["", Validators.required],
@@ -64,6 +65,13 @@ export class OtpPage {
           }
         });
     }
+  }
+
+  /**
+   * Toggles the page.
+   */
+  public togglePages() {
+    this.showRequest = !this.showRequest;
   }
 
 }
