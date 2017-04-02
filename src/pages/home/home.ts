@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 
 import { Http } from "@angular/http";
-import { App, Loading, LoadingController, NavController } from "ionic-angular";
+import { App, Loading, LoadingController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
@@ -21,7 +21,6 @@ export class HomePage {
   private loader: Loading;
 
   constructor(
-      public navCtrl: NavController,
       public auth: AuthService,
       public app: App,
       public storage: Storage,

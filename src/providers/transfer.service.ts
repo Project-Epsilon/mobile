@@ -54,4 +54,15 @@ export class TransferService {
         });
     });
   }
+
+  public getPendingTransactions(){
+    return new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/transfer/user/out")
+        .map((res) => res.json())
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+        })
+    })
+  }
 }

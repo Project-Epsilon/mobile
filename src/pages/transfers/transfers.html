@@ -10,7 +10,7 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="action">
-      <ion-segment-button value="pending" >
+      <ion-segment-button value="pending" (tap)="foo()" >
         Pending
       </ion-segment-button>
       <ion-segment-button value="history">
@@ -28,6 +28,12 @@
       <div text-center>
         <button ion-button type="submit" (click)="receive()">Accept</button>
       </div>
+
+      <ng-container *ngIf="pending!=undefined">
+        <ion-item *ngFor="let transfer of pending.data">
+          {{transfer.sender}} {{transfer.amount}}
+        </ion-item>
+      </ng-container>
     </ion-list>
 
     <ion-list *ngSwitchCase="'history'">

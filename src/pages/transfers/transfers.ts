@@ -14,6 +14,7 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "pending";
   public wallets: any;
+  public pending: any;
   private loader: Loading;
 
   constructor(
@@ -27,8 +28,13 @@ export class TransfersPage {
       content: "Processing transfer.",
     });
 
+    this.transfSrv.getPendingTransactions()
+      .subscribe((pending) => {
+        this.pending = pending;
+      });
     this.wallets = this.walletSrv.wallets;
   }
+
   /**
    * Expands transaction to show more details
    */
@@ -77,4 +83,12 @@ export class TransfersPage {
     }
 
   }
+
+  public foo(){
+    console.log(this.pending);
+    console.log(this.pending.data);
+    console.log(this.pending.data[0]);
+    console.log(this.pending.data[0].amount);
+  }
+
 }
