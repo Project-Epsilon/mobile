@@ -50,16 +50,6 @@ export class HomePage {
       .subscribe((contacts) =>
         this.contacts = contacts,
       );
-
-    this.params = navParams.get('userId');
-
-    if (this.params != '')
-    {
-
-      let profileModal = this.modalCtrl.create(TransfersModalPage, { userId: this.params });
-      profileModal.present();
-
-    }
   }
 
   /**
