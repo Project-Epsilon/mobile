@@ -10,7 +10,7 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="action">
-      <ion-segment-button value="pending" (tap)="foo()" >
+      <ion-segment-button value="pending">
         Pending
       </ion-segment-button>
       <ion-segment-button value="history">
@@ -30,8 +30,9 @@
       </div>
 
       <ng-container *ngIf="pending!=undefined">
-        <ion-item *ngFor="let transfer of pending.data">
-          {{transfer.sender}} {{transfer.amount}}
+        <ion-item *ngFor="let transfer of pending.data" (click)="showTransferModal(transfer)">
+          {{transfer.sender}}
+          <p ion-text item-right color="out">{{transfer.amount}} OUT</p>
         </ion-item>
       </ng-container>
     </ion-list>

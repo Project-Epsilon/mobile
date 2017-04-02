@@ -25,14 +25,14 @@
             <ion-avatar item-left>
               <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
             </ion-avatar>
-            <h2>FName LName</h2>
-            <p ion-text item-right color="in">+10.45$ IN</p>
+            <h2>{{transfer.sender}}</h2>
+            <p ion-text item-right color="out">-{{transfer.amount}} OUT</p>
           </ion-item>
         <p>Message: </p>
         <ion-item>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec scelerisque ac metus eget mattis. Etiam vitae magna a arcu scelerisque iaculis eu vitae eros. Sed quis quam sed leo viverra placerat at id eros. </p>
+          <p>{{transfer.message}}</p>
         </ion-item>
-
+        <p>Created on: {{transfer.created_at | date:'short'}}</p>
       </ion-list>
       <button ion-button color="secondary">Accept</button>
       <button ion-button color="danger">Decline</button>

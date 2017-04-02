@@ -38,8 +38,8 @@ export class TransfersPage {
   /**
    * Expands transaction to show more details
    */
-  public showTransferModal() {
-    let modal = this.modalCtrl.create(TransfersModalPage);
+  public showTransferModal(transfer) {
+    let modal = this.modalCtrl.create(TransfersModalPage, {transfer});
     modal.present().then();
   }
 
@@ -82,13 +82,6 @@ export class TransfersPage {
       Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
     }
 
-  }
-
-  public foo(){
-    console.log(this.pending);
-    console.log(this.pending.data);
-    console.log(this.pending.data[0]);
-    console.log(this.pending.data[0].amount);
   }
 
 }
