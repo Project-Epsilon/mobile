@@ -31,10 +31,13 @@ export class TransferService {
         message,
       })
         .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-        });
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => err,
+        );
     });
   }
 

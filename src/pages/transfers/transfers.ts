@@ -52,9 +52,9 @@ export class TransfersPage {
           transfer["token"] = transferToken;
           this.pendingTransfers.push(transfer);
         },
-        (error) => {
+        (err) => {
           this.loader.dismiss().catch((f) => f);
-          Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+          Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]);
         },
       );
   }
