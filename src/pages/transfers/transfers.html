@@ -31,7 +31,7 @@
 
       <ng-container *ngIf="pending!=undefined">
         <ion-item *ngFor="let transfer of pending.data" (click)="showTransferModal(transfer)">
-          {{transfer.sender}}
+          {{transfer.receiver.name}}
           <p ion-text item-right color="out">{{transfer.amount}} OUT</p>
         </ion-item>
       </ng-container>

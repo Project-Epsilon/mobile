@@ -13,7 +13,6 @@ export class TransfersModalPage {
     public viewCtrl: ViewController,
     public params: NavParams) {
     this.transfer = this.params.get("transfer");
-    console.log(this.transfer);
   }
 
   public dismiss() {

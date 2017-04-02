@@ -3,7 +3,7 @@ import { AlertController, Loading, LoadingController, ModalController } from "io
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
+import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 
 @Component({
   selector: "page-transfers",
