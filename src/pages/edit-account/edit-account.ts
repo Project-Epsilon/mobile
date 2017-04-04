@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import {NavController, NavParams, AlertController, ToastController, ViewController} from "ionic-angular";
+import { NavController, NavParams, AlertController, ToastController, ViewController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { Alert } from "../../utils/Alert";
+
+import { LoginPage } from "../login/login";
 
 @Component({
   selector: "page-edit-account",
@@ -84,7 +86,13 @@ export class EditAccountPage {
       },
       {
         handler: () => {
-          this.auth.deleteUser(this.user);
+          this.auth.logout();
+
+          // this.auth.deleteUser(this.user);
+          
+          this.navCtrl.popToRoot();
+          this.navCtrl.push(LoginPage);
+
           this.dismiss();
           this.presentToast();
         },
