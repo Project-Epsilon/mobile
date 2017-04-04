@@ -84,7 +84,7 @@ export class EditAccountPage {
       },
       {
         handler: () => {
-          this.auth.deleteUser();
+          this.auth.deleteUser(this.user);
           this.dismiss();
           this.presentToast();
         },
