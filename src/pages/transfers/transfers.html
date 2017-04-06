@@ -10,24 +10,17 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="action">
-      <ion-segment-button value="pending">
-        Pending
-      </ion-segment-button>
       <ion-segment-button value="history">
         History
+      </ion-segment-button>
+      <ion-segment-button value="pending">
+        Pending
       </ion-segment-button>
     </ion-segment>
   </div>
 
   <div [ngSwitch]="action">
     <ion-list *ngSwitchCase="'pending'">
-      <ion-item>
-        <ion-label text-center stacked>Transfer Token</ion-label>
-        <ion-input [(ngModel)] = "token" placeholder="Token" min="128" max="128" required>{{token}}</ion-input>
-      </ion-item>
-      <div text-center>
-        <button ion-button type="submit" (click)="receive()">Accept</button>
-      </div>
 
       <ng-container *ngIf="pending!=undefined">
         <ion-item *ngFor="let transfer of pending.data" (click)="showTransferModal(transfer)">
