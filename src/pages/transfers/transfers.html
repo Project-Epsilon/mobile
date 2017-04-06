@@ -21,7 +21,6 @@
 
   <div [ngSwitch]="action">
     <ion-list *ngSwitchCase="'pending'">
-
       <ng-container *ngIf="pending!=undefined">
         <ion-item *ngFor="let transfer of pending.data" (click)="showTransferModal(transfer)">
           {{transfer.receiver.name}}

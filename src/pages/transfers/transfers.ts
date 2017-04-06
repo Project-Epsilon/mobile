@@ -28,9 +28,11 @@ export class TransfersPage {
       content: "Processing transfer.",
     });
 
+    this.loader.present().catch((f) => f);
     this.transfSrv.getPendingTransactions()
       .subscribe((pending) => {
         this.pending = pending;
+        this.loader.dismiss().catch((f) => f);
       });
     this.wallets = this.walletSrv.wallets;
   }
