@@ -68,6 +68,7 @@ export class LoginPage {
       this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
     }
     else if (!user.locked && this.transferToken) {
+      console.log("HERE!");
       this.app.getRootNav().setRoot(TransfersPage, {transferToken: this.transferToken});
     } else {
         this.app.getRootNav().setRoot(TabsPage);

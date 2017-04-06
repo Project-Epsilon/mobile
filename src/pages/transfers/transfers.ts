@@ -34,6 +34,7 @@ export class TransfersPage {
     this.wallets = this.walletSrv.wallets;
 
     let transferToken = this.navParams.get("transferToken");
+    console.log("Please work: " + transferToken);
     if (transferToken) {
       this.addTransaction(transferToken);
     }

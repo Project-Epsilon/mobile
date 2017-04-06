@@ -48,7 +48,7 @@ export class TransferService {
    */
   public getTransferByToken(token) {
     return new Observable((observer) => {
-      this.http.post(environment.server_url + "/api/transfer/user/", {
+      this.http.post(environment.server_url + "/api/transfer/user", {
         token,
       })
         .map((res) => res.json())
