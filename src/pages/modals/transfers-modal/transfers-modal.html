@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title center>
-      Incoming Transfer
+      Outgoing Transfer
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -16,18 +16,15 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header center>
-      Incoming Transfer
+      Outgoing Transfer
     </ion-card-header>
     <ion-card-content>
       <ion-list>
         <p>To: </p>
-          <ion-item>
-            <ion-avatar item-left>
-              <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
-            </ion-avatar>
-            <h2>{{transfer.receiver.name}}</h2>
-            <p ion-text item-right color="out">-{{transfer.amount}} OUT</p>
-          </ion-item>
+        <ion-item>
+          <h2>{{transfer.receiver.name}}</h2>
+          <p ion-text item-right color="out">-{{transfer.amount}} OUT</p>
+        </ion-item>
         <p>Message: </p>
         <ion-item>
           <p>{{transfer.message}}</p>
