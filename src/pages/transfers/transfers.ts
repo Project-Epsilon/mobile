@@ -39,6 +39,11 @@ export class TransfersPage {
         this.loader.dismiss().catch((f) => f);
       });
     this.wallets = this.walletSrv.wallets;
+
+    let transferToken = this.navParams.get("transferToken");
+    if (transferToken) {
+      this.addTransaction(transferToken);
+    }
   }
 
   /**
@@ -48,12 +53,6 @@ export class TransfersPage {
   public showTransferModal(transfer) {
     let modal = this.modalCtrl.create(TransfersModalPage, {transfer});
     modal.present();
-  }
-
-    let transferToken = this.navParams.get("transferToken");
-    if (transferToken) {
-      this.addTransaction(transferToken);
-    }
   }
 
   /**
