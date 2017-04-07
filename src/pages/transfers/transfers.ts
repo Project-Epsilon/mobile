@@ -39,10 +39,11 @@ export class TransfersPage {
 
   /**
    * Expands transaction to show more details
+   * @param transfer
    */
   public showTransferModal(transfer) {
     let modal = this.modalCtrl.create(TransfersModalPage, {transfer});
-    modal.present().then();
+    modal.present();
   }
 
   /**
