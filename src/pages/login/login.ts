@@ -21,7 +21,6 @@ export class LoginPage {
       public storage: Storage,
       public navParams: NavParams,
       public navCtrl: NavController,
-
   ) {
     this.transferToken = navParams.get('transferToken');
   }
@@ -67,13 +66,10 @@ export class LoginPage {
       this.app.getRootNav().setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
-    }
-    else if (!user.locked && this.transferToken) {
+    } else if (!user.locked && this.transferToken) {
       this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
-
     } else {
         this.app.getRootNav().setRoot(TabsPage);
       }
     }
-
 }

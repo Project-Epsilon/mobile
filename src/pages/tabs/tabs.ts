@@ -41,7 +41,7 @@ export class TabsPage {
   /**
    * Runs when tabs page is initialized. If there is a transfer token, redirects to transfers page.
    */
-  ionViewDidEnter() {
+  public ionViewDidEnter() {
     if (this.transferParams) {
       this.tabRef.select(3);
     }

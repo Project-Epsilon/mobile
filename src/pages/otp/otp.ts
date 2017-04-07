@@ -1,9 +1,8 @@
 import { Component } from "@angular/core";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {App, NavController, NavParams} from "ionic-angular";
-import {AuthService} from "../../providers/auth.service";
-import {TabsPage} from "../tabs/tabs";
-import {TransfersPage} from "../transfers/transfers";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { App, NavController, NavParams } from "ionic-angular";
+import { AuthService } from "../../providers/auth.service";
+import { TabsPage } from "../tabs/tabs";
 
 @Component({
   selector: "page-otp",
@@ -64,13 +63,14 @@ export class OtpPage {
       this.auth.otp(this.unlock.value, true)
         .subscribe((res: any) => {
           this.loading = false;
-          if (res === "ok" && !this.transferToken) {
-            this.app.getRootNav().setRoot(TabsPage);
-          } else if (res === "ok" && this.transferToken) {
-            this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
+          if (res === "ok") {
+            if (this.transferToken) {
+              this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
+            } else {
+              this.app.getRootNav().setRoot(TabsPage);
+            }
           }
         });
     }
   }
-
 }
