@@ -1,11 +1,10 @@
 import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
-import {App, NavParams, NavController, Tabs} from "ionic-angular";
+import { App, NavParams, NavController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { OtpPage } from "../otp/otp";
 import { TabsPage } from "../tabs/tabs";
-import { TransfersPage } from "../transfers/transfers";
 
 @Component({
   selector: "page-login",
@@ -64,7 +63,6 @@ export class LoginPage {
    * @param user
    */
   public otpCheck(user) {
-    this.transferToken = "ks9x8kBCNKr0VzjRTpHFQuuYAiHiMJtf";
     if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
