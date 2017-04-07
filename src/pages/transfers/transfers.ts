@@ -15,7 +15,7 @@ export class TransfersPage {
   public action: string = "pending";
   public wallets: any;
   private loader: Loading;
-  public pendingTransfers: any[];
+  public pendingTransfers: any [] = [];
 
   constructor(
     public modalCtrl: ModalController,
@@ -25,7 +25,6 @@ export class TransfersPage {
     public walletSrv: WalletsService,
     public loadingCtrl: LoadingController,
   ) {
-
     this.loader = this.loadingCtrl.create({
       content: "Adding transfer.",
     });
@@ -34,7 +33,8 @@ export class TransfersPage {
     this.wallets = this.walletSrv.wallets;
 
     let transferToken = this.navParams.get("transferToken");
-    console.log("Please work: " + transferToken);
+    console.log("transfer");
+    console.log(this.navParams.data);
     if (transferToken) {
       this.addTransaction(transferToken);
     }
@@ -69,6 +69,14 @@ export class TransfersPage {
   public showAcceptDeclineModal (transfer) {
     let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
     modal.present();
+    modal.onDidDismiss(
+      (res) => {
+        if (res.transferProcessed) {
+          let transferIndex = this.pendingTransfers.indexOf(res.transfer);
+          this.pendingTransfers.splice(transferIndex, 1);
+        }
+      },
+    );
   }
 
 }

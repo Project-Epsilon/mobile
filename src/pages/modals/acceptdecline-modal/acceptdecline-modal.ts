@@ -11,6 +11,7 @@ import { WalletsService } from "../../../providers/wallet.service";
 export class AcceptDeclineModalPage {
   private loader: Loading;
   private transfer: any;
+  private transferProcessed: boolean = false;
 
   constructor(
     public viewCtrl: ViewController,
@@ -55,10 +56,15 @@ export class AcceptDeclineModalPage {
   }
 
   /**
-   * Close the modal page.
+   * Close the modal page, returning transfer and if it was processed
    */
   public dismiss() {
-      this.viewCtrl.dismiss( ).catch( (f) => f);
+    this.viewCtrl.dismiss(
+      {
+        transferProcessed: this.transferProcessed,
+        transfer: this.transfer,
+      }
+    ).catch( (f) => f );
   }
 
 
@@ -82,7 +88,7 @@ export class AcceptDeclineModalPage {
   private handleAccept (res) {
     if ( res.data ) {
       this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
-
+      this.transferProcessed = true;
       this.presentToast();
     } else {
       Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);

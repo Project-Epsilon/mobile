@@ -19,7 +19,6 @@ export class HomePage {
   public contacts: any;
   public currentWalletIndex: number = -1;
   private loader: Loading;
-  public params:'';
 
   constructor(
       public navCtrl: NavController,

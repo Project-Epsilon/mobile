@@ -67,7 +67,7 @@ export class OtpPage {
           if (res === "ok" && !this.transferToken) {
             this.app.getRootNav().setRoot(TabsPage);
           } else if (res === "ok" && this.transferToken) {
-            this.app.getRootNav().setRoot(TransfersPage, {transferToken: this.transferToken});
+            this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
           }
         });
     }

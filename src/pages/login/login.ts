@@ -1,16 +1,17 @@
 import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
-import { App,NavParams } from "ionic-angular";
+import {App, NavParams, NavController, Tabs} from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { OtpPage } from "../otp/otp";
 import { TabsPage } from "../tabs/tabs";
-import {TransfersPage} from "../transfers/transfers";
+import { TransfersPage } from "../transfers/transfers";
 
 @Component({
   selector: "page-login",
   templateUrl: "login.html",
 })
+
 export class LoginPage {
   private transferToken;
 
@@ -20,9 +21,10 @@ export class LoginPage {
       public http: Http,
       public storage: Storage,
       public navParams: NavParams,
+      public navCtrl: NavController,
+
   ) {
     this.transferToken = navParams.get('transferToken');
-    console.log("navparams" + this.transferToken);
   }
 
   /**
@@ -62,14 +64,15 @@ export class LoginPage {
    * @param user
    */
   public otpCheck(user) {
+    this.transferToken = "TEST TRANSFER TOKEN!";
     if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
     }
     else if (!user.locked && this.transferToken) {
-      console.log("HERE!");
-      this.app.getRootNav().setRoot(TransfersPage, {transferToken: this.transferToken});
+      this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
+
     } else {
         this.app.getRootNav().setRoot(TabsPage);
       }

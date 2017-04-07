@@ -21,7 +21,7 @@
 
   <div [ngSwitch]="action">
     <ion-list *ngSwitchCase="'pending'">
-      <ion-item *ngFor="let transfer of transfers" (click)="showAcceptDeclineModal(transfer)">
+      <ion-item *ngFor="let transfer of pendingTransfers" (click)="showAcceptDeclineModal(transfer)">
         <ion-avatar item-left>
           <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
         </ion-avatar>
