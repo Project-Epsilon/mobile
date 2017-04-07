@@ -30,13 +30,48 @@ export class TransferService {
         wallet_id: walletId,
         message,
       })
-        .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-        });
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
     });
   }
+
+  /**
+   * Returns transfer based on the input token assosiated with the transafer.
+   * @param token
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public getTransferByToken(token) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user", {
+        token,
+      })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+      );
+    });
+  }
+
 
   /**
    * Sends a post request to the server to receive money from another user.
@@ -47,11 +82,19 @@ export class TransferService {
       this.http.post(environment.server_url + "/api/transfer/user/receive", {
         token,
       })
-        .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-        });
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
     });
   }
 
