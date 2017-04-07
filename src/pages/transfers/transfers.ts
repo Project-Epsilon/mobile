@@ -3,7 +3,9 @@ import { AlertController, Loading, LoadingController, ModalController, NavParams
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
+import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecline-modal";
+
 
 @Component({
   selector: "page-transfers",
@@ -14,6 +16,7 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "pending";
   public wallets: any;
+  public pending: any;
   private loader: Loading;
   public pendingTransfers: any [] = [];
 
@@ -29,12 +32,27 @@ export class TransfersPage {
       content: "Adding transfer.",
     });
 
+    this.loader.present().catch((f) => f);
+    this.transfSrv.getPendingTransactions()
+      .subscribe((pending) => {
+        this.pending = pending;
+        this.loader.dismiss().catch((f) => f);
+      });
     this.wallets = this.walletSrv.wallets;
 
     let transferToken = this.navParams.get("transferToken");
     if (transferToken) {
       this.addTransaction(transferToken);
     }
+  }
+
+  /**
+   * Expands transaction to show more details
+   * @param transfer
+   */
+  public showTransferModal(transfer) {
+    let modal = this.modalCtrl.create(TransfersModalPage, {transfer});
+    modal.present();
   }
 
   /**

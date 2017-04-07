@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import "rxjs/add/operator/map";
 
-import {AuthHttp} from "angular2-jwt";
-import {Observable} from "rxjs";
-import {environment} from "../environments/environment";
+import { AuthHttp } from "angular2-jwt";
+import { Observable } from "rxjs";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class TransferService {
@@ -96,5 +96,20 @@ export class TransferService {
           },
         );
     });
+  }
+
+  /**
+   * Sends a get request to request pending transactions from a user
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   */
+  public getPendingTransactions(){
+    return new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/transfer/user/out")
+        .map((res) => res.json())
+        .subscribe((res) => {
+          observer.next(res);
+          observer.complete();
+        })
+    })
   }
 }

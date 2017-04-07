@@ -20,7 +20,6 @@ export class HomePage {
   private loader: Loading;
 
   constructor(
-      public navCtrl: NavController,
       public auth: AuthService,
       public app: App,
       public storage: Storage,
