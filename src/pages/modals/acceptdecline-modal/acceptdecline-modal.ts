@@ -56,14 +56,15 @@ export class AcceptDeclineModalPage {
   }
 
   /**
-   * Close the modal page, returning transfer and if it was processed
+   * Close the modal page, returning transfer only if it was processd
    */
   public dismiss() {
+    if(this.transferProcessed) {
+      this.transfer = null;
+    } 
+
     this.viewCtrl.dismiss(
-      {
-        transferProcessed: this.transferProcessed,
-        transfer: this.transfer,
-      }
+        this.transfer,
     ).catch( (f) => f );
   }
 

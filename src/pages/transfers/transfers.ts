@@ -29,12 +29,9 @@ export class TransfersPage {
       content: "Adding transfer.",
     });
 
-
     this.wallets = this.walletSrv.wallets;
 
     let transferToken = this.navParams.get("transferToken");
-    console.log("transfer");
-    console.log(this.navParams.data);
     if (transferToken) {
       this.addTransaction(transferToken);
     }
@@ -49,9 +46,10 @@ export class TransfersPage {
       .subscribe(
         (res) => {
           this.loader.dismiss().catch((f) => f);
-          let transfer = res;
-          transfer["token"] = transferToken;
-          this.pendingTransfers.push(transfer);
+          let transfer = <any>res;
+          let transferWithToken = transfer.data;
+          transferWithToken.token = transferToken;
+          this.pendingTransfers.push(transferWithToken);
         },
         (err) => {
           this.loader.dismiss().catch((f) => f);

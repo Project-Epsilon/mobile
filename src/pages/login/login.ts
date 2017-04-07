@@ -64,7 +64,7 @@ export class LoginPage {
    * @param user
    */
   public otpCheck(user) {
-    this.transferToken = "TEST TRANSFER TOKEN!";
+    this.transferToken = "ks9x8kBCNKr0VzjRTpHFQuuYAiHiMJtf";
     if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
