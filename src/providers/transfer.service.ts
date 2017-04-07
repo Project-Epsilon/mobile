@@ -30,13 +30,18 @@ export class TransferService {
         wallet_id: walletId,
         message,
       })
-        .map((res) => res.json())
+        .map(
+          (res) => res.json(),
+        )
         .subscribe(
           (res) => {
             observer.next(res);
             observer.complete();
           },
-          (err) => err,
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
         );
     });
   }
@@ -51,11 +56,19 @@ export class TransferService {
       this.http.post(environment.server_url + "/api/transfer/user", {
         token,
       })
-        .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-      });
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+      );
     });
   }
 
@@ -69,11 +82,19 @@ export class TransferService {
       this.http.post(environment.server_url + "/api/transfer/user/receive", {
         token,
       })
-        .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-        });
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
     });
   }
 }

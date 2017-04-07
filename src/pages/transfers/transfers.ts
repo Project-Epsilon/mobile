@@ -69,8 +69,8 @@ export class TransfersPage {
     modal.present();
     modal.onDidDismiss(
       (res) => {
-        if (res.transferProcessed) {
-          let transferIndex = this.pendingTransfers.indexOf(res.transfer);
+        if (res) {
+          let transferIndex = this.pendingTransfers.indexOf(res);
           this.pendingTransfers.splice(transferIndex, 1);
         }
       },

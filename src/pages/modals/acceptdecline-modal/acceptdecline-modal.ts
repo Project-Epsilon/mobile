@@ -59,15 +59,14 @@ export class AcceptDeclineModalPage {
    * Close the modal page, returning transfer only if it was processd
    */
   public dismiss() {
-    if(this.transferProcessed) {
-      this.transfer = null;
-    } 
+    if(!this.transferProcessed) {
+      this.transfer = "";
+    }
 
     this.viewCtrl.dismiss(
         this.transfer,
     ).catch( (f) => f );
   }
-
 
   /**
    * Shows notification that contact was added successfully
@@ -92,8 +91,13 @@ export class AcceptDeclineModalPage {
       this.transferProcessed = true;
       this.presentToast();
     } else {
-      Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
+      let error = res.json().errors.message;
+      if ( error === "Transfer does not exists." ) {
+        this.transferProcessed = true;
+      }
+      Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
     }
+    this.dismiss();
   }
 
 }
