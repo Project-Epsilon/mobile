@@ -97,4 +97,29 @@ export class TransferService {
         );
     });
   }
+
+  /**
+   * Sends a post request to the server to decline money from another user.
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public decline(token) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user/cancel", {
+        token,
+      })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
+    });
+  }
 }
