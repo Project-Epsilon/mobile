@@ -137,7 +137,6 @@ export class SendMoneyPage {
    * @param displayAmount
    */
   private handleSend(res, displayAmount) {
-
     if (res.data) {
       this.walletSrv.updateWalletId(this.form.value.wallet.id)
         .subscribe (() => {

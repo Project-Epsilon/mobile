@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
-
 import { Http } from "@angular/http";
-import { App, Loading, LoadingController, NavController } from "ionic-angular";
+import { App, Loading, LoadingController, NavController, ModalController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
@@ -30,6 +29,9 @@ export class HomePage {
       public http: Http,
       public loadingCtrl: LoadingController,
       public contactsSrv: ContactsService,
+      public modalCtrl: ModalController,
+      public navParams: NavParams,
+
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Loading.",
@@ -38,14 +40,17 @@ export class HomePage {
     this.loader.present().catch((f) => f);
     this.currencySrv.init();
     this.walletSrv.getWallets()
-      .subscribe((wallets) => {
-        this.wallets = wallets;
-        this.loader.dismiss().catch((f) => f);
+      .subscribe(
+        (wallets) => {
+          this.wallets = wallets;
+          this.loader.dismiss().catch((f) => f);
       });
     this.contactsSrv.getContacts()
-        .subscribe((contacts) =>
-            this.contacts = contacts,
-        );
+      .subscribe(
+        (contacts) => {
+          this.contacts = contacts;
+        }
+      );
   }
 
   /**
