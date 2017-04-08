@@ -28,22 +28,22 @@ export class TransfersPage {
     public walletSrv: WalletsService,
     public loadingCtrl: LoadingController,
   ) {
-    this.loader = this.loadingCtrl.create({
-      content: "Adding transfer.",
-    });
-
-    this.loader.present().catch((f) => f);
-    this.transfSrv.getPendingTransactions()
-      .subscribe((pending) => {
-        this.pending = pending;
-        this.loader.dismiss().catch((f) => f);
-      });
-    this.wallets = this.walletSrv.wallets;
-
-    let transferToken = this.navParams.get("transferToken");
-    if (transferToken) {
-      this.addTransaction(transferToken);
-    }
+    // this.loader = this.loadingCtrl.create({
+    //   content: "Adding transfer.",
+    // });
+    //
+    // this.loader.present().catch((f) => f);
+    // this.transfSrv.getPendingTransactions()
+    //   .subscribe((pending) => {
+    //     this.pending = pending;
+    //     this.loader.dismiss().catch((f) => f);
+    //   });
+    // this.wallets = this.walletSrv.wallets;
+    //
+    // let transferToken = this.navParams.get("transferToken");
+    // if (transferToken) {
+    //   this.addTransaction(transferToken);
+    // }
   }
 
   /**
@@ -63,16 +63,16 @@ export class TransfersPage {
     this.transfSrv.getTransferByToken(transferToken)
       .subscribe(
         (res) => {
-          this.loader.dismiss().catch((f) => f);
+          // this.loader.dismiss().catch((f) => f);
           let transfer = <any>res;
           let transferWithToken = transfer.data;
-          transferWithToken.token = transferToken;
-          this.pendingTransfers.push(transferWithToken);
-        },
-        (err) => {
-          this.loader.dismiss().catch((f) => f);
-          Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]);
-        },
+          // transferWithToken.token = transferToken;
+          // this.pendingTransfers.push(transferWithToken);
+         }
+        // (err) => {
+        //   this.loader.dismiss().catch((f) => f);
+        //   Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]);
+        // },
       );
   }
 
@@ -83,16 +83,16 @@ export class TransfersPage {
    * @param transfer
    */
   public showAcceptDeclineModal (transfer) {
-    let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
-    modal.present();
-    modal.onDidDismiss(
-      (res) => {
-        if (res) {
-          let transferIndex = this.pendingTransfers.indexOf(res);
-          this.pendingTransfers.splice(transferIndex, 1);
-        }
-      },
-    );
+    // let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
+    // modal.present();
+    // modal.onDidDismiss(
+    //   (res) => {
+    //     if (res) {
+    //       let transferIndex = this.pendingTransfers.indexOf(res);
+    //       this.pendingTransfers.splice(transferIndex, 1);
+    //     }
+    //   },
+    // );
   }
 
 }
