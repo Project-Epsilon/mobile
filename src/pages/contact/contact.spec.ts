@@ -106,7 +106,7 @@ describe("Contact", () => {
       expect(component.filterContacts(new MockEvent())).toBeDefined();
     }
     catch(err){
-      
+
     }
   })));
 
