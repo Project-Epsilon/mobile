@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
-import { AlertController, Loading, LoadingController, ModalController } from "ionic-angular";
+import { AlertController, Loading, LoadingController, ModalController, NavParams } from "ionic-angular";
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import { TransfersModalPage} from "../modals/transfers-modal/transfers-modal";
+import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
+import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecline-modal";
+
 
 @Component({
   selector: "page-transfers",
@@ -14,67 +16,83 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "pending";
   public wallets: any;
+  public pending: any;
   private loader: Loading;
+  public pendingTransfers: any [] = [];
 
   constructor(
     public modalCtrl: ModalController,
+    public navParams: NavParams,
     public alertCtrl: AlertController,
     public transfSrv: TransferService,
     public walletSrv: WalletsService,
     public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: "Processing transfer.",
+      content: "Adding transfer.",
     });
 
+    this.loader.present().catch((f) => f);
+    this.transfSrv.getPendingTransactions()
+      .subscribe((pending) => {
+        this.pending = pending;
+        this.loader.dismiss().catch((f) => f);
+      });
     this.wallets = this.walletSrv.wallets;
+
+    let transferToken = this.navParams.get("transferToken");
+    if (transferToken) {
+      this.addTransaction(transferToken);
+    }
   }
+
   /**
    * Expands transaction to show more details
+   * @param transfer
    */
-  public showTransferModal() {
-    let modal = this.modalCtrl.create(TransfersModalPage);
-    modal.present().then();
+  public showTransferModal(transfer) {
+    let modal = this.modalCtrl.create(TransfersModalPage, {transfer});
+    modal.present();
   }
 
   /**
-   * Allows user to accept a payment by inputting a token corresponding to the payment.
+   * Gets transaction information from server and adds it to list of transfers.
+   * @param transferToken
    */
-  public receive () {
-    if ( this.token.length !== 128 ) {
-      Alert( this.alertCtrl, "Whoops!", "Please enter a valid transfer token.", ["Dismiss."] );
-
-    } else {
-
-      this.loader.present().catch((f) => f);
-
-      this.transfSrv.receive(this.token)
-        .subscribe(
-          (res) => {
-            this.loader.dismiss().catch((f) => f);
-            this.handleReceive(res);
-          },
-          (error) => {
-            this.loader.dismiss().catch((f) => f);
-            Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
-          },
-        );
-    }
+  public addTransaction (transferToken) {
+    this.transfSrv.getTransferByToken(transferToken)
+      .subscribe(
+        (res) => {
+          this.loader.dismiss().catch((f) => f);
+          let transfer = <any>res;
+          let transferWithToken = transfer.data;
+          transferWithToken.token = transferToken;
+          this.pendingTransfers.push(transferWithToken);
+        },
+        (err) => {
+          this.loader.dismiss().catch((f) => f);
+          Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]);
+        },
+      );
   }
+
 
   /**
-   * Updates the user's wallets if the receive was successful. Alerts the user if unsuccessful.
-   * @param res
+   * Displays the modal page for the given transfer.
+   *
+   * @param transfer
    */
-  public handleReceive (res) {
-    if ( res.data ) {
-      this.token = "";
-      this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
-
-      Alert(this.alertCtrl, "Transfer Success", "Your wallet has been updated.", ["Dismiss."]);
-    } else {
-      Alert(this.alertCtrl, "Whoops!", "There was a problem processing the transfer.", ["Dismiss."]);
-    }
-
+  public showAcceptDeclineModal (transfer) {
+    let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
+    modal.present();
+    modal.onDidDismiss(
+      (res) => {
+        if (res) {
+          let transferIndex = this.pendingTransfers.indexOf(res);
+          this.pendingTransfers.splice(transferIndex, 1);
+        }
+      },
+    );
   }
+
 }

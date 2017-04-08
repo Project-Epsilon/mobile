@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { ViewController } from "ionic-angular";
+import { ViewController, NavParams } from "ionic-angular";
 
 @Component({
   selector: "page-transfers-modal",
@@ -7,7 +7,13 @@ import { ViewController } from "ionic-angular";
 })
 export class TransfersModalPage {
 
-  constructor(public viewCtrl: ViewController) {}
+  public transfer;
+
+  constructor(
+    public viewCtrl: ViewController,
+    public params: NavParams) {
+    this.transfer = this.params.get("transfer");
+  }
 
   public dismiss() {
     this.viewCtrl.dismiss();
