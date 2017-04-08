@@ -13,15 +13,21 @@
 </ion-header>
 
 <ion-content padding>
-  <h2>From</h2>
+  <h4>From</h4>
   <p>{{transfer.sender}}</p>
-  <h2>Amount</h2>
+
+  <h4>Amount</h4>
   <p>{{transfer.amount}}</p>
 
-  <h2>Message</h2>
+  <h4>Message</h4>
   <p>{{transfer.message}}</p>
 
-  <div><i>Sent at {{transfer.created_at}}</i></div>
+  <br>
+  <br>
+
+  <div><i>Sent at {{transfer.created_at | date:'medium'  }}</i></div>
+
+  <br>
   <button ion-button color="primary" (click)="accept()">Accept</button>
   <button ion-button color="danger" (click)="decline()">Decline</button>
 

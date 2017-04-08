@@ -38,8 +38,8 @@ export class AcceptDeclineModalPage {
     this.transfSrv.receive(this.transfer.token)
       .subscribe(
         (res) => {
-          this.loader.dismiss().catch((f) => f);
           this.handleAccept(res);
+          console.log(res);
         },
         (error) => {
           this.loader.dismiss().catch((f) => f);
@@ -52,16 +52,12 @@ export class AcceptDeclineModalPage {
    * Declines the transaction and returns funds to sendee's wallet.
    */
   public decline () {
-    this.loader.present().catch((f) => f);
-
-    this.transfSrv.receive(this.transfer.token)
+    this.transfSrv.decline(this.transfer.token)
       .subscribe(
         (res) => {
-          this.loader.dismiss().catch((f) => f);
           this.handleDecline(res);
         },
         (error) => {
-          this.loader.dismiss().catch((f) => f);
           Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
         },
       );
@@ -98,18 +94,28 @@ export class AcceptDeclineModalPage {
    * @param res
    */
   private handleAccept (res) {
+
     if ( res.data ) {
-      this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
-      this.transferProcessed = true;
-      this.presentToast("Transfer Success! Your wallet has been updated.");
+
+      this.walletSrv.updateWalletId(res.data.receiver_wallet_id)
+        .subscribe(
+          () => {
+            this.loader.dismiss().catch((f) => f);
+            this.transferProcessed = true;
+            this.presentToast("Transfer Success! Your wallet has been updated.");
+            this.dismiss();
+          }
+        );
     } else {
+      this.loader.dismiss().catch((f) => f);
+
       let error = res.json().errors.message;
       if ( error === "Transfer does not exists." ) {
         this.transferProcessed = true;
       }
       Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+      this.dismiss();
     }
-    this.dismiss();
   }
 
   /**
