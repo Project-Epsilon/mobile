@@ -1,6 +1,6 @@
 import { DebugElement } from "@angular/core/";
-import { async, ComponentFixture, inject, TestBed } from "@angular/core/testing";
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
@@ -9,7 +9,6 @@ import { IonicModule } from "ionic-angular";
 import "rxjs/add/operator/map";
 import { MyApp } from "../../app/app.component";
 import { AuthService } from "../../providers/auth.service";
-import { environment } from "../environments/environment";
 import { LoginPage } from "./login";
 
 let comp: LoginPage;
