@@ -79,10 +79,10 @@ export class AcceptDeclineModalPage {
    * Shows notification that contact was added successfully
    * @param string
    */
-  private presentToast(string) {
+  private presentToast(str) {
     let toast = this.toastCtrl.create({
       duration: 3000,
-      message: string,
+      message: str,
       position: "top",
     });
 
