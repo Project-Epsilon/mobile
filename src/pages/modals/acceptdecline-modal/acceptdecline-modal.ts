@@ -39,7 +39,6 @@ export class AcceptDeclineModalPage {
       .subscribe(
         (res) => {
           this.handleAccept(res);
-          console.log(res);
         },
         (error) => {
           this.loader.dismiss().catch((f) => f);
@@ -78,6 +77,7 @@ export class AcceptDeclineModalPage {
 
   /**
    * Shows notification that contact was added successfully
+   * @param string
    */
   private presentToast(string) {
     let toast = this.toastCtrl.create({

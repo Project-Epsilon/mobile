@@ -72,9 +72,9 @@ export class TransferService {
     });
   }
 
-
   /**
    * Sends a post request to the server to receive money from another user.
+   * @param token
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public receive(token) {
@@ -100,6 +100,7 @@ export class TransferService {
 
   /**
    * Sends a post request to the server to decline money from another user.
+   * @param token
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public decline(token) {
