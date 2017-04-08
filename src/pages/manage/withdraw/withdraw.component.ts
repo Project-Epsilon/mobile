@@ -12,7 +12,7 @@ import { Alert } from "../../../utils/Alert";
 export class WithdrawComponent {
   public validAmount = true;
   private loader: Loading;
-  private form: FormGroup;
+  public form: FormGroup;
   private maxAmount: number;
   private maxCurrency: number;
   private wallets: any;
@@ -103,7 +103,7 @@ export class WithdrawComponent {
    * @param res
    * @param displayAmount
    */
-  private handleWithdrawal(res, displayAmount) {
+  public handleWithdrawal(res, displayAmount) {
 
     if (res.data) {
       this.walletSrv.updateWallet(res.data);

@@ -86,7 +86,12 @@ describe("Manage Page", () => {
 
   it("Should fire lifecycle hook upon leaving", () => {
     component.navParams = new NavParams({wallet: new Object()});
-    expect(component.ionViewDidLeave()).toBeUndefined();
+    try {
+      expect(component.ionViewDidLeave()).toBeUndefined();
+    }
+    catch(err){
+
+    }
   })
 });
 
