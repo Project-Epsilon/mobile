@@ -72,7 +72,6 @@ export class TransferService {
     });
   }
 
-
   /**
    * Sends a post request to the server to receive money from another user.
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
@@ -102,14 +101,14 @@ export class TransferService {
    * Sends a get request to request pending transactions from a user
    * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
    */
-  public getPendingTransactions(){
+  public getPendingTransactions() {
     return new Observable((observer) => {
       this.http.get(environment.server_url + "/api/transfer/user/out")
         .map((res) => res.json())
         .subscribe((res) => {
           observer.next(res);
           observer.complete();
-        })
-    })
+        });
+    });
   }
 }
