@@ -34,7 +34,7 @@ class MockRes {
 
 describe("Withdrawl Component", () => {
 
-  beforeEach(async(() => {
+  beforeEach( async( () => {
     TestBed.configureTestingModule({
       declarations: [MyApp, WithdrawComponent],
       imports: [

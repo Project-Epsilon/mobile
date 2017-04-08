@@ -60,8 +60,6 @@ describe("Manage Page", () => {
         BankTransferService,
         WalletsService,
         AuthService,
-
-
       ],
     }).compileComponents();
   });
