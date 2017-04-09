@@ -42,4 +42,5 @@
         <variable name="DEEPLINK_SCHEME" value="https" />
         <variable name="DEEPLINK_HOST" value="mbarter.com" />
     </plugin>
+    <plugin name="cordova-plugin-x-toast" spec="~2.6.0" />
 </widget>
