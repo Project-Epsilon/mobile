@@ -18,7 +18,7 @@ export class HomePage {
   public contacts: any;
   public currentWalletIndex: number = -1;
   private loader: Loading;
-
+  /* istanbul ignore next */
   constructor(
       public auth: AuthService,
       public app: App,
@@ -32,29 +32,30 @@ export class HomePage {
       public navParams: NavParams,
 
   ) {
-    // this.loader = this.loadingCtrl.create({
-    //   content: "Loading.",
-    // });
-    //
-    // this.loader.present().catch((f) => f);
-    // this.currencySrv.init();
-    // this.walletSrv.getWallets()
-    //   .subscribe(
-    //     (wallets) => {
-    //       this.wallets = wallets;
-    //       this.loader.dismiss().catch((f) => f);
-    //   });
-    // this.contactsSrv.getContacts()
-    //   .subscribe(
-    //     (contacts) => {
-    //       this.contacts = contacts;
-    //     }
-    //   );
+    this.loader = this.loadingCtrl.create({
+      content: "Loading.",
+    });
+
+    this.loader.present().catch((f) => f);
+    this.currencySrv.init();
+    this.walletSrv.getWallets()
+      .subscribe(
+        (wallets) => {
+          this.wallets = wallets;
+          this.loader.dismiss().catch((f) => f);
+      });
+    this.contactsSrv.getContacts()
+      .subscribe(
+        (contacts) => {
+          this.contacts = contacts;
+        }
+      );
   }
 
   /**
    * Handles the logout process
    */
+  /* istanbul ignore next */
   public logout() {
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
