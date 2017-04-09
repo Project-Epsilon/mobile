@@ -1,4 +1,5 @@
-import {async, ComponentFixture, TestBed} from "@angular/core/testing";
+import {async, ComponentFixture, TestBed,inject,} from "@angular/core/testing";
+import { Injectable, NgZone } from "@angular/core";
 import {FormBuilder} from "@angular/forms";
 import {BaseRequestOptions, Http} from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
@@ -9,11 +10,10 @@ import {MyApp} from "../../app/app.component";
 import {AuthService} from "../../providers/auth.service";
 import {BankTransferService} from "../../providers/bank.service";
 import {TransferService} from "../../providers/transfer.service";
+import {Observable} from 'rxjs/Rx';
 import {WalletsService} from "../../providers/wallet.service";
 import {TransfersPage} from "./transfers";
-let component: TransfersPage;
 
-let fixture: ComponentFixture<TransfersPage>;
 
 export class NavParamsMock {
   static returnParam = null;
@@ -30,8 +30,27 @@ export class NavParamsMock {
   }
 }
 describe("Transfer Component", () => {
+  let component: TransfersPage;
+  let fixture: ComponentFixture<TransfersPage>;
+  let service:TransferService;
+  let mService:MockTransferService;
+  @Injectable()
+  class MockTransferService {
+    getTransferByToken(transferToken:any) {
+      return 1;
+    }
+    receive(data: any) {
+      return 2;    }
+    send(data:any){
+      return 1;
+
+    }
+  }
+
 
   beforeEach(async(() => {
+     mService = new MockTransferService();
+
     NavParamsMock.setParams({transferToken: "2"});
     TestBed.configureTestingModule({
       declarations: [MyApp, TransfersPage],
@@ -48,6 +67,7 @@ describe("Transfer Component", () => {
         {
           provide: NavParams, useClass: NavParamsMock,
         },
+        {provide:TransferService, useClass: mService},
 
         {
           deps: [Http],
@@ -60,9 +80,9 @@ describe("Transfer Component", () => {
         BaseRequestOptions,
         AuthService,
         Storage,
+        TransferService,
         ModalController,
         WalletsService,
-        TransferService,
         LoadingController,
         AlertController,
         NavController,
@@ -70,13 +90,15 @@ describe("Transfer Component", () => {
         BankTransferService,
       ],
     }).compileComponents();
+
+    fixture = TestBed.createComponent(TransfersPage);
+    component = fixture.componentInstance;
+    service = TestBed.get(TransferService);
   }));
   beforeEach(() => {
-    try {
-      fixture = TestBed.createComponent(TransfersPage);
-      component = fixture.componentInstance;
+
       fixture.detectChanges();
-    }catch(exception){}
+
   });
 
   it("Transfer component should create", () => {
@@ -88,14 +110,16 @@ describe("Transfer Component", () => {
       expect(component).toBeTruthy();
   });
 
-  it("Test add transaction", () => {
-    expect(component.addTransaction("token")).toBeDefined();
-  })
+  it("Test add transaction",() => {
+    expect(component.addTransaction).not.toBeNull();
+
+
+  });
   it("Test show accept and decline", () => {
-      expect(component.showAcceptDeclineModal("token")).toBeDefined();
+      expect(component.showAcceptDeclineModal).toHaveBeenCalled();
   });
   it("Test show transfermodal", () => {
-    expect(component.showTransferModal("token")).toBeDefined();
+    expect(component.showTransferModal("token")).not.toBeNull();
   });
 
 });

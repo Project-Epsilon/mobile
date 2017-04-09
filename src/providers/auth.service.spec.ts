@@ -40,7 +40,29 @@ describe("Auth Service", () => {
   })));
 
   it("Login response should not be null", (inject([AuthService], (service) => {
-    expect(service.login ("Google")).not.toBeNull();
+    expect(service.login("Google")).not.toBeNull();
   })));
+
+  it("OTP response should not be null", (inject([AuthService], (service) => {
+    service.otp("Google","obj1").toPromise().then((result) => {
+
+      expect(result).not.toBeNull();
+    });
+
+  })));
+
+
+  it("UPDATE response should not be null", (inject([AuthService], (service) => {
+    service.updateUserInfo("Google").toPromise().then((result) => {
+      expect(result).not.toBeNull();
+    });
+  })));
+
+  it("UPDATE response should not be null", (inject([AuthService], (service) => {
+
+    expect(service.logout()).not.toBeNull();
+
+  })));
+
 
 });

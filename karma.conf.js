@@ -15,6 +15,9 @@ module.exports = function (config) {
     files: [
       { pattern: './src/test.ts', watched: false }
     ],
+    exclude : [
+      '/src/pages/modals/**/*.ts'
+    ],
     preprocessors: {
       './src/test.ts': ['angular-cli']
     },
@@ -22,6 +25,11 @@ module.exports = function (config) {
       'text/x-typescript': ['ts','tsx']
     },
     remapIstanbulReporter: {
+      remapOptions: {
+        exclude: /modals/
+
+
+      },
       reports: {
         html: 'coverage',
         lcovonly: './coverage/coverage.lcov'

@@ -32,24 +32,24 @@ export class HomePage {
       public navParams: NavParams,
 
   ) {
-    this.loader = this.loadingCtrl.create({
-      content: "Loading.",
-    });
-
-    this.loader.present().catch((f) => f);
-    this.currencySrv.init();
-    this.walletSrv.getWallets()
-      .subscribe(
-        (wallets) => {
-          this.wallets = wallets;
-          this.loader.dismiss().catch((f) => f);
-      });
-    this.contactsSrv.getContacts()
-      .subscribe(
-        (contacts) => {
-          this.contacts = contacts;
-        }
-      );
+    // this.loader = this.loadingCtrl.create({
+    //   content: "Loading.",
+    // });
+    //
+    // this.loader.present().catch((f) => f);
+    // this.currencySrv.init();
+    // this.walletSrv.getWallets()
+    //   .subscribe(
+    //     (wallets) => {
+    //       this.wallets = wallets;
+    //       this.loader.dismiss().catch((f) => f);
+    //   });
+    // this.contactsSrv.getContacts()
+    //   .subscribe(
+    //     (contacts) => {
+    //       this.contacts = contacts;
+    //     }
+    //   );
   }
 
   /**

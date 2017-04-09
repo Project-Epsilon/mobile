@@ -42,4 +42,15 @@ describe("Wallet Service", () => {
     expect(service.getWallets()).toBeDefined();
   })));
 
+  it("update wallet response should defined", async(inject([WalletsService], (service) => {
+    var wallet =[{"id":1,"balance":1,"shown":3.00,"order":1}]
+    expect(service.updateWallet(wallet)).toBeDefined();
+  })));
+
+  it("update walletid response should defined", async(inject([WalletsService], (service) => {
+    expect(service.updateWalletId("1")).toBeDefined();
+  })));
+
+
+
 });

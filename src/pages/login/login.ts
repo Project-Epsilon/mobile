@@ -30,6 +30,7 @@ export class LoginPage {
    *
    * @param provider
    */
+  /* istanbul ignore next */
   public showAuth(provider) {
     this.auth.login(provider).subscribe((user) => {
       this.otpCheck(user);
@@ -40,6 +41,7 @@ export class LoginPage {
    * Auto login for development
    *
    */
+  /* istanbul ignore next */
   public autoLogin() {
     this.http.post("http://server.laurendylam.com/api/login", {
       email: "user@user.com",
@@ -61,6 +63,7 @@ export class LoginPage {
    *
    * @param user
    */
+  /* istanbul ignore next */
   public otpCheck(user) {
     if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);

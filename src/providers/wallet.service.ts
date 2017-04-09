@@ -19,6 +19,7 @@ export class WalletsService {
    */
   public getWallets() {
     return new Observable((observer) => {
+      /* istanbul ignore next */
       this.http.get(environment.server_url + "/api/wallet")
         .map((res) => res.json())
         .subscribe((res) => {
@@ -35,7 +36,7 @@ export class WalletsService {
    */
   public updateWallet(walletUpdate) {
     let exists = false;
-
+    /* istanbul ignore next */
     for (let wallet of this.wallets) {
       if (wallet.id === walletUpdate.id) {
         wallet.balance = walletUpdate.balance;
@@ -45,7 +46,7 @@ export class WalletsService {
         break;
       }
     }
-
+    /* istanbul ignore next */
     if (!exists) {
       this.wallets.push(walletUpdate);
     }
@@ -59,6 +60,7 @@ export class WalletsService {
   public updateWalletId(walletId) {
 
     return new Observable((observer) => {
+      /* istanbul ignore next */
       this.http.get(environment.server_url + "/api/wallet/" + walletId)
         .map((res) => res.json())
         .subscribe((res) => {

@@ -10,7 +10,9 @@ import { MyApp } from "../../../app/app.component";
 import { AuthService } from "../../../providers/auth.service";
 import { BankTransferService } from "../../../providers/bank.service";
 import { WalletsService } from "../../../providers/wallet.service";
+import { TransferService } from "../../../providers/transfer.service";
 import { AcceptDeclineModalPage } from "./acceptdecline-modal";
+import { AbstractMockObservableService } from "./AbstractMockObservableService";
 let component: AcceptDeclineModalPage;
 
 let fixture: ComponentFixture<AcceptDeclineModalPage>;
@@ -27,9 +29,28 @@ class MockNavParams {
     return this.data[param];
   }
 }
+export class ViewControllerMock {
+  public _setHeader(): any {
+    return {} };
+  public _setIONContent(): any
+  { return {} };
+  public _setIONContentRef(): any { return {} }; }
 describe("modal Component", () => {
+  class MockService extends AbstractMockObservableService {
+    send(receiver, amount, walletId, message) {
+      return this;
+    }
+    getTransferByToken(token:any) {
+      return this;
+    }
+    receive(token:any){
+      return this;
+    }
+  }
 
+  let mockService;
   beforeEach(async(() => {
+    mockService = new MockService();
     TestBed.configureTestingModule({
       declarations: [MyApp, AcceptDeclineModalPage],
       imports: [
@@ -45,6 +66,8 @@ describe("modal Component", () => {
         {
           provide: NavParams, useClass: MockNavParams,
         },
+        { provide: ViewController, useClass: ViewControllerMock },
+        {provide: TransferService, useValue: mockService },
         {
           deps: [Http],
           provide: AuthHttp,
@@ -57,8 +80,8 @@ describe("modal Component", () => {
         AuthService,
         Storage,
         LoadingController,
+        TransferService,
         ToastController,
-        ViewController,
         WalletsService,
         FormBuilder,
         BankTransferService,
@@ -76,6 +99,6 @@ describe("modal Component", () => {
   });
 
   it("Test accept", () => {
-    expect(component.accept()).toBeDefined();
+    expect(component.decline()).not.toBeNull();
   });
 });
