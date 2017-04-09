@@ -1,36 +1,31 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title center>
-      Outgoing Transfer
+    <ion-title>
+      Transfer Details
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span ion-text color="primary" showWhen="ios">Cancel</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-        <button ion-button (click)="dismiss()" color="light" clear>Close</button>
       </button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header center>
-      Outgoing Transfer
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <p>To: </p>
-        <ion-item>
-          <h2>{{transfer.receiver.name}}</h2>
-          <p ion-text item-right color="out">-{{transfer.amount}} OUT</p>
-        </ion-item>
-        <p>Message: </p>
-        <ion-item>
-          <p>{{transfer.message}}</p>
-        </ion-item>
-        <p>Created on: {{transfer.created_at | date:'short'}}</p>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <h4>From</h4>
+  <p>{{transfer.sender}}</p>
+
+  <h4>Amount</h4>
+  <p>{{transfer.amount}}</p>
+
+  <h4>Message</h4>
+  <p>{{transfer.message}}</p>
+
+  <br>
+  <br>
+
+  <div><i>Sent at {{transfer.created_at | date:'medium'  }}</i></div>
+
 </ion-content>
+
