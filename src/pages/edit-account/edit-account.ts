@@ -126,11 +126,7 @@ export class EditAccountPage {
         (res: Response) => {
           let response = res.json();
 
-          // console.log("edit account response: ")
-          // console.log(response);
-
           if (response.status === "ok") {
-            console.log("Success");
             this.auth.logout();
 
             this.navCtrl.popToRoot();
@@ -148,8 +144,6 @@ export class EditAccountPage {
             ];
 
             Alert(this.alertCtrl, "Delete User Failed", response.errors.message, alertButtons);
-            // console.log("edit account error: ");
-            // console.log(response.errors.message);
           }
         }
       );

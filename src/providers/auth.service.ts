@@ -136,21 +136,14 @@ export class AuthService {
       this.authHttp.delete(environment.server_url + "/api/user")
         .subscribe(
           data => {
-            console.log("Auth Data: ");
-            console.log(data.json());
-
             observer.next(data);
             observer.complete();
           },
           err => {
-            console.log("Auth errors: ")
-            console.log(err.json());
-
             observer.next(err);
             observer.complete();
           },
           () => {
-            console.log('yay');
             observer.complete();
           });
     });
