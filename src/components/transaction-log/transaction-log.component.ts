@@ -17,6 +17,7 @@ export class TransactionLogComponent {
     public modalCtrl: ModalController,
   ) {
     this.transactions = this.getWallet()[0].transactions.data;
+    this.transactions = this.transactions.reverse();
   }
 
   /**
