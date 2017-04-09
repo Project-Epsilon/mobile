@@ -7,8 +7,7 @@ import { InAppBrowser } from "ionic-native";
 import { environment } from "../environments/environment";
 
 import { Observable } from "rxjs";
-import { Alert } from "../utils/Alert";
-import {AlertController} from "ionic-angular";
+import {observableToBeFn} from "rxjs/testing/TestScheduler";
 
 @Injectable()
 export class AuthService {
@@ -20,7 +19,6 @@ export class AuthService {
               public zone: NgZone,
               public storage: Storage,
               public http: Http,
-              public alertCtrl: AlertController,
   ) {
 
     // Check if there is a profile saved in local storage
@@ -129,15 +127,32 @@ export class AuthService {
   /**
    * Delete user
    *
-   * @param user
    * @returns {Observable}
    */
-  public deleteUser(user: Object) {
+  public deleteUser() {
     console.log("delete user");
-    this.authHttp.delete(environment.server_url + "/api/user/" + user)
-      .subscribe(
-        (res) => this.user,
-        (err) => Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]),
-      );
+
+    return new Observable((observer) => {
+      this.authHttp.delete(environment.server_url + "/api/user")
+        .subscribe(
+          data => {
+            console.log("Auth Data: ");
+            console.log(data.json());
+
+            observer.next(data);
+            observer.complete();
+          },
+          err => {
+            console.log("Auth errors: ")
+            console.log(err.json());
+
+            observer.next(err);
+            observer.complete();
+          },
+          () => {
+            console.log('yay');
+            observer.complete();
+          });
+    });
   }
 }

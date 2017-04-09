@@ -5,6 +5,7 @@ import { AuthService } from "../../providers/auth.service";
 import { Alert } from "../../utils/Alert";
 
 import { LoginPage } from "../login/login";
+import { Response } from "@angular/http";
 
 @Component({
   selector: "page-edit-account",
@@ -86,15 +87,7 @@ export class EditAccountPage {
       },
       {
         handler: () => {
-          this.auth.logout();
-
-          // this.auth.deleteUser(this.user);
-          
-          this.navCtrl.popToRoot();
-          this.navCtrl.push(LoginPage);
-
-          this.dismiss();
-          this.presentToast();
+          this.handleDelete();
         },
         text: "Confirm",
       },
@@ -123,4 +116,40 @@ export class EditAccountPage {
   public dismiss() {
     this.viewCtrl.dismiss().catch( (f) => f);
   }
+
+  private handleDelete() {
+    this.auth.deleteUser()
+      .subscribe(
+        (res: Response) => {
+          let response = res.json();
+
+          // console.log("edit account response: ")
+          // console.log(response);
+
+          if (response === "ok") {
+            console.log("Success");
+            this.auth.logout();
+
+            this.navCtrl.popToRoot();
+            this.navCtrl.push(LoginPage);
+
+            this.dismiss();
+            this.presentToast();
+          }
+          else {
+            let alertButtons = [
+              {
+                role: "cancel",
+                text: "Dismiss",
+              }
+            ];
+
+            Alert(this.alertCtrl, "Delete User Failed", response.errors.message, alertButtons);
+            // console.log("edit account error: ");
+            // console.log(response.errors.message);
+          }
+        }
+      );
+  }
+
 }
