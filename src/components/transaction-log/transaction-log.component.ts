@@ -12,6 +12,7 @@ export class TransactionLogComponent {
 
   constructor(public home: HomePage) {
     this.transactions = this.getWallet()[0].transactions.data;
+    this.transactions = this.transactions.reverse();
   }
 
   /**
