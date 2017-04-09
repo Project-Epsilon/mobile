@@ -26,7 +26,6 @@ describe("WalletHeader", () => {
     }
     mapCurrencies(data:any){
       return Observable.of();
-
     }
   }
   let component: WalletHeaderComponent;

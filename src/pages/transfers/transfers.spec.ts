@@ -14,7 +14,6 @@ import {Observable} from 'rxjs/Rx';
 import {WalletsService} from "../../providers/wallet.service";
 import {TransfersPage} from "./transfers";
 
-
 export class NavParamsMock {
   static returnParam = null;
 
@@ -40,10 +39,10 @@ describe("Transfer Component", () => {
       return 1;
     }
     receive(data: any) {
-      return 2;    }
-    send(data:any){
+      return 2;
+    }
+    send(data:any) {
       return 1;
-
     }
   }
 
@@ -112,12 +111,12 @@ describe("Transfer Component", () => {
 
   it("Test add transaction",() => {
     expect(component.addTransaction).not.toBeNull();
-
-
   });
+
   it("Test show accept and decline", () => {
       expect(component.showAcceptDeclineModal).toHaveBeenCalled();
   });
+
   it("Test show transfermodal", () => {
     expect(component.showTransferModal("token")).not.toBeNull();
   });

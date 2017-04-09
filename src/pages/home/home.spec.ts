@@ -73,10 +73,8 @@ describe("Home Component", () => {
   }));
 
   beforeEach(() => {
-
     fixture = TestBed.createComponent(HomePage);
     comp    = fixture.componentInstance;
-
   });
 
   afterEach(() => {

@@ -49,7 +49,6 @@ describe("Contact Service", () => {
     });
   })));
 
-
     it("contacts v2", async(inject([ContactsService], (service) => {
       expect(service.getContacts()).toBeDefined();
     })));
@@ -57,7 +56,5 @@ describe("Contact Service", () => {
   it("addContact should not be null", async(inject([ContactsService], (service) => {
     expect(service.addContact()).toBeDefined();
   })));
-
-
 
 });

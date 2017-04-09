@@ -43,7 +43,7 @@ export class OtpPage {
    */
   public requestCode() {
     if (this.request.valid) {
-      // this.loading = true;
+      this.loading = true;
       this.auth.otp(this.request.value, false)
         .subscribe((res: any) => {
           this.loading = false;
