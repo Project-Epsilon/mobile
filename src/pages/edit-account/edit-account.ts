@@ -1,11 +1,7 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, NavController, NavParams, ToastController, ViewController } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
-import { Alert } from "../../utils/Alert";
-
-import { Response } from "@angular/http";
-import { LoginPage } from "../login/login";
 
 @Component({
   selector: "page-edit-account",
@@ -22,9 +18,6 @@ export class EditAccountPage {
     public navParams: NavParams,
     private formBuilder: FormBuilder,
     public auth: AuthService,
-    public alertCtrl: AlertController,
-    private toastCtrl: ToastController,
-    public viewCtrl: ViewController,
   ) {
     this.user = Object.assign({}, this.auth.user);
     this.updateAccount = this.formBuilder.group({
@@ -72,81 +65,6 @@ export class EditAccountPage {
     this.auth.updateUserInfo(this.updateAccount.value).subscribe((user: any) => {
       this.user = user;
     });
-  }
-
-  /**
-   * Delete user from db
-   *
-   * @param user
-   */
-  public deleteUser() {
-    let alertButtons = [
-      {
-        role: "cancel",
-        text: "Cancel",
-      },
-      {
-        handler: () => {
-          this.handleDelete();
-        },
-        text: "Confirm",
-      },
-    ];
-
-    Alert(this.alertCtrl, "Delete User", "Are you sure you want to delete your account?", alertButtons);
-  }
-
-  /**
-   * Display successful contact deletion confirmation
-   *
-   */
-  private presentToast() {
-    let toast = this.toastCtrl.create({
-      duration: 2500,
-      message: "User was deleted successfully",
-      position: "top",
-    });
-
-    toast.present();
-  }
-
-  /**
-   * Close the modal page.
-   */
-  private dismiss() {
-    this.viewCtrl.dismiss().catch( (f) => f);
-  }
-
-  /**
-   * Handle user deletion.
-   * Receives the response from server and Displays error message containing the server error message in case of failure.
-   */
-  private handleDelete() {
-    this.auth.deleteUser()
-      .subscribe(
-        (res: Response) => {
-          let response = res.json();
-
-          if (response.status === "ok") {
-            this.auth.logout();
-
-            this.navCtrl.popToRoot();
-            this.navCtrl.push(LoginPage);
-
-            this.dismiss();
-            this.presentToast();
-          } else {
-            let alertButtons = [
-              {
-                role: "cancel",
-                text: "Dismiss",
-              },
-            ];
-
-            Alert(this.alertCtrl, "Delete User Failed", response.errors.message, alertButtons);
-          }
-        },
-      );
   }
 
 }

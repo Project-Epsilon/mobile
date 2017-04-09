@@ -17,8 +17,9 @@ export class AuthService {
   constructor(private authHttp: AuthHttp,
               public zone: NgZone,
               public storage: Storage,
-              public http: Http,
-  ) {
+              public http: Http) {
+
+    // Check if there is a profile saved in local storage
     this.storage.get("user").then((user) => {
       this.user = user;
     });
@@ -118,26 +119,6 @@ export class AuthService {
         observer.next(this.user);
         observer.complete();
       });
-    });
-  }
-
-  /**
-   * Delete user
-   *
-   * @returns {Observable}
-   */
-  public deleteUser() {
-    return new Observable((observer) => {
-      this.authHttp.delete(environment.server_url + "/api/user")
-        .subscribe(
-          res => {
-            observer.next(res);
-            observer.complete();
-          },
-          err => {
-            observer.next(err);
-            observer.complete();
-          });
     });
   }
 }
