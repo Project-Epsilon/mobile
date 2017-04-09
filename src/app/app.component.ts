@@ -24,7 +24,10 @@ export class MyApp {
         "/login/:transferToken": LoginPage,
       }).subscribe(
         (match) => {
-          this.app.getRootNav().setRoot(LoginPage, {transferToken: match.$args});
+          let parsedToken = match.$link.path;
+          var token = parsedToken.substring(11, parsedToken.indexOf('['));
+          console.log(token);
+          this.app.getRootNav().setRoot(LoginPage, {transferToken:token});
         },
         (nomatch) =>{
 
