@@ -113,7 +113,7 @@ export class EditAccountPage {
   /**
    * Close the modal page.
    */
-  public dismiss() {
+  private dismiss() {
     this.viewCtrl.dismiss().catch( (f) => f);
   }
 
@@ -140,7 +140,7 @@ export class EditAccountPage {
               {
                 role: "cancel",
                 text: "Dismiss",
-              }
+              },
             ];
 
             Alert(this.alertCtrl, "Delete User Failed", response.errors.message, alertButtons);

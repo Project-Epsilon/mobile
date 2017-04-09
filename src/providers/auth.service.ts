@@ -7,7 +7,6 @@ import { InAppBrowser } from "ionic-native";
 import { environment } from "../environments/environment";
 
 import { Observable } from "rxjs";
-import {observableToBeFn} from "rxjs/testing/TestScheduler";
 
 @Injectable()
 export class AuthService {
@@ -130,8 +129,6 @@ export class AuthService {
    * @returns {Observable}
    */
   public deleteUser() {
-    console.log("delete user");
-
     return new Observable((observer) => {
       this.authHttp.delete(environment.server_url + "/api/user")
         .subscribe(
