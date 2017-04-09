@@ -1,11 +1,10 @@
-import { AlertController } from 'ionic-angular';
+import { AlertController } from "ionic-angular";
 import { App } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { Component } from "@angular/core";
 import { ContactPage } from "../contact/contact";
 import { EditAccountPage } from "../edit-account/edit-account";
 import { LoginPage } from "../login/login";
-
 
 @Component({
   selector: "page-more",
@@ -30,14 +29,14 @@ export class MorePage {
    */
   public logoutPrompt() {
     let alert = this.alertCtrl.create({
-      title: 'Sign Out',
-      subTitle: 'Are you sure you want to sign out of mBarter?',
       buttons: [{
-        text: 'Yes',
         handler: () => {
           this.logout();
-        }
-      }, 'No']
+        },
+        text: "Yes",
+      }, "No"],
+      subTitle: "Are you sure you want to sign out of mBarter?",
+      title: "Sign Out",
     });
     alert.present();
   }

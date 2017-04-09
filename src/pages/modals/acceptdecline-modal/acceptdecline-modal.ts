@@ -38,7 +38,6 @@ export class AcceptDeclineModalPage {
     this.transfSrv.receive(this.transfer.token)
       .subscribe(
         (res) => {
-          this.loader.dismiss().catch((f) => f);
           this.handleAccept(res);
         },
         (error) => {
@@ -52,14 +51,22 @@ export class AcceptDeclineModalPage {
    * Declines the transaction and returns funds to sendee's wallet.
    */
   public decline () {
-
+    this.transfSrv.decline(this.transfer.token)
+      .subscribe(
+        (res) => {
+          this.handleDecline(res);
+        },
+        (error) => {
+          Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+        },
+      );
   }
 
   /**
    * Close the modal page, returning transfer only if it was processd
    */
   public dismiss() {
-    if(!this.transferProcessed) {
+    if (!this.transferProcessed) {
       this.transfer = "";
     }
 
@@ -70,11 +77,12 @@ export class AcceptDeclineModalPage {
 
   /**
    * Shows notification that contact was added successfully
+   * @param str
    */
-  private presentToast() {
+  private presentToast(str) {
     let toast = this.toastCtrl.create({
       duration: 3000,
-      message: "Transfer Success! Your wallet has been updated.",
+      message: str,
       position: "top",
     });
 
@@ -86,10 +94,39 @@ export class AcceptDeclineModalPage {
    * @param res
    */
   private handleAccept (res) {
+
     if ( res.data ) {
-      this.walletSrv.updateWalletId(res.data.receiver_wallet_id);
+
+      this.walletSrv.updateWalletId(res.data.receiver_wallet_id)
+        .subscribe(
+          () => {
+            this.loader.dismiss().catch((f) => f);
+            this.transferProcessed = true;
+            this.presentToast("Transfer Success! Your wallet has been updated.");
+            this.dismiss();
+          }
+        );
+    } else {
+      this.loader.dismiss().catch((f) => f);
+
+      let error = res.json().errors.message;
+      if ( error === "Transfer does not exists." ) {
+        this.transferProcessed = true;
+      }
+      Alert(this.alertCtrl, "Whoops!", error, ["Dismiss."]);
+      this.dismiss();
+    }
+  }
+
+  /**
+   * Declines the transfer token. This will mark the transfer as cancelled on the server.
+   * @param res
+   */
+  private handleDecline(res) {
+    if ( res.data ) {
       this.transferProcessed = true;
-      this.presentToast();
+      this.presentToast("You have decline the transfer.");
+
     } else {
       let error = res.json().errors.message;
       if ( error === "Transfer does not exists." ) {

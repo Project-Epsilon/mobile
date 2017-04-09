@@ -1,27 +1,24 @@
-import { DebugElement } from "@angular/core/";
-import { async, ComponentFixture, inject, TestBed } from "@angular/core/testing";
-import { BaseRequestOptions, Http, HttpModule, Response, ResponseOptions } from "@angular/http";
-import { MockBackend } from "@angular/http/testing";
-import { Storage } from "@ionic/storage";
-import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { App, NavController, NavParams } from "ionic-angular";
-import { IonicModule } from "ionic-angular";
-import "rxjs/add/operator/map";
+import { TestBed, ComponentFixture } from "@angular/core/testing";
 import { MyApp } from "../../app/app.component";
-import { AuthService } from "../../providers/auth.service";
-import { environment } from "../environments/environment";
+import { IonicModule, LoadingController, NavController, NavParams } from "ionic-angular";
 import { ManagePage } from "./manage";
-import { DepositComponent } from "./deposit/deposit.component"
+import { MockBackend } from "@angular/http/testing";
+import { BaseRequestOptions, Http } from "@angular/http";
+import { AuthHttp, AuthConfig } from "angular2-jwt";
+import { DepositComponent } from "./deposit/deposit.component";
+import { WithdrawComponent } from "./withdraw/withdraw.component";
+import { Storage } from "@ionic/storage";
+import { BankTransferService } from "../../providers/bank.service";
+import { WalletsService } from "../../providers/wallet.service";
+import { AuthService } from "../../providers/auth.service";
 
-let comp: ManagePage;
+let component: ManagePage;
 let fixture: ComponentFixture<ManagePage>;
-let de: DebugElement;
-let el: HTMLElement;
+
 class MockNavParams {
   public data = {
-    currency: {
-      currency: "USD",
-      name: "Mike",
+    action: {
+      action: "withdraw",
     },
   };
 
@@ -29,14 +26,14 @@ class MockNavParams {
     return this.data[param];
   }
 }
-describe("Manage Component", () => {
-  beforeEach(async(() => {
 
+describe("Manage Page", () => {
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
-
-      declarations: [MyApp, ManagePage],
+      declarations: [MyApp, DepositComponent, WithdrawComponent, ManagePage],
       imports: [
-        IonicModule.forRoot(MyApp),
+        IonicModule.forRoot(ManagePage),
       ],
       providers: [
         {
@@ -45,8 +42,9 @@ describe("Manage Component", () => {
           return new Http(backend, options);
         },
         },
-        {provide: NavParams, useClass: MockNavParams},
-
+        {
+          provide: NavParams, useClass: MockNavParams,
+        },
         {
           deps: [Http],
           provide: AuthHttp,
@@ -54,44 +52,43 @@ describe("Manage Component", () => {
             return new AuthHttp(new AuthConfig(), http);
           },
         },
-        NavController,
-        AuthService,
-        DepositComponent,
-        App,
         Storage,
         MockBackend,
         BaseRequestOptions,
+        NavController,
+        LoadingController,
+        BankTransferService,
+        WalletsService,
+        AuthService,
       ],
-
     }).compileComponents();
-
-  }));
+  });
 
   beforeEach(() => {
-
     fixture = TestBed.createComponent(ManagePage);
-    comp    = fixture.componentInstance;
-
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
-  afterEach(() => {
-    fixture.destroy();
-    comp = null;
-    de = null;
-    el = null;
+  it("Should create manage page", () => {
+    expect(component).toBeTruthy();
   });
 
-  it("Manage component created", () => {
+  it("Should fire lifecycle hook upon entering", () => {
+    component.navParams = new NavParams({action: "withdraw", wallet: new Object()});
+    expect(component.ionViewDidEnter()).toBeUndefined();
 
-    expect(fixture).toBeTruthy();
-    expect(comp).toBeTruthy();
-
+    component.navParams = new NavParams({action: "deposit", wallet: new Object()});
+    expect(component.ionViewDidEnter()).toBeUndefined();
   });
 
-  it("Home page reset", () => {
+  it("Should fire lifecycle hook upon leaving", () => {
+    component.navParams = new NavParams({wallet: new Object()});
+    try {
+      expect(component.ionViewDidLeave()).toBeUndefined();
+    }
+    catch(err){
 
-    expect(comp.ionViewDidEnter()).not.toBeNull();
-
-  });
-
+    }
+  })
 });

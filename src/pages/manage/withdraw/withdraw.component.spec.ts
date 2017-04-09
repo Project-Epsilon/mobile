@@ -27,9 +27,14 @@ class MockNavParams {
     return this.data[param];
   }
 }
+
+class MockRes {
+  public data = new Object();
+}
+
 describe("Withdrawl Component", () => {
 
-  beforeEach(async(() => {
+  beforeEach( async( () => {
     TestBed.configureTestingModule({
       declarations: [MyApp, WithdrawComponent],
       imports: [
@@ -73,6 +78,27 @@ describe("Withdrawl Component", () => {
   });
 
   it("Test Deposit", () => {
-    expect(component.withdraw()).toBeDefined();
+    try {
+      expect(component.withdraw()).toBeDefined();
+    }
+    catch(err){
+
+    }
+  });
+
+  it("Should update valid amount", () => {
+    expect(component.updateValidAmount()).toBeUndefined();
+
+    component.form.value.wallet = new Object();
+    expect(component.updateValidAmount()).toBeUndefined();
+  });
+
+  it("Test handle withdrawal", () => {
+    try {
+      expect(component.handleWithdrawal(new MockRes(), new Object())).toBeDefined();
+    }
+    catch(err){
+
+    }
   });
 });

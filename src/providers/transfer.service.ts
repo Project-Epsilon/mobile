@@ -72,9 +72,9 @@ export class TransferService {
     });
   }
 
-
   /**
    * Sends a post request to the server to receive money from another user.
+   * @param token
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public receive(token) {
@@ -99,17 +99,43 @@ export class TransferService {
   }
 
   /**
+   * Sends a post request to the server to decline money from another user.
+   * @param token
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public decline(token) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user/cancel", {
+        token,
+      })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
+    });
+  }
+
+  /**
    * Sends a get request to request pending transactions from a user
    * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
    */
-  public getPendingTransactions(){
+  public getPendingTransactions() {
     return new Observable((observer) => {
       this.http.get(environment.server_url + "/api/transfer/user/out")
         .map((res) => res.json())
         .subscribe((res) => {
           observer.next(res);
           observer.complete();
-        })
-    })
+        });
+    });
   }
 }

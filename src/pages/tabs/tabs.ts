@@ -11,7 +11,7 @@ import { NavParams, Tabs } from "ionic-angular";
   templateUrl: "tabs.html",
 })
 export class TabsPage {
-  @ViewChild('myTabs') tabRef: Tabs;
+  @ViewChild("myTabs") public tabRef: Tabs;
 
   public tab1Root: any;
   public tab2Root: any;

@@ -22,7 +22,7 @@ export class LoginPage {
       public navParams: NavParams,
       public navCtrl: NavController,
   ) {
-    this.transferToken = navParams.get('transferToken');
+    this.transferToken = navParams.get("transferToken");
   }
 
   /**

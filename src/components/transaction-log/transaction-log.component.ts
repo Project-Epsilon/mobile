@@ -10,7 +10,6 @@ export class TransactionLogComponent {
   @Input() public wallet: any;
   public transactions: any;
 
-
   constructor(public home: HomePage) {
     this.transactions = this.getWallet()[0].transactions.data;
   }

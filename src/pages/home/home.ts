@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Storage } from "@ionic/storage";
 import { Http } from "@angular/http";
-import { App, Loading, LoadingController, NavController, ModalController, NavParams } from "ionic-angular";
+import { App, Loading, LoadingController, ModalController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
