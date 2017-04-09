@@ -25,7 +25,10 @@ export class MyApp {
       }).subscribe(
         (match) => {
           this.app.getRootNav().setRoot(LoginPage, {transferToken: match.$args});
-        });
+        },
+        (nomatch) =>{
+
+        })
     });
   }
 }
