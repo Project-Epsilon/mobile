@@ -10,31 +10,33 @@
 <ion-content padding>
   <div padding>
     <ion-segment [(ngModel)]="action">
-      <ion-segment-button value="history">
+      <ion-segment-button value="incoming">
         Incoming
       </ion-segment-button>
-      <ion-segment-button value="pending">
+      <ion-segment-button value="outgoing">
         Outgoing
       </ion-segment-button>
     </ion-segment>
   </div>
 
   <div [ngSwitch]="action">
-    <ion-list *ngSwitchCase="'pending'">
-      <ng-container *ngIf="pending!=undefined">
-        <ion-item *ngFor="let transfer of pending.data" (click)="showTransferModal(transfer)">
-          {{transfer.receiver.name}}
-          <p ion-text item-right color="out">{{transfer.amount}} OUT</p>
-        </ion-item>
-      </ng-container>
-    </ion-list>
 
-    <ion-list *ngSwitchCase="'history'">
-       <ion-item *ngFor="let transfer of pendingTransfers" (click)="showAcceptDeclineModal(transfer)">
+    <ion-list *ngSwitchCase="'incoming'">
+       <ion-item *ngFor="let transfer of incomingTransfers" (click)="showAcceptDeclineModal(transfer)">
         <h2>{{transfer.sender}}</h2>
         <p ion-text item-right color="in">+{{transfer.amount}}</p>
       </ion-item>
     </ion-list>
+
+    <ion-list *ngSwitchCase="'outgoing'">
+      <ng-container *ngIf="outgoingTransfers!=undefined">
+        <ion-item *ngFor="let transfer of outgoingTransfers.data" (click)="showTransferModal(transfer)">
+          {{transfer.receiver.name}}
+          <p ion-text item-right color="out">-{{transfer.amount}}</p>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+
   </div>
 
 </ion-content>
