@@ -28,12 +28,9 @@
         </ion-item>
       </ng-container>
     </ion-list>
-    
+
     <ion-list *ngSwitchCase="'history'">
        <ion-item *ngFor="let transfer of pendingTransfers" (click)="showAcceptDeclineModal(transfer)">
-        <ion-avatar item-left>
-          <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
-        </ion-avatar>
         <h2>{{transfer.sender}}</h2>
         <p ion-text item-right color="in">+{{transfer.amount}}</p>
       </ion-item>
