@@ -117,6 +117,9 @@ export class EditAccountPage {
     this.viewCtrl.dismiss().catch( (f) => f);
   }
 
+  /**
+   * Handle user deletion.
+   */
   private handleDelete() {
     this.auth.deleteUser()
       .subscribe(
@@ -126,7 +129,7 @@ export class EditAccountPage {
           // console.log("edit account response: ")
           // console.log(response);
 
-          if (response === "ok") {
+          if (response.status === "ok") {
             console.log("Success");
             this.auth.logout();
 
