@@ -6,7 +6,6 @@ import { Alert } from "../../utils/Alert";
 import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecline-modal";
 
-
 @Component({
   selector: "page-transfers",
   templateUrl: "transfers.html",
@@ -17,8 +16,8 @@ export class TransfersPage {
   public action: string = "pending";
   public wallets: any;
   public pending: any;
-  private loader: Loading;
   public pendingTransfers: any [] = [];
+  private loader: Loading;
 
   constructor(
     public modalCtrl: ModalController,
@@ -64,7 +63,7 @@ export class TransfersPage {
       .subscribe(
         (res) => {
           this.loader.dismiss().catch((f) => f);
-          let transfer = <any>res;
+          let transfer = <any> res;
           let transferWithToken = transfer.data;
           transferWithToken.token = transferToken;
           this.pendingTransfers.push(transferWithToken);
@@ -75,7 +74,6 @@ export class TransfersPage {
         },
       );
   }
-
 
   /**
    * Displays the modal page for the given transfer.

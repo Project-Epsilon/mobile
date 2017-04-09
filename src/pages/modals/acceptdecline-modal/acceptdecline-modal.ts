@@ -66,7 +66,7 @@ export class AcceptDeclineModalPage {
    * Close the modal page, returning transfer only if it was processd
    */
   public dismiss() {
-    if(!this.transferProcessed) {
+    if (!this.transferProcessed) {
       this.transfer = "";
     }
 
@@ -77,12 +77,12 @@ export class AcceptDeclineModalPage {
 
   /**
    * Shows notification that contact was added successfully
-   * @param string
+   * @param str
    */
-  private presentToast(string) {
+  private presentToast(str) {
     let toast = this.toastCtrl.create({
       duration: 3000,
-      message: string,
+      message: str,
       position: "top",
     });
 

@@ -9,7 +9,7 @@ import { AuthService } from "../providers/auth.service";
 })
 export class MyApp {
   public rootPage = LoginPage;
-  @ViewChild(Nav) nav:Nav;
+  @ViewChild(Nav) public nav: Nav;
 
   constructor(
     platform: Platform,
@@ -21,14 +21,11 @@ export class MyApp {
       Splashscreen.hide();
 
       Deeplinks.routeWithNavController(this.nav, {
-        '/login/:transferToken': LoginPage,
+        "/login/:transferToken": LoginPage,
       }).subscribe(
         (match) => {
           this.app.getRootNav().setRoot(LoginPage, {transferToken: match.$args});
-        },
-        (nomatch) => {
-        }
-       );
+        });
     });
   }
 }

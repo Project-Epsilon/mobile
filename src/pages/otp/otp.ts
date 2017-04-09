@@ -35,7 +35,7 @@ export class OtpPage {
       token: ["", Validators.required],
     });
 
-    this.transferToken = navParams.get('transferToken');
+    this.transferToken = navParams.get("transferToken");
   }
 
   /**
