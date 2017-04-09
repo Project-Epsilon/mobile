@@ -20,7 +20,7 @@
   </div>
 
   <div [ngSwitch]="action">
-    <ion-list *ngSwitchCase="'pending'">
+    <ion-list *ngSwitchCase="'incoming'">
       <ng-container *ngIf="incoming!=undefined">
         <ion-item *ngFor="let transfer of incoming.data" (click)="showTransferModal(transfer)">
           {{transfer.receiver.name}}
@@ -29,7 +29,7 @@
       </ng-container>
     </ion-list>
 
-    <ion-list *ngSwitchCase="'history'">
+    <ion-list *ngSwitchCase="'outgoing'">
        <ion-item *ngFor="let transfer of incomingTransfers" (click)="showAcceptDeclineModal(transfer)">
         <ion-avatar item-left>
           <img src="https://cdn2.iconfinder.com/data/icons/ios-7-icons/50/user_male2-512.png">
