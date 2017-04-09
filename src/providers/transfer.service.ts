@@ -125,10 +125,10 @@ export class TransferService {
   }
 
   /**
-   * Sends a get request to request pending transactions from a user
+   * Sends a get request to request incoming transactions from a user
    * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
    */
-  public getPendingTransactions() {
+  public getIncomingTransactions() {
     return new Observable((observer) => {
       this.http.get(environment.server_url + "/api/transfer/user/out")
         .map((res) => res.json())

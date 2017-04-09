@@ -13,10 +13,10 @@ import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecl
 export class TransfersPage {
   public token = "";
   public currencies: string = "CAD";
-  public action: string = "pending";
+  public action: string = "incoming";
   public wallets: any;
-  public pending: any;
-  public pendingTransfers: any [] = [];
+  public incoming: any;
+  public incomingTransfers: any [] = [];
   private loader: Loading;
 
   constructor(
@@ -28,13 +28,13 @@ export class TransfersPage {
     public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: "Adding transfer.",
+      content: "Loading transfers.",
     });
 
     this.loader.present().catch((f) => f);
-    this.transfSrv.getPendingTransactions()
-      .subscribe((pending) => {
-        this.pending = pending;
+    this.transfSrv.getIncomingTransactions()
+      .subscribe((incoming) => {
+        this.incoming = incoming;
         this.loader.dismiss().catch((f) => f);
       });
     this.wallets = this.walletSrv.wallets;
@@ -66,7 +66,7 @@ export class TransfersPage {
           let transfer = <any> res;
           let transferWithToken = transfer.data;
           transferWithToken.token = transferToken;
-          this.pendingTransfers.push(transferWithToken);
+          this.incomingTransfers.push(transferWithToken);
         },
         (err) => {
           this.loader.dismiss().catch((f) => f);
@@ -86,8 +86,8 @@ export class TransfersPage {
     modal.onDidDismiss(
       (res) => {
         if (res) {
-          let transferIndex = this.pendingTransfers.indexOf(res);
-          this.pendingTransfers.splice(transferIndex, 1);
+          let transferIndex = this.incomingTransfers.indexOf(res);
+          this.incomingTransfers.splice(transferIndex, 1);
         }
       },
     );
