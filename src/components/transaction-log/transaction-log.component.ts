@@ -42,7 +42,6 @@ export class TransactionLogComponent {
    * @param transfer
    */
   public showTransferModal(transfer) {
-    console.log(transfer);
     let modal = this.modalCtrl.create(TransactionsLogModalPage, { transfer });
     modal.present();
   }
