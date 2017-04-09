@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
-import { App } from "ionic-angular";
+import { App, NavParams, NavController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { OtpPage } from "../otp/otp";
 import { TabsPage } from "../tabs/tabs";
@@ -10,14 +10,20 @@ import { TabsPage } from "../tabs/tabs";
   selector: "page-login",
   templateUrl: "login.html",
 })
+
 export class LoginPage {
+  private transferToken;
 
   constructor(
       public auth: AuthService,
       public app: App,
       public http: Http,
       public storage: Storage,
-  ) {}
+      public navParams: NavParams,
+      public navCtrl: NavController,
+  ) {
+    this.transferToken = navParams.get("transferToken");
+  }
 
   /**
    * Shows the auth screen for the given provider
@@ -26,7 +32,6 @@ export class LoginPage {
    */
   public showAuth(provider) {
     this.auth.login(provider).subscribe((user) => {
-
       this.otpCheck(user);
     });
   }
@@ -57,11 +62,14 @@ export class LoginPage {
    * @param user
    */
   public otpCheck(user) {
-    if (user.locked) {
+    if (user.locked && !this.transferToken) {
       this.app.getRootNav().setRoot(OtpPage);
+    } else if (user.locked && this.transferToken) {
+      this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
+    } else if (!user.locked && this.transferToken) {
+      this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
     } else {
-      this.app.getRootNav().setRoot(TabsPage);
+        this.app.getRootNav().setRoot(TabsPage);
+      }
     }
-  }
-
 }

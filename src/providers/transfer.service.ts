@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import "rxjs/add/operator/map";
 
-import {AuthHttp} from "angular2-jwt";
-import {Observable} from "rxjs";
-import {environment} from "../environments/environment";
+import { AuthHttp } from "angular2-jwt";
+import { Observable } from "rxjs";
+import { environment } from "../environments/environment";
 
 @Injectable()
 export class TransferService {
@@ -30,16 +30,51 @@ export class TransferService {
         wallet_id: walletId,
         message,
       })
-        .map((res) => res.json())
-        .subscribe((res) => {
-          observer.next(res);
-          observer.complete();
-        });
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
+    });
+  }
+
+  /**
+   * Returns transfer based on the input token assosiated with the transafer.
+   * @param token
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public getTransferByToken(token) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user", {
+        token,
+      })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+      );
     });
   }
 
   /**
    * Sends a post request to the server to receive money from another user.
+   * @param token
    * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
    */
   public receive(token) {
@@ -47,6 +82,55 @@ export class TransferService {
       this.http.post(environment.server_url + "/api/transfer/user/receive", {
         token,
       })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
+    });
+  }
+
+  /**
+   * Sends a post request to the server to decline money from another user.
+   * @param token
+   * @returns {Observable|"../../Observable".Observable|"../../../Observable".Observable}
+   */
+  public decline(token) {
+    return new Observable((observer) => {
+      this.http.post(environment.server_url + "/api/transfer/user/cancel", {
+        token,
+      })
+        .map(
+          (res) => res.json(),
+        )
+        .subscribe(
+          (res) => {
+            observer.next(res);
+            observer.complete();
+          },
+          (err) => {
+            observer.next(err);
+            observer.complete();
+          },
+        );
+    });
+  }
+
+  /**
+   * Sends a get request to request pending transactions from a user
+   * @returns {Observable|"../../../Observable".Observable|"../../Observable".Observable}
+   */
+  public getPendingTransactions() {
+    return new Observable((observer) => {
+      this.http.get(environment.server_url + "/api/transfer/user/out")
         .map((res) => res.json())
         .subscribe((res) => {
           observer.next(res);

@@ -26,6 +26,7 @@ import { DepositComponent } from "../pages/manage/deposit/deposit.component";
 import { WithdrawComponent } from "../pages/manage/withdraw/withdraw.component";
 import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
 import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
+import { AcceptDeclineModalPage } from "../pages/modals/acceptdecline-modal/acceptdecline-modal";
 import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
 import { ContactsService } from "../providers/contact.service";
@@ -57,6 +58,7 @@ export function getAuthHttp(http) {
     OtpPage,
     ContactModalPage,
     AddContactModalPage,
+    AcceptDeclineModalPage,
     TransfersModalPage,
     WalletSlideComponent,
     WalletHeaderComponent,
@@ -80,6 +82,7 @@ export function getAuthHttp(http) {
     OtpPage,
     ContactModalPage,
     AddContactModalPage,
+    AcceptDeclineModalPage,
     TransfersModalPage,
     EditAccountPage,
   ],
