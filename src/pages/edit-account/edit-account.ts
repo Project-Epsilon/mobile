@@ -1,11 +1,11 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController, NavParams, AlertController, ToastController, ViewController } from "ionic-angular";
+import { AlertController, NavController, NavParams, ToastController, ViewController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { Alert } from "../../utils/Alert";
 
-import { LoginPage } from "../login/login";
 import { Response } from "@angular/http";
+import { LoginPage } from "../login/login";
 
 @Component({
   selector: "page-edit-account",
@@ -134,8 +134,7 @@ export class EditAccountPage {
 
             this.dismiss();
             this.presentToast();
-          }
-          else {
+          } else {
             let alertButtons = [
               {
                 role: "cancel",
@@ -145,7 +144,7 @@ export class EditAccountPage {
 
             Alert(this.alertCtrl, "Delete User Failed", response.errors.message, alertButtons);
           }
-        }
+        },
       );
   }
 
