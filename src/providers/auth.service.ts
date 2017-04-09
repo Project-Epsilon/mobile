@@ -19,8 +19,6 @@ export class AuthService {
               public storage: Storage,
               public http: Http,
   ) {
-
-    // Check if there is a profile saved in local storage
     this.storage.get("user").then((user) => {
       this.user = user;
     });
@@ -132,15 +130,12 @@ export class AuthService {
     return new Observable((observer) => {
       this.authHttp.delete(environment.server_url + "/api/user")
         .subscribe(
-          data => {
-            observer.next(data);
+          res => {
+            observer.next(res);
             observer.complete();
           },
           err => {
             observer.next(err);
-            observer.complete();
-          },
-          () => {
             observer.complete();
           });
     });

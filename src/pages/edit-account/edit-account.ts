@@ -119,6 +119,7 @@ export class EditAccountPage {
 
   /**
    * Handle user deletion.
+   * Receives the response from server and Displays error message containing the server error message in case of failure.
    */
   private handleDelete() {
     this.auth.deleteUser()
