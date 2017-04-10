@@ -96,7 +96,7 @@ export class AuthService {
           let msg = res.json();
           if (msg.errors) {
             msg = msg.errors;
-          }``
+          }
           observer.next(msg);
           observer.complete();
         });

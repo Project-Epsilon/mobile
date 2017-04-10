@@ -14,7 +14,7 @@ export class TransferService {
   ) {}
 
   /**
-   * Sends a post request to the server to transfer money to another user.<<
+   * Sends a post request to the server to transfer money to another user.
    *
    * @param receiver
    * @param amount
