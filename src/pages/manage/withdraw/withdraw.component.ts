@@ -80,7 +80,6 @@ export class WithdrawComponent {
             this.form.value.email,
           ).subscribe(
             (res) => {
-              this.loader.dismiss().catch((f) => f);
               this.handleWithdrawal(res, displayAmount);
             },
             (error) => {
@@ -108,6 +107,7 @@ export class WithdrawComponent {
     if (res.data) {
       this.walletSrv.updateWallet(res.data);
       this.form.reset();
+      this.loader.dismiss().catch((f) => f);
       Alert(
         this.alertCtrl,
         "Withdrawal Success",
@@ -116,6 +116,7 @@ export class WithdrawComponent {
       );
 
     } else {
+      this.loader.dismiss().catch((f) => f);
       Alert(
         this.alertCtrl,
         "Withdrawal Failed",
