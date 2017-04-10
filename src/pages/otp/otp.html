@@ -6,7 +6,7 @@
         <form [formGroup]="request">
           <h2>Please enter your phone number.</h2>
           <p>Including the international number digit(s).</p>
-          <input type="number" formControlName="phone_number">
+          <input type="number" formControlName="phone_number" (keyup)="trigger()">
           <span *ngIf="request.get('phone_number').invalid && request.get('phone_number').dirty">
             Please enter a phone number.
           </span>
@@ -14,12 +14,12 @@
 
         <button (click)="requestCode()" [disabled]="loading || request.invalid">Send code.</button>
 
-        <a (click)="showRequest = !showRequest">Already have a code?</a>
+        <a (click)="toggle()">Already have a code?</a>
       </div>
       <div *ngIf="!showRequest">
         <form [formGroup]="unlock">
           <h2>Please enter the code.</h2>
-          <input type="number" formControlName="token">
+          <input type="number" formControlName="token" (keyup)="trigger()">
           <span *ngIf="unlock.get('token').invalid && unlock.get('token').dirty">
             Please enter a four digit token.
           </span>
@@ -27,7 +27,7 @@
 
         <button (click)="unlockAccount()" [disabled]="loading || unlock.invalid">Submit</button>
 
-        <a (click)="showRequest = !showRequest">Don't have a code?</a>
+        <a (click)="toggle()">Don't have a code?</a>
       </div>
     </div>
   </div>
