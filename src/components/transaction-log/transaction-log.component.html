@@ -1,6 +1,6 @@
 
 <div class="transaction-list">
   <ng-container *ngFor="let transaction of transactions">
-    <transaction [transaction]="transaction"></transaction>
+    <transaction [transaction]="transaction" (click)="showTransferModal(transaction)"></transaction>
   </ng-container>
 </div>

@@ -13,10 +13,10 @@ import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecl
 export class TransfersPage {
   public token = "";
   public currencies: string = "CAD";
-  public action: string = "pending";
+  public action: string = "incoming";
   public wallets: any;
-  public pending: any;
-  public pendingTransfers: any [] = [];
+  public outgoingTransfers: any;
+  public incomingTransfers: any [] = [];
   private loader: Loading;
 
   constructor(
@@ -28,13 +28,13 @@ export class TransfersPage {
     public loadingCtrl: LoadingController,
   ) {
     this.loader = this.loadingCtrl.create({
-      content: "Adding transfer.",
+      content: "Loading transfers.",
     });
 
     this.loader.present().catch((f) => f);
-    this.transfSrv.getPendingTransactions()
-      .subscribe((pending) => {
-        this.pending = pending;
+    this.transfSrv.getIncomingTransactions()
+      .subscribe((res) => {
+        this.outgoingTransfers = res;
         this.loader.dismiss().catch((f) => f);
       });
     this.wallets = this.walletSrv.wallets;
@@ -84,11 +84,30 @@ export class TransfersPage {
     modal.onDidDismiss(
       (res) => {
         if (res) {
-          let transferIndex = this.pendingTransfers.indexOf(res);
-          this.pendingTransfers.splice(transferIndex, 1);
+          let transferIndex = this.incomingTransfers.indexOf(res);
+          this.incomingTransfers.splice(transferIndex, 1);
         }
       },
     );
+  }
+
+  /**
+   * On success adds the transfer to the users list. On fail, alerts the user.
+   *
+   * @param res
+   * @param transferToken
+   */
+  private handleAddTransaction (res, transferToken) {
+    this.loader.dismiss().catch((f) => f);
+
+    if (res.data) {
+      let transfer = <any> res;
+      let transferWithToken = transfer.data;
+      transferWithToken.token = transferToken;
+      this.incomingTransfers.push(transferWithToken);
+    } else {
+      Alert(this.alertCtrl, "Whoops!", res._body.json().errors.message, ["Dismiss."]);
+    }
   }
 
 }

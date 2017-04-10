@@ -1,7 +1,7 @@
 <ion-header>
     <ion-toolbar>
         <ion-title>
-            Transfer
+            Incoming Transfer
         </ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
@@ -26,7 +26,9 @@
   <br>
 
   <div><i>Sent at {{transfer.created_at | date:'medium'  }}</i></div>
+  <div><i>Received at {{transfer.received_at | date:'medium'  }}</i></div>
 
+  
   <br>
   <button ion-button color="primary" (click)="accept()">Accept</button>
   <button ion-button color="danger" (click)="decline()">Decline</button>
