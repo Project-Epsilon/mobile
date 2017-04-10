@@ -43,4 +43,5 @@
         <variable name="DEEPLINK_HOST" value="mbarter.com" />
     </plugin>
     <plugin name="cordova-plugin-x-toast" spec="~2.6.0" />
+    <plugin name="cordova-sqlite-storage" spec="~2.0.3" />
 </widget>

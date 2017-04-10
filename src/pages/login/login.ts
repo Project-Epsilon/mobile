@@ -32,7 +32,7 @@ export class LoginPage {
    */
   /* istanbul ignore next */
   public showAuth(provider) {
-    this.auth.login(provider).subscribe((user) => {
+    this.auth.login(provider).then((user) => {
       this.otpCheck(user);
     });
   }

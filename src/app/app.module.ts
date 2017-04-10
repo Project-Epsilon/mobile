@@ -1,6 +1,6 @@
 import { ErrorHandler, NgModule } from "@angular/core";
 import { Http } from "@angular/http";
-import { Storage } from "@ionic/storage";
+import { IonicStorageModule, Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 import { MyApp } from "./app.component";
@@ -37,8 +37,7 @@ import { TransferService } from "../providers/transfer.service";
 import { WalletsService } from "../providers/wallet.service";
 import { PhonePipe } from "../utils/PhonePipe";
 
-export function getAuthHttp(http) {
-  let storage: Storage = new Storage();
+export function getAuthHttp(http, storage: Storage) {
   return new AuthHttp(new AuthConfig({
     globalHeaders: [{Accept: "application/json"}],
     tokenGetter: (() => storage.get("token")),
@@ -92,10 +91,12 @@ export function getAuthHttp(http) {
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: "__db",
+    }),
   ],
   providers: [
     AuthHttp,
-    Storage,
     AuthService,
     WalletsService,
     CurrencyService,
@@ -103,7 +104,7 @@ export function getAuthHttp(http) {
     TransferService,
     ContactsService,
     {
-      deps: [Http],
+      deps: [Http, Storage],
       provide: AuthHttp,
       useFactory: getAuthHttp,
     },
@@ -113,4 +114,5 @@ export function getAuthHttp(http) {
     },
   ],
 })
+
 export class AppModule {}
