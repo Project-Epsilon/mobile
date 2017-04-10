@@ -1,18 +1,18 @@
-import {async, ComponentFixture, TestBed,inject,} from "@angular/core/testing";
+import { async, ComponentFixture, TestBed, inject } from "@angular/core/testing";
 import { Injectable, NgZone } from "@angular/core";
-import {FormBuilder} from "@angular/forms";
-import {BaseRequestOptions, Http} from "@angular/http";
-import {MockBackend} from "@angular/http/testing";
-import {Storage} from "@ionic/storage";
-import {AuthConfig, AuthHttp} from "angular2-jwt";
-import {AlertController, LoadingController, ModalController, NavController, NavParams,ViewController,IonicModule} from "ionic-angular";
-import {MyApp} from "../../app/app.component";
-import {AuthService} from "../../providers/auth.service";
-import {BankTransferService} from "../../providers/bank.service";
-import {TransferService} from "../../providers/transfer.service";
-import {Observable} from 'rxjs/Rx';
-import {WalletsService} from "../../providers/wallet.service";
-import {TransfersPage} from "./transfers";
+import { FormBuilder } from "@angular/forms";
+import { BaseRequestOptions, Http } from "@angular/http";
+import { MockBackend } from "@angular/http/testing";
+import { Storage } from "@ionic/storage";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
+import { AlertController, LoadingController, ModalController, NavController, NavParams,ViewController,IonicModule } from "ionic-angular";
+import { MyApp } from "../../app/app.component";
+import { AuthService } from "../../providers/auth.service";
+import { BankTransferService} from "../../providers/bank.service";
+import { TransferService } from "../../providers/transfer.service";
+import { Observable } from 'rxjs/Rx';
+import { WalletsService } from "../../providers/wallet.service";
+import { TransfersPage } from "./transfers";
 
 export class NavParamsMock {
   static returnParam = null;
