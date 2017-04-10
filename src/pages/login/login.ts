@@ -63,13 +63,13 @@ export class LoginPage {
    */
   public otpCheck(user) {
     if (user.locked && !this.transferToken) {
-      this.app.getRootNav().setRoot(OtpPage);
+      this.navCtrl.setRoot(OtpPage);
     } else if (user.locked && this.transferToken) {
-      this.app.getRootNav().setRoot(OtpPage, {transferToken: this.transferToken});
+      this.navCtrl.setRoot(OtpPage, {transferToken: this.transferToken});
     } else if (!user.locked && this.transferToken) {
-      this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
+      this.navCtrl.setRoot(TabsPage, {transferToken: this.transferToken});
     } else {
-        this.app.getRootNav().setRoot(TabsPage);
-      }
+      this.navCtrl.setRoot(TabsPage);
     }
+  }
 }

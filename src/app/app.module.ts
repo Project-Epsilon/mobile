@@ -16,6 +16,8 @@ import { LoginPage } from "../pages/login/login";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
 import { ManagePage } from "../pages/manage/manage";
 import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
+import { TransactionsLogModalPage } from "../pages/modals/transactionslog-modal/transactionslog-modal";
+
 import { MorePage } from "../pages/more/more";
 import { OtpPage } from "../pages/otp/otp";
 import { SendMoneyPage } from "../pages/send-money/send-money";
@@ -60,6 +62,7 @@ export function getAuthHttp(http) {
     AddContactModalPage,
     AcceptDeclineModalPage,
     TransfersModalPage,
+    TransactionsLogModalPage,
     WalletSlideComponent,
     WalletHeaderComponent,
     TransactionLogComponent,
@@ -84,6 +87,7 @@ export function getAuthHttp(http) {
     AddContactModalPage,
     AcceptDeclineModalPage,
     TransfersModalPage,
+    TransactionsLogModalPage,
     EditAccountPage,
   ],
   imports: [

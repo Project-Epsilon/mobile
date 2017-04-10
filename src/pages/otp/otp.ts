@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import {Component, ChangeDetectorRef} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
@@ -10,7 +10,7 @@ import { TabsPage } from "../tabs/tabs";
 })
 export class OtpPage {
 
-  public showRequest: boolean;
+  public showRequest: boolean = true;
 
   public request: FormGroup;
   public unlock: FormGroup;
@@ -25,17 +25,14 @@ export class OtpPage {
     public auth: AuthService,
     public app: App,
     public fb: FormBuilder,
+    private ref: ChangeDetectorRef
   ) {
-    this.showRequest = true;
-
     this.request = this.fb.group({
       phone_number: ["", Validators.required],
     });
     this.unlock = this.fb.group({
       token: ["", Validators.required],
     });
-
-    this.transferToken = navParams.get("transferToken");
   }
 
   /**
@@ -44,12 +41,14 @@ export class OtpPage {
   public requestCode() {
     if (this.request.valid) {
       this.loading = true;
+      this.trigger();
       this.auth.otp(this.request.value, false)
         .subscribe((res: any) => {
           this.loading = false;
-          if (res === "ok") {
-            this.showRequest = false;
+          if (res.status === "ok") {
+            this.toggle();
           }
+          this.trigger();
         });
     }
   }
@@ -60,17 +59,34 @@ export class OtpPage {
   public unlockAccount() {
     if (this.unlock.valid) {
       this.loading = true;
+      this.trigger();
       this.auth.otp(this.unlock.value, true)
         .subscribe((res: any) => {
           this.loading = false;
-          if (res === "ok") {
+          if (res.status === "ok") {
             if (this.transferToken) {
               this.app.getRootNav().setRoot(TabsPage, {transferToken: this.transferToken});
             } else {
               this.app.getRootNav().setRoot(TabsPage);
             }
           }
+          this.trigger();
         });
     }
+  }
+
+  /**
+   * Toggles the otp page view.
+   */
+  public toggle() {
+    this.showRequest = ! this.showRequest;
+    this.trigger();
+  }
+
+  /**
+   * Triggers dom changes.
+  */
+  public trigger() {
+    this.ref.detectChanges();
   }
 }
