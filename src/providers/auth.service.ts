@@ -90,7 +90,7 @@ export class AuthService {
     return new Observable((observer) => {
       this.authHttp.post(environment.server_url + "/api/auth/otp" + ((unlock) ? "/unlock" : ""), data)
         .subscribe((res) => {
-          observer.next(res.text());
+          observer.next(res.json());
           observer.complete();
         }, (res) => {
           let msg = res.json();
