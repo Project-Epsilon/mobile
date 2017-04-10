@@ -15,7 +15,7 @@ export class TransfersPage {
   public currencies: string = "CAD";
   public action: string = "incoming";
   public wallets: any;
-  public incoming: any;
+  public outgoingTransfers: any;
   public incomingTransfers: any [] = [];
   private loader: Loading;
 
@@ -33,8 +33,8 @@ export class TransfersPage {
 
     this.loader.present().catch((f) => f);
     this.transfSrv.getIncomingTransactions()
-      .subscribe((incoming) => {
-        this.incoming = incoming;
+      .subscribe((res) => {
+        this.outgoingTransfers = res;
         this.loader.dismiss().catch((f) => f);
       });
     this.wallets = this.walletSrv.wallets;
@@ -65,7 +65,6 @@ export class TransfersPage {
           this.handleAddTransaction(res, transferToken);
         },
         (err) => {
-          console.log("err");
           this.loader.dismiss().catch((f) => f);
           Alert(this.alertCtrl, "Whoops!", err, ["Dismiss."]);
         },
