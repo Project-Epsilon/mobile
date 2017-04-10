@@ -1,5 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { HomePage } from "../../pages/home/home";
+import { TransactionsLogModalPage } from "../../pages/modals/transactionslog-modal/transactionslog-modal";
+import { ModalController } from "ionic-angular";
 
 @Component({
   selector: "transaction-log",
@@ -10,7 +12,10 @@ export class TransactionLogComponent {
   @Input() public wallet: any;
   public transactions: any;
 
-  constructor(public home: HomePage) {
+  constructor(
+    public home: HomePage,
+    public modalCtrl: ModalController,
+  ) {
     this.transactions = this.getWallet()[0].transactions.data;
     this.transactions = this.transactions.reverse();
   }
@@ -31,4 +36,13 @@ export class TransactionLogComponent {
     return this.home.wallets;
   }
 
+  /**
+   * Displays the modal page for the given transfer.
+   *
+   * @param transfer
+   */
+  public showTransferModal(transfer) {
+    let modal = this.modalCtrl.create(TransactionsLogModalPage, { transfer });
+    modal.present();
+  }
 }
