@@ -62,11 +62,7 @@ export class TransfersPage {
     this.transfSrv.getTransferByToken(transferToken)
       .subscribe(
         (res) => {
-          this.loader.dismiss().catch((f) => f);
-          let transfer = <any> res;
-          let transferWithToken = transfer.data;
-          transferWithToken.token = transferToken;
-          this.incomingTransfers.push(transferWithToken);
+          this.handleAddTransaction(res, transferToken);
         },
         (err) => {
           this.loader.dismiss().catch((f) => f);
@@ -91,6 +87,25 @@ export class TransfersPage {
         }
       },
     );
+  }
+
+  /**
+   * On success adds the transfer to the users list. On fail, alerts the user.
+   *
+   * @param res
+   * @param transferToken
+   */
+  private handleAddTransaction (res, transferToken) {
+    this.loader.dismiss().catch((f) => f);
+
+    if (res.data) {
+      let transfer = <any> res;
+      let transferWithToken = transfer.data;
+      transferWithToken.token = transferToken;
+      this.incomingTransfers.push(transferWithToken);
+    } else {
+      Alert(this.alertCtrl, "Whoops!", res._body.json().errors.message, ["Dismiss."]);
+    }
   }
 
 }
