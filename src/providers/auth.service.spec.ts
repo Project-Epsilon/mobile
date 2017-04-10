@@ -58,7 +58,7 @@ describe("Auth Service", () => {
     });
   })));
 
-  it("UPDATE response should not be null", (inject([AuthService], (service) => {
+  it("logout response should not be null", (inject([AuthService], (service) => {
 
     expect(service.logout()).not.toBeNull();
 
