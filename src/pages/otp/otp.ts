@@ -83,6 +83,9 @@ export class OtpPage {
     this.trigger();
   }
 
+  /**
+   * Triggers dom changes.
+  */
   public trigger() {
     this.ref.detectChanges();
   }
