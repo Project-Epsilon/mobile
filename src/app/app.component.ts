@@ -25,9 +25,13 @@ export class MyApp {
       }).subscribe(
         (match) => {
           let parsedToken = match.$link.path;
-          var token = parsedToken.substring(11, parsedToken.indexOf('['));
+          if(parsedToken.indexOf('[') > -1)
+            var token = parsedToken.substring(11, parsedToken.indexOf('['));
+          else
+            var token = parsedToken.substring(parsedToken.lastIndexOf('/') + 1, parsedToken.length);
+          console.log(token);
           this.app.getRootNav().setRoot(LoginPage, {transferToken:token});
-        },
+           } ,
         (nomatch) =>{
 
         })
