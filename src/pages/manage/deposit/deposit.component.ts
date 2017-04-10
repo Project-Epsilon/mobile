@@ -83,12 +83,13 @@ export class DepositComponent {
           browser.on("loadstart")
             .subscribe((event) => {
               if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
-                browser.close();
 
                 let wallet = event.url.substring(event.url.indexOf("wallet=") + 7);
 
                 wallet = JSON.parse(decodeURIComponent(wallet));
                 this.walletSrv.updateWallet(wallet);
+
+                browser.close();
               }
             });
         }
