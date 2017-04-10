@@ -3,12 +3,12 @@ import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
 import "rxjs/add/operator/map";
-import { WalletsService } from "./wallet.service";
+import { TransferService } from "./transfer.service";
 
 /**
- * Wallet test suite
+ * Bank test suite
  */
-describe("Wallet Service", () => {
+describe("Transfers Service", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -27,28 +27,29 @@ describe("Wallet Service", () => {
         },
         MockBackend,
         BaseRequestOptions,
-        WalletsService,
+        TransferService,
       ],
 
     });
 
   });
-
-  it("Get wallets service should not be null", async(inject([WalletsService], (service) => {
+  it("Transfer service should be defined", async(inject([TransferService], (service) => {
     expect(service).toBeDefined();
   })));
 
-  it("Get wallets response should defined", async(inject([WalletsService], (service) => {
-    expect(service.getWallets()).toBeDefined();
+  it("send response should not be null", async(inject([TransferService], (service) => {
+    expect(service.send(2.00, "USD")).not.toBeNull();
   })));
 
-  it("update wallet response should defined", async(inject([WalletsService], (service) => {
-    var wallet =[{"id":1,"balance":1,"shown":3.00,"order":1}]
-    expect(service.updateWallet(wallet)).toBeDefined();
+  it("getTransferByToken should not be null", async(inject([TransferService], (service) => {
+    expect(service.getTransferByToken('token')).not.toBeNull();
   })));
 
-  it("update walletid response should defined", async(inject([WalletsService], (service) => {
-    expect(service.updateWalletId("1")).toBeDefined();
+  it("receive response should not be null", async(inject([TransferService], (service) => {
+    expect(service.receive("token")).not.toBeNull();
   })));
 
+  it("pending response should not be null", async(inject([TransferService], (service) => {
+    expect(service.getPendingTransactions()).not.toBeNull();
+  })));
 });

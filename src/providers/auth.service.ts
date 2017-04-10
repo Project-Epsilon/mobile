@@ -46,7 +46,7 @@ export class AuthService {
   public login(provider) {
 
     return new Observable((observer) => {
-
+      /* istanbul ignore next */
       this.http.get(environment.server_url + "/api/auth/" + provider).subscribe((res) => {
         let url = res.json().data.url;
         let browser = new InAppBrowser(url, "_blank", "clearcache=yes,clearsessioncache=yes");

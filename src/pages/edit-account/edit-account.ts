@@ -100,6 +100,7 @@ export class EditAccountPage {
    * Display successful contact deletion confirmation
    *
    */
+  /*istanbul ignore next */
   private presentToast() {
     let toast = this.toastCtrl.create({
       duration: 2500,
@@ -113,6 +114,7 @@ export class EditAccountPage {
   /**
    * Close the modal page.
    */
+  /*istanbul ignore next */
   private dismiss() {
     this.viewCtrl.dismiss().catch( (f) => f);
   }
@@ -121,6 +123,7 @@ export class EditAccountPage {
    * Handle user deletion.
    * Receives the response from server and Displays error message containing the server error message in case of failure.
    */
+  /*istanbul ignore next */
   private handleDelete() {
     this.auth.deleteUser()
       .subscribe(

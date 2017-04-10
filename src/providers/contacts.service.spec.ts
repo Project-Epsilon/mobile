@@ -1,14 +1,15 @@
 import { async, inject, TestBed } from "@angular/core/testing";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
+import { AlertController,App,Config,Platform } from "ionic-angular";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
 import "rxjs/add/operator/map";
-import { WalletsService } from "./wallet.service";
+import { ContactsService } from "./contact.service";
 
 /**
- * Wallet test suite
+ * Bank test suite
  */
-describe("Wallet Service", () => {
+describe("Contact Service", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -26,29 +27,34 @@ describe("Wallet Service", () => {
           },
         },
         MockBackend,
+        ContactsService,
+        App,
+        Config,
         BaseRequestOptions,
-        WalletsService,
+        AlertController,
+        Platform,
       ],
 
     });
 
   });
-
-  it("Get wallets service should not be null", async(inject([WalletsService], (service) => {
+  it("contacts should be defined", async(inject([ContactsService], (service) => {
     expect(service).toBeDefined();
   })));
 
-  it("Get wallets response should defined", async(inject([WalletsService], (service) => {
-    expect(service.getWallets()).toBeDefined();
+  it("getcontactcs promise", async(inject([ContactsService], (service) => {
+    return service.getContacts().then((result) => {
+      expect(result).not.toBeNull();
+
+    });
   })));
 
-  it("update wallet response should defined", async(inject([WalletsService], (service) => {
-    var wallet =[{"id":1,"balance":1,"shown":3.00,"order":1}]
-    expect(service.updateWallet(wallet)).toBeDefined();
-  })));
+    it("contacts v2", async(inject([ContactsService], (service) => {
+      expect(service.getContacts()).toBeDefined();
+    })));
 
-  it("update walletid response should defined", async(inject([WalletsService], (service) => {
-    expect(service.updateWalletId("1")).toBeDefined();
+  it("addContact should not be null", async(inject([ContactsService], (service) => {
+    expect(service.addContact()).toBeDefined();
   })));
 
 });

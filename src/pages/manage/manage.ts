@@ -38,6 +38,7 @@ export class ManagePage {
    * Determines which manage page to show user depending on button clicked
    */
   public ionViewDidEnter() {
+    /* istanbul ignore next */
     if (this.navParams.get("wallet")) {
       if (this.navParams.get("action") === "withdraw") {
         this.action = "withdraw";

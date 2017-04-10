@@ -58,6 +58,7 @@ export class TransfersPage {
    * Gets transaction information from server and adds it to list of transfers.
    * @param transferToken
    */
+  /* istanbul ignore next */
   public addTransaction (transferToken) {
     this.transfSrv.getTransferByToken(transferToken)
       .subscribe(
@@ -76,6 +77,7 @@ export class TransfersPage {
    *
    * @param transfer
    */
+  /* istanbul ignore next */
   public showAcceptDeclineModal (transfer) {
     let modal = this.modalCtrl.create(AcceptDeclineModalPage, { transfer });
     modal.present();

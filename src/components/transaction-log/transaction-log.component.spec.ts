@@ -25,4 +25,8 @@ describe("TransactionLogComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it("Get wallet should not be null", () => {
+    expect(component.getWallet()).not.toBeNull();
+  });
 });

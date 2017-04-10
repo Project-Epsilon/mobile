@@ -30,6 +30,7 @@ export class TabsPage {
     this.tab5Root = MorePage;
 
     let transferToken = this.navParams.get("transferToken");
+    /* istanbul ignore if */
     if (transferToken) {
       this.transferParams = {
         transferToken: transferToken,
@@ -41,6 +42,7 @@ export class TabsPage {
   /**
    * Runs when tabs page is initialized. If there is a transfer token, redirects to transfers page.
    */
+  /* istanbul ignore next */
   public ionViewDidEnter() {
     if (this.transferParams) {
       this.tabRef.select(3);

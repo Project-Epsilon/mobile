@@ -1,36 +1,56 @@
-import {async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { async, ComponentFixture, TestBed, inject } from "@angular/core/testing";
+import { Injectable, NgZone } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import {AlertController, LoadingController, ModalController, NavController, NavParams } from "ionic-angular";
-import { IonicModule } from "ionic-angular";
+import { AlertController, LoadingController, ModalController, NavController, NavParams,ViewController,IonicModule } from "ionic-angular";
 import { MyApp } from "../../app/app.component";
 import { AuthService } from "../../providers/auth.service";
-import { BankTransferService } from "../../providers/bank.service";
+import { BankTransferService} from "../../providers/bank.service";
 import { TransferService } from "../../providers/transfer.service";
+import { Observable } from 'rxjs/Rx';
 import { WalletsService } from "../../providers/wallet.service";
 import { TransfersPage } from "./transfers";
-let component: TransfersPage;
 
-let fixture: ComponentFixture<TransfersPage>;
+export class NavParamsMock {
+  static returnParam = null;
 
-class MockNavParams {
-   public data = {
-    currency: {
-      currency: "USD",
-      name: "Mike",
-    },
-  };
+  public get(key): any {
+    if (NavParamsMock.returnParam) {
+      return NavParamsMock.returnParam
+    }
+    return 'default';
+  }
 
-  public get(param) {
-    return this.data[param];
+  static setParams(value) {
+    NavParamsMock.returnParam = value;
   }
 }
 describe("Transfer Component", () => {
+  let component: TransfersPage;
+  let fixture: ComponentFixture<TransfersPage>;
+  let service:TransferService;
+  let mService:MockTransferService;
+  @Injectable()
+  class MockTransferService {
+    getTransferByToken(transferToken:any) {
+      return 1;
+    }
+    receive(data: any) {
+      return 2;
+    }
+    send(data:any) {
+      return 1;
+    }
+  }
+
 
   beforeEach(async(() => {
+     mService = new MockTransferService();
+
+    NavParamsMock.setParams({transferToken: "2"});
     TestBed.configureTestingModule({
       declarations: [MyApp, TransfersPage],
       imports: [
@@ -44,8 +64,10 @@ describe("Transfer Component", () => {
         },
         },
         {
-          provide: NavParams, useClass: MockNavParams,
+          provide: NavParams, useClass: NavParamsMock,
         },
+        {provide:TransferService, useClass: mService},
+
         {
           deps: [Http],
           provide: AuthHttp,
@@ -67,22 +89,36 @@ describe("Transfer Component", () => {
         BankTransferService,
       ],
     }).compileComponents();
-  }));
-  beforeEach(() => {
+
     fixture = TestBed.createComponent(TransfersPage);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    service = TestBed.get(TransferService);
+  }));
+  beforeEach(() => {
+
+      fixture.detectChanges();
+
   });
 
   it("Transfer component should create", () => {
     expect(component).toBeTruthy();
   });
 
-  it("Test showTransferModal", () => {
-    expect(component.showTransferModal()).toBeDefined();
+
+  it("Transfer component should create", () => {
+      expect(component).toBeTruthy();
   });
-  it("Test receive", () => {
-    expect(component.receive()).toBeDefined();
+
+  it("Test add transaction",() => {
+    expect(component.addTransaction).not.toBeNull();
+  });
+
+  it("Test show accept and decline", () => {
+      expect(component.showAcceptDeclineModal).toHaveBeenCalled();
+  });
+
+  it("Test show transfermodal", () => {
+    expect(component.showTransferModal("token")).not.toBeNull();
   });
 
 });
