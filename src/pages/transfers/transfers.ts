@@ -63,12 +63,7 @@ export class TransfersPage {
     this.transfSrv.getTransferByToken(transferToken)
       .subscribe(
         (res) => {
-
-          this.loader.dismiss().catch((f) => f);
-          let transfer = <any> res;
-          let transferWithToken = transfer.data;
-          transferWithToken.token = transferToken;
-          this.pendingTransfers.push(transferWithToken);
+          this.handleAddTransaction(res, transferToken);
         },
         (err) => {
           this.loader.dismiss().catch((f) => f);
