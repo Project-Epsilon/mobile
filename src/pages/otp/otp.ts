@@ -1,4 +1,4 @@
-import {Component, ChangeDetectorRef} from "@angular/core";
+import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
@@ -25,7 +25,6 @@ export class OtpPage {
     public auth: AuthService,
     public app: App,
     public fb: FormBuilder,
-    private ref: ChangeDetectorRef
   ) {
     this.request = this.fb.group({
       phone_number: ["", Validators.required],
@@ -41,14 +40,12 @@ export class OtpPage {
   public requestCode() {
     if (this.request.valid) {
       this.loading = true;
-      this.trigger();
       this.auth.otp(this.request.value, false)
         .subscribe((res: any) => {
           this.loading = false;
           if (res.status === "ok") {
             this.toggle();
           }
-          this.trigger();
         });
     }
   }
@@ -59,7 +56,6 @@ export class OtpPage {
   public unlockAccount() {
     if (this.unlock.valid) {
       this.loading = true;
-      this.trigger();
       this.auth.otp(this.unlock.value, true)
         .subscribe((res: any) => {
           this.loading = false;
@@ -70,7 +66,6 @@ export class OtpPage {
               this.app.getRootNav().setRoot(TabsPage);
             }
           }
-          this.trigger();
         });
     }
   }
@@ -80,13 +75,6 @@ export class OtpPage {
    */
   public toggle() {
     this.showRequest = ! this.showRequest;
-    this.trigger();
   }
 
-  /**
-   * Triggers dom changes.
-  */
-  public trigger() {
-    this.ref.detectChanges();
-  }
 }

@@ -23,7 +23,7 @@ export class AuthService {
       this.user = user;
     });
 
-    this.storage.get("id_token").then((token) => {
+    this.storage.get("token").then((token) => {
       this.idToken = token;
     });
 
@@ -44,25 +44,21 @@ export class AuthService {
    * @returns {Observable}
    */
   public login(provider) {
-
-    return new Observable((observer) => {
-      /* istanbul ignore next */
+    return new Promise((resolve) => {
       this.http.get(environment.server_url + "/api/auth/" + provider).subscribe((res) => {
         let url = res.json().data.url;
         let browser = new InAppBrowser(url, "_blank", "clearcache=yes,clearsessioncache=yes");
-        browser.on("loadstart")
-          .subscribe((event) => {
-            if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
-              let data: any = event.url.substring(event.url.indexOf("data=") + 5, event.url.indexOf("&success=true"));
-              data = JSON.parse(decodeURIComponent(data));
-              this.storage.set("token", data.meta.token).then((value) => {
-                this.user = data.data;
-                observer.next(this.user);
-                observer.complete();
-              });
-              browser.close();
-            }
-          });
+        browser.on("loadstart").subscribe((event) => {
+          if (event.url.indexOf(environment.server_url + "/api/app/callback") === 0) {
+            browser.close();
+            let data: any = event.url.substring(event.url.indexOf("data=") + 5, event.url.indexOf("&success=true"));
+            data = JSON.parse(decodeURIComponent(data));
+            this.storage.set("token", data.meta.token).then((value) => {
+              this.user = data.data;
+              resolve(this.user);
+            });
+          }
+        });
       });
     });
   }
@@ -74,7 +70,7 @@ export class AuthService {
     this.authHttp.get(environment.server_url + "/api/logout");
 
     this.storage.remove("user");
-    this.storage.remove("id_token");
+    this.storage.remove("token");
     this.idToken = null;
     this.zone.run(() => this.user = null);
   }
@@ -129,12 +125,10 @@ export class AuthService {
   public deleteUser() {
     return new Observable((observer) => {
       this.authHttp.delete(environment.server_url + "/api/user")
-        .subscribe(
-          res => {
+        .subscribe((res) => {
             observer.next(res);
             observer.complete();
-          },
-          err => {
+          }, (err) => {
             observer.next(err);
             observer.complete();
           });
