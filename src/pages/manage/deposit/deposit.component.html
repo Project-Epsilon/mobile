@@ -28,14 +28,7 @@
 
   </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-label text-center stacked>Deposit money with</ion-label>
-    </ion-card-header>
-    <ion-card-content>
-      <div text-center>
-        <button ion-button type="submit" block [disabled]="!form.valid">PayPal</button>
-      </div>
-    </ion-card-content>
-  </ion-card>
+  <button class="paypal-button" ion-button type="submit" block [disabled]="!form.valid">
+    <div>Checkout with </div> <img src="assets/images/paypal-logo.svg" alt="">
+  </button>
 </form>

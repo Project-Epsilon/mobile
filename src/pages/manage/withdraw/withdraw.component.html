@@ -37,6 +37,7 @@
       ></ion-input>
     </ion-card-content>
   </ion-card>
-
-  <button ion-button block type="submit" [disabled]="!form.valid || !validAmount">Withdraw with Paypal</button>
+  <button class="paypal-button" ion-button block type="submit" [disabled]="!form.valid || !validAmount">
+    <div>Payout with </div> <img src="assets/images/paypal-logo.svg" alt="">
+  </button>
 </form>
