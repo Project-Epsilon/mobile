@@ -7,10 +7,10 @@
 
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <form [formGroup]="form" (ngSubmit)="send()" novalidate>
     <ion-card>
-      <ion-card-content>
+      <ion-card-content class="separated">
 
         <ion-item>
           <ion-label stacked>Amount</ion-label>
@@ -50,7 +50,7 @@
       </ion-card-content>
     </ion-card>
 
-    <div text-center>
+    <div text-center class="button-padding">
       <button ion-button type="submit" block [disabled]="!form.valid || !validAmount">Send</button>
     </div>
   </form>

@@ -54,3 +54,35 @@
 .input-group{
   position: relative;
 }
+
+.card{
+  box-shadow: none;
+  .card-content {
+    padding: 0;
+    &.separated {
+      ion-item + ion-item {
+        border-top: #eee solid 1px;
+      }
+    }
+  }
+}
+
+.pt-0{
+  padding-top: 0 !important;
+}
+.pb-0{
+  padding-bottom: 0 !important;
+}
+
+.md{
+  .button-padding {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}
+.ios{
+  .button-padding {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+}

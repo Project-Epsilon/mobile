@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="deposit()" novalidate>
   <ion-card>
-    <ion-card-content>
+    <ion-card-content class="separated">
       <ion-item>
         <ion-label stacked>Amount</ion-label>
         <ion-input formControlName="amount"
@@ -28,7 +28,10 @@
 
   </ion-card>
 
-  <button class="paypal-button" ion-button type="submit" block [disabled]="!form.valid">
-    <div>Checkout with </div> <img src="assets/images/paypal-logo.svg" alt="">
-  </button>
+  <div class="button-padding">
+    <button class="paypal-button" ion-button type="submit" block [disabled]="!form.valid">
+      <div>Checkout with </div> <img src="assets/images/paypal-logo.svg" alt="">
+    </button>
+  </div>
+
 </form>
