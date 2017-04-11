@@ -7,8 +7,8 @@
 </ion-header>
 
 
-<ion-content padding>
-  <div padding>
+<ion-content>
+  <div padding class="pb-0">
     <ion-segment [(ngModel)]="action">
       <ion-segment-button value="incoming">
         Incoming
@@ -21,21 +21,47 @@
 
   <div [ngSwitch]="action">
 
-    <ion-list *ngSwitchCase="'incoming'">
-       <ion-item *ngFor="let transfer of incomingTransfers" (click)="showAcceptDeclineModal(transfer)">
-        <h2>{{transfer.sender}}</h2>
-        <p ion-text item-right color="in">+{{transfer.amount}}</p>
-      </ion-item>
-    </ion-list>
+    <div *ngSwitchCase="'incoming'">
+      <ion-card>
+        <ion-card-content class="separated">
+          <div class="transfer" *ngFor="let transfer of incomingTransfers" (click)="showAcceptDeclineModal(transfer)">
+            <div class="details">
+              <div>
+                {{ transfer.status | uppercase }} - {{ transfer.created_at | date: 'longDate'}}
+              </div>
+              <div>
+                From: {{ transfer.sender }}
+              </div>
+            </div>
+            <div class="amount">
+              <p ion-text item-right color="in">+{{transfer.amount}}</p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
 
-    <ion-list *ngSwitchCase="'outgoing'">
+    <div *ngSwitchCase="'outgoing'">
       <ng-container *ngIf="outgoingTransfers!=undefined">
-        <ion-item *ngFor="let transfer of outgoingTransfers.data" (click)="showTransferModal(transfer)">
-          {{transfer.receiver.name}}
-          <p ion-text item-right color="out">-{{transfer.amount}}</p>
-        </ion-item>
+        <ion-card>
+          <ion-card-content class="separated">
+            <div class="transfer" *ngFor="let transfer of outgoingTransfers.data" (click)="showTransferModal(transfer)">
+              <div class="details">
+                <div>
+                  {{ transfer.status | uppercase }} - {{ transfer.created_at | date: 'longDate'}}
+                </div>
+                <div>
+                  To: {{ transfer.receiver.name }}
+                </div>
+              </div>
+              <div class="amount">
+                <p ion-text item-right color="out">-{{ transfer.amount }}</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
       </ng-container>
-    </ion-list>
+    </div>
 
   </div>
 

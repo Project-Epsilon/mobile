@@ -86,3 +86,7 @@
     padding-left: 12px;
   }
 }
+
+.button-padding + .button-padding {
+  margin-top: 12px;
+}
