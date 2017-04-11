@@ -11,10 +11,9 @@ import { MyApp } from "../../app/app.component";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
+import { WalletsService } from "../../providers/wallet.service";
 import { environment } from "../environments/environment";
 import { HomePage } from "./Home";
-import { WalletsService } from "../../providers/wallet.service";
-
 
 let comp: HomePage;
 let fixture: ComponentFixture<HomePage>;

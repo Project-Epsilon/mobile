@@ -81,7 +81,7 @@ describe("Withdrawl Component", () => {
     try {
       expect(component.withdraw()).toBeDefined();
     }
-    catch(err){
+    catch (err){
 
     }
   });
@@ -97,7 +97,7 @@ describe("Withdrawl Component", () => {
     try {
       expect(component.handleWithdrawal(new MockRes(), new Object())).toBeDefined();
     }
-    catch(err){
+    catch (err){
 
     }
   });

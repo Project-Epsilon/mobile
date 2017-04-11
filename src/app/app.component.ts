@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav, App } from "ionic-angular";
-import { Splashscreen, StatusBar, Deeplinks } from "ionic-native";
+import { App, Nav, Platform } from "ionic-angular";
+import { Deeplinks, Splashscreen, StatusBar } from "ionic-native";
 import { LoginPage } from "../pages/login/login";
 import { AuthService } from "../providers/auth.service";
 
@@ -25,15 +25,17 @@ export class MyApp {
       }).subscribe(
         (match) => {
           let parsedToken = match.$link.path;
-          if(parsedToken.indexOf('[') > -1)
-            var token = parsedToken.substring(11, parsedToken.indexOf('['));
-          else
-            var token = parsedToken.substring(parsedToken.lastIndexOf('/') + 1, parsedToken.length);
-          this.app.getRootNav().setRoot(LoginPage, {transferToken:token});
-           } ,
-        (nomatch) =>{
-
-        })
+          let token = undefined;
+          if (parsedToken.indexOf("[") > -1) {
+            token = parsedToken.substring(11, parsedToken.indexOf("["));
+          } else  {
+            token = parsedToken.substring(parsedToken.lastIndexOf("/") + 1, parsedToken.length);
+          }
+          this.app.getRootNav().setRoot(LoginPage, {transferToken: token});
+        },
+        (nomatch) => {
+          // If no match don't do anything.
+        });
     });
   }
 }

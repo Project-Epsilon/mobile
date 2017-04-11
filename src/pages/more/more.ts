@@ -1,7 +1,7 @@
+import { Component } from "@angular/core";
 import { AlertController } from "ionic-angular";
 import { App } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
-import { Component } from "@angular/core";
 import { ContactPage } from "../contact/contact";
 import { EditAccountPage } from "../edit-account/edit-account";
 import { LoginPage } from "../login/login";

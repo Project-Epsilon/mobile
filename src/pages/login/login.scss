@@ -1,47 +1,83 @@
 
-.logo{
-	padding-top: 80px;
-	padding-bottom: 40px;
-	text-align: center;
-	ion-img{
-		background: transparent;
-	}
+.logo {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  text-align: center;
+
+  ion-img {
+    background: transparent;
+  }
+
 }
 
-.input-group{
-	margin-bottom: 1rem;
-	background-color: rgba(255, 255, 255, 0.80);
-	display: flex;
-	align-items: center;
-	ion-icon{
-	    width: 30px;
-    	text-align: center;
-	}
-	ion-input{
-		width: calc(100% - 35px);
-	}
+.input-group {
+  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.80);
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    width: 30px;
+    text-align: center;
+  }
+
+  ion-input {
+    width: calc(100% - 35px);
+  }
 }
 
-.seperator{
-	color: #fff;
-	text-align: center;
-    margin: 10px 0;
-    font-size: 1rem;
-    position: relative;
-    &:before, &:after{
-    	position: absolute;
-    	top: 50%;
-    	border-top: #eee solid 1px;
-    	content: " ";
-    	width: 35%;
+.seperator {
+  color: #fff;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1rem;
+  position: relative;
+
+  &:before, &:after {
+    position: absolute;
+    top: 50%;
+    border-top: #eee solid 1px;
+    content: " ";
+    width: 35%;
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
+}
+
+.social-login {
+  height: 2.8em;
+
+  > .button-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > img {
+      width: 25px;
+      display: block;
     }
-	&:before{
-		left: 0;
-	}
-	&:after{
-		right: 0;
-	}
-}
-.facebook-login{
-	background-color: #3b5998;
+
+    > div {
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+  }
+
+  &.facebook-login {
+    background-color: #39579b;
+    margin-bottom: 10px
+  }
+
+  &.google-login {
+    background-color: #dd4b39;
+  }
+
 }

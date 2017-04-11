@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { NavParams, ToastController, ViewController, Loading, AlertController, LoadingController } from "ionic-angular";
-import { Alert } from "../../../utils/Alert";
+import { AlertController, Loading, LoadingController, NavParams, ToastController, ViewController } from "ionic-angular";
 import { TransferService } from "../../../providers/transfer.service";
 import { WalletsService } from "../../../providers/wallet.service";
+import { Alert } from "../../../utils/Alert";
 
 @Component({
     selector: "page-acceptdecline-modal",
@@ -104,7 +104,7 @@ export class AcceptDeclineModalPage {
             this.transferProcessed = true;
             this.presentToast("Transfer Success! Your wallet has been updated.");
             this.dismiss();
-          }
+          },
         );
     } else {
       this.loader.dismiss().catch((f) => f);

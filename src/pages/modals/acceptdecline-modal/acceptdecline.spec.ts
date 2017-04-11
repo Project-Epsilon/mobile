@@ -4,13 +4,13 @@ import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { NavParams,ToastController, ViewController,AlertController,LoadingController } from "ionic-angular";
+import { AlertController, LoadingController, NavParams, ToastController, ViewController } from "ionic-angular";
 import { IonicModule } from "ionic-angular";
 import { MyApp } from "../../../app/app.component";
 import { AuthService } from "../../../providers/auth.service";
 import { BankTransferService } from "../../../providers/bank.service";
-import { WalletsService } from "../../../providers/wallet.service";
 import { TransferService } from "../../../providers/transfer.service";
+import { WalletsService } from "../../../providers/wallet.service";
 import { AcceptDeclineModalPage } from "./acceptdecline-modal";
 let component: AcceptDeclineModalPage;
 
@@ -30,17 +30,16 @@ class MockNavParams {
 }
 export class ViewControllerMock {
   public _setHeader(): any {
-    return {}
+    return {};
   };
   public _setIONContent(): any
   {
-    return {}
+    return {};
   };
-  public _setIONContentRef(): any { return {}
+  public _setIONContentRef(): any { return {};
   };
 }
 describe("modal Component", () => {
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

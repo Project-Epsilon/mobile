@@ -1,12 +1,12 @@
-import { inject, TestBed, ComponentFixture, async } from "@angular/core/testing";
+import { async, ComponentFixture, inject, TestBed } from "@angular/core/testing";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { IonicModule, NavController, ModalController } from "ionic-angular";
+import { IonicModule, ModalController, NavController } from "ionic-angular";
 import { MyApp } from "../../app/app.component";
-import { ContactPage } from "./contact";
 import { ContactsService } from "../../providers/contact.service";
+import { ContactPage } from "./contact";
 
 let component: ContactPage;
 let fixture: ComponentFixture<ContactPage>;
@@ -85,7 +85,7 @@ describe("Contact", () => {
     try {
       expect(component.showContactModal(contact)).toBeTruthy();
     }
-    catch(err){
+    catch (err){
 
     }
   })));
@@ -94,7 +94,7 @@ describe("Contact", () => {
     try {
       expect(component.showAddContactModal()).toBeDefined();
     }
-    catch(err){
+    catch (err){
 
     }
   })));
@@ -103,7 +103,7 @@ describe("Contact", () => {
     try {
       expect(component.filterContacts(new MockEvent())).toBeDefined();
     }
-    catch(err){
+    catch (err){
 
     }
   })));
