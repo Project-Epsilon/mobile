@@ -56,7 +56,7 @@
   > .button-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between
+    justify-content: space-between;
 
     > img {
       width: 25px;
@@ -73,6 +73,7 @@
 
   &.facebook-login {
     background-color: #39579b;
+    margin-bottom: 10px
   }
 
   &.google-login {
