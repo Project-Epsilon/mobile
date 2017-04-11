@@ -20,17 +20,16 @@ export class HomePage {
   private loader: Loading;
   /* istanbul ignore next */
   constructor(
-      public auth: AuthService,
-      public app: App,
-      public storage: Storage,
-      public walletSrv: WalletsService,
-      public currencySrv: CurrencyService,
-      public http: Http,
-      public loadingCtrl: LoadingController,
-      public contactsSrv: ContactsService,
-      public modalCtrl: ModalController,
-      public navParams: NavParams,
-
+    public auth: AuthService,
+    public app: App,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    public currencySrv: CurrencyService,
+    public http: Http,
+    public loadingCtrl: LoadingController,
+    public contactsSrv: ContactsService,
+    public modalCtrl: ModalController,
+    public navParams: NavParams,
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Loading.",

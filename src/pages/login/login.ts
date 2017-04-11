@@ -15,12 +15,12 @@ export class LoginPage {
   private transferToken;
 
   constructor(
-      public auth: AuthService,
-      public app: App,
-      public http: Http,
-      public storage: Storage,
-      public navParams: NavParams,
-      public navCtrl: NavController,
+    public auth: AuthService,
+    public app: App,
+    public http: Http,
+    public storage: Storage,
+    public navParams: NavParams,
+    public navCtrl: NavController,
   ) {
     this.transferToken = navParams.get("transferToken");
   }

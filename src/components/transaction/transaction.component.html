@@ -1,8 +1,9 @@
-<div class="transaction">
+<div class="transaction" [ngClass]="{'bank': transaction.transaction_type == 'bank'}" (click)="showTransferModal(transaction)">
   <div class="details">
-    {{transaction.title}}
+    <div>{{ transaction.created_at | date: 'longDate' }}</div>
+    <div>{{ transaction.title }}</div>
   </div>
   <div [ngClass]=" {'negative': transaction.amount < 0 , 'positive': transaction.amount>=0}" class="amount">
-    {{ (transaction.amount>0) ? '+' : '' }}{{transaction.amount}} {{transaction.amount>0 ? 'IN' : 'OUT'}}
+    {{ (transaction.amount>0) ? '+' : '' }}{{transaction.amount }} {{transaction.amount>0 ? 'IN' : 'OUT'}}
   </div>
 </div>

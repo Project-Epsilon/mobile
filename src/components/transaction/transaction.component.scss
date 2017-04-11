@@ -8,21 +8,28 @@ transaction {
   display: flex;
   align-items: center;
   background: color($colors, white);
-  padding: 15px 10px;
+  padding: 10px;
   > .details{
     width: calc(100% - 50px);
+    > div:first-child{
+      font-size: 0.8em;
+      margin-bottom: 5px;
+    }
   }
   > .amount{
     text-align: center;
     width: 100px;
     text-align: right;
     &.negative{
-      color: red;
+      color: color($colors, out);
     }
 
     &.positive{
-      color: green;
+      color: color($colors, in);
     }
+  }
+  &.bank {
+    border-left: 2px #b7b7b7 solid;
   }
 }
 

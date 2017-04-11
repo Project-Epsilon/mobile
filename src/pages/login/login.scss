@@ -1,7 +1,7 @@
 
 .logo{
 	padding-top: 80px;
-	padding-bottom: 40px;
+	padding-bottom: 80px;
 	text-align: center;
 	ion-img{
 		background: transparent;
@@ -42,6 +42,27 @@
 		right: 0;
 	}
 }
-.facebook-login{
-	background-color: #3b5998;
+.social-login{
+  height: 2.8em;
+  > .button-inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > img {
+      width: 25px;
+      display: block;
+    }
+    > div{
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+  }
+  &.facebook-login{
+    background-color: #39579B;
+  }
+  &.google-login{
+    background-color: #DD4B39;
+  }
 }
