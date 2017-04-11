@@ -3,8 +3,8 @@ import { AlertController, Loading, LoadingController, ModalController, NavParams
 import { TransferService } from "../../providers/transfer.service";
 import { WalletsService } from "../../providers/wallet.service";
 import { Alert } from "../../utils/Alert";
-import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 import { AcceptDeclineModalPage } from "../modals/acceptdecline-modal/acceptdecline-modal";
+import { TransfersModalPage } from "../modals/transfers-modal/transfers-modal";
 
 @Component({
   selector: "page-transfers",

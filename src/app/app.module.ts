@@ -16,7 +16,6 @@ import { LoginPage } from "../pages/login/login";
 import { EditAccountPage } from "../pages/edit-account/edit-account";
 import { ManagePage } from "../pages/manage/manage";
 import { TransfersModalPage } from "../pages/modals/transfers-modal/transfers-modal";
-import { TransactionsLogModalPage } from "../pages/modals/transactionslog-modal/transactionslog-modal";
 
 import { MorePage } from "../pages/more/more";
 import { OtpPage } from "../pages/otp/otp";
@@ -26,9 +25,10 @@ import { TransfersPage } from "../pages/transfers/transfers";
 
 import { DepositComponent } from "../pages/manage/deposit/deposit.component";
 import { WithdrawComponent } from "../pages/manage/withdraw/withdraw.component";
-import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
-import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 import { AcceptDeclineModalPage } from "../pages/modals/acceptdecline-modal/acceptdecline-modal";
+import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
+import { BankTransferModalPage } from "../pages/modals/banktransfer-modal/banktransfer-modal";
+import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";
 import { ContactsService } from "../providers/contact.service";
@@ -61,8 +61,8 @@ export function getAuthHttp(http, storage: Storage) {
     AddContactModalPage,
     AcceptDeclineModalPage,
     TransfersModalPage,
-    TransactionsLogModalPage,
     WalletSlideComponent,
+    BankTransferModalPage,
     WalletHeaderComponent,
     TransactionLogComponent,
     TransactionComponent,
@@ -85,8 +85,8 @@ export function getAuthHttp(http, storage: Storage) {
     ContactModalPage,
     AddContactModalPage,
     AcceptDeclineModalPage,
+    BankTransferModalPage,
     TransfersModalPage,
-    TransactionsLogModalPage,
     EditAccountPage,
   ],
   imports: [

@@ -1,3 +1,20 @@
-page-manage {
 
+$paypal-color: #FEC43A;
+
+.paypal-button {
+  background-color: $paypal-color;
+  color: #222;
+  height: 3em;
+
+  .button-inner {
+    justify-content: space-around;
+    > img {
+      width: 120px;
+    }
+
+  }
+
+  &.button-ios.activated {
+    background-color: $paypal-color;
+  }
 }

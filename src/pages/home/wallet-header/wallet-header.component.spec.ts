@@ -1,40 +1,37 @@
 /* tslint:disable:no-unused-variable */
+import { AfterContentChecked, Component, Input } from "@angular/core";
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { NavController } from "ionic-angular";
 import { IonicModule } from "ionic-angular";
-import { MyApp } from "../../../app/app.component";
+import { NavController } from "ionic-angular";
 import {Observable} from "rxjs";
-import { AfterContentChecked, Component, Input } from "@angular/core";
+import { MyApp } from "../../../app/app.component";
 import { CurrencyService } from "../../../providers/currency.service";
 import { WalletHeaderComponent } from "./wallet-header.component";
 let component: WalletHeaderComponent;
 let fixture: ComponentFixture<WalletHeaderComponent>;
 
-
 describe("WalletHeader", () => {
 
   class MockCurrencyService {
-    getCurrency(code:any){
+    getCurrency(code: any){
       return Observable.of();
     }
     init(data: any) {
       return Observable.of();
     }
-    mapCurrencies(data:any){
+    mapCurrencies(data: any){
       return Observable.of();
     }
   }
   let component: WalletHeaderComponent;
   let fixture: ComponentFixture<WalletHeaderComponent>;
-  let service:CurrencyService;
-  let mService:MockCurrencyService;
+  let service: CurrencyService;
+  let mService: MockCurrencyService;
   beforeEach(async(() => {
-
-
 
     TestBed.configureTestingModule({
       declarations: [MyApp, WalletHeaderComponent],
@@ -48,7 +45,7 @@ describe("WalletHeader", () => {
           return new Http(backend, options);
         },
         },
-        {provide:CurrencyService, useClass: MockCurrencyService},
+        {provide: CurrencyService, useClass: MockCurrencyService},
 
         {
           deps: [Http],
@@ -68,15 +65,15 @@ describe("WalletHeader", () => {
   }));
   beforeEach(() => {
 
-    var store = {};
+    let store = {};
 
-    spyOn(localStorage, 'getItem').and.callFake(function (key) {
+    spyOn(localStorage, "getItem").and.callFake(function (key) {
       return store[key];
     });
-    spyOn(localStorage, 'setItem').and.callFake(function (key, value) {
-      return store[key] = value + '';
+    spyOn(localStorage, "setItem").and.callFake(function (key, value) {
+      return store[key] = value + "";
     });
-    spyOn(localStorage, 'clear').and.callFake(function () {
+    spyOn(localStorage, "clear").and.callFake(function () {
       store = {};
     });
     fixture = TestBed.createComponent(WalletHeaderComponent);
@@ -88,13 +85,13 @@ describe("WalletHeader", () => {
   });
 
   it("Walletheader create", () => {
-    localStorage['currencies'] = 'usd';
+    localStorage["currencies"] = "usd";
 
     expect(component).toBeTruthy();
   });
 
   it("Walletheader deposit", () => {
-    localStorage['currencies'] = 'usd';
+    localStorage["currencies"] = "usd";
     expect(component.redirect("deposit")).toBeTruthy();
   });
 });

@@ -12,10 +12,10 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <form [formGroup]="form" (ngSubmit)="addContact()" novalidate>
     <ion-card>
-      <ion-card-content>
+      <ion-card-content class="separated">
 
         <ion-item>
           <ion-label stacked>Name</ion-label>
@@ -23,7 +23,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label stacked>Phone Number</ion-label>
+          <ion-label stacked>Phone Number (required)</ion-label>
           <ion-input type="text" formControlName="phoneNumber" ></ion-input>
         </ion-item>
 
@@ -32,12 +32,13 @@
           <ion-input type="text" formControlName="email" ></ion-input>
         </ion-item>
 
-        <div text-center>
-          <button ion-button type="submit" block [disabled]="!form.valid">Add</button>
-        </div>
       </ion-card-content>
     </ion-card>
-  </form>
 
+    <div class="button-padding">
+      <button ion-button type="submit" block [disabled]="!form.valid">Add Contact</button>
+    </div>
+
+  </form>
 </ion-content>
 

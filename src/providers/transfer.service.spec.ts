@@ -42,7 +42,7 @@ describe("Transfers Service", () => {
   })));
 
   it("getTransferByToken should not be null", async(inject([TransferService], (service) => {
-    expect(service.getTransferByToken('token')).not.toBeNull();
+    expect(service.getTransferByToken("token")).not.toBeNull();
   })));
 
   it("receive response should not be null", async(inject([TransferService], (service) => {

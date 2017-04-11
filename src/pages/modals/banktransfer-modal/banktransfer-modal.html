@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Transfer Details
+      Bank Transfer
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
@@ -13,16 +13,9 @@
 </ion-header>
 
 <ion-content padding>
-  <h4>{{to_or_from}}</h4>
-  <p>{{transfer.title}}</p>
-
-  <h4>Amount</h4>
-  <p>{{transfer.amount}}{{transfer.currency_code}}</p>
-
-  <br>
-  <br>
-
-  <div><i>{{send_or_receive}} {{transfer.created_at | date:'medium'  }}</i></div>
-
+  <p>Payment Method: {{ transfer.method | uppercase }}</p>
+  <p>Transaction ID: {{ transfer.invoice_id }}</p>
+  <p>Amount: {{ transfer.amount }}</p>
+  <p>Type: {{ transfer.incoming ? 'Deposit' : 'Withdrawal' }}</p>
+  <p>Created at: {{ transfer.created_at | date: 'medium' }}</p>
 </ion-content>
-

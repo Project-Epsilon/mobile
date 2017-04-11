@@ -14,10 +14,11 @@ export class AuthService {
   public user: Object;
   public idToken: string;
 
-  constructor(private authHttp: AuthHttp,
-              public zone: NgZone,
-              public storage: Storage,
-              public http: Http,
+  constructor(
+    private authHttp: AuthHttp,
+    public zone: NgZone,
+    public storage: Storage,
+    public http: Http,
   ) {
     this.storage.get("user").then((user) => {
       this.user = user;
@@ -26,7 +27,6 @@ export class AuthService {
     this.storage.get("token").then((token) => {
       this.idToken = token;
     });
-
   }
 
   /**

@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
-import { Storage } from "@ionic/storage";
 import { Http } from "@angular/http";
-import { App, Loading, LoadingController, ModalController, NavParams } from "ionic-angular";
+import { Storage } from "@ionic/storage";
+import { AlertController, App, Loading, LoadingController, ModalController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { ContactsService } from "../../providers/contact.service";
 import { CurrencyService } from "../../providers/currency.service";
@@ -20,17 +20,17 @@ export class HomePage {
   private loader: Loading;
   /* istanbul ignore next */
   constructor(
-      public auth: AuthService,
-      public app: App,
-      public storage: Storage,
-      public walletSrv: WalletsService,
-      public currencySrv: CurrencyService,
-      public http: Http,
-      public loadingCtrl: LoadingController,
-      public contactsSrv: ContactsService,
-      public modalCtrl: ModalController,
-      public navParams: NavParams,
-
+    public auth: AuthService,
+    public app: App,
+    public storage: Storage,
+    public walletSrv: WalletsService,
+    public currencySrv: CurrencyService,
+    public http: Http,
+    public loadingCtrl: LoadingController,
+    public contactsSrv: ContactsService,
+    public modalCtrl: ModalController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController,
   ) {
     this.loader = this.loadingCtrl.create({
       content: "Loading.",
@@ -45,18 +45,31 @@ export class HomePage {
           this.loader.dismiss().catch((f) => f);
       });
     this.contactsSrv.getContacts()
-      .subscribe(
-        (contacts) => {
-          this.contacts = contacts;
-        }
-      );
+      .subscribe((contacts) => this.contacts = contacts);
+  }
+
+  /**
+   * Displays an alert page prompting the user to confirm whether they would like to logout or not.
+   */
+  public logoutPrompt() {
+    let alert = this.alertCtrl.create({
+      buttons: [{
+        handler: () => {
+          this.logout();
+        },
+        text: "Yes",
+      }, "No"],
+      subTitle: "Are you sure you want to sign out of mBarter?",
+      title: "Sign Out",
+    });
+    alert.present();
   }
 
   /**
    * Handles the logout process
    */
   /* istanbul ignore next */
-  public logout() {
+  private logout() {
     this.auth.logout();
     this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
   }

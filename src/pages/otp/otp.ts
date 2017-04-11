@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { App, NavController, NavParams } from "ionic-angular";
+import {AlertController, App, NavController, NavParams} from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { TabsPage } from "../tabs/tabs";
 
@@ -20,6 +20,7 @@ export class OtpPage {
   public transferToken;
 
   public constructor(
+    private alert: AlertController,
     public navCtrl: NavController,
     public navParams: NavParams,
     public auth: AuthService,
@@ -30,8 +31,10 @@ export class OtpPage {
       phone_number: ["", Validators.required],
     });
     this.unlock = this.fb.group({
-      token: ["", Validators.required],
+      token: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
     });
+
+    this.transferToken = navParams.get("transferToken");
   }
 
   /**
@@ -45,6 +48,8 @@ export class OtpPage {
           this.loading = false;
           if (res.status === "ok") {
             this.toggle();
+          } else {
+            this.alertUser(res.errors.message);
           }
         });
     }
@@ -65,9 +70,22 @@ export class OtpPage {
             } else {
               this.app.getRootNav().setRoot(TabsPage);
             }
+          } else {
+            this.alertUser(res.errors.message);
           }
         });
     }
+  }
+
+  /**
+   * Alerts
+   */
+  private alertUser(message) {
+    let alert = this.alert.create({
+      buttons: ["Dismiss"],
+      subTitle: message,
+      title: "Error!",
+    }).present();
   }
 
   /**
