@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { Http } from "@angular/http";
 import { Storage } from "@ionic/storage";
-import { App, NavParams, NavController } from "ionic-angular";
+import { App, NavController, NavParams } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { OtpPage } from "../otp/otp";
 import { TabsPage } from "../tabs/tabs";

@@ -1,16 +1,16 @@
-import { TestBed, ComponentFixture } from "@angular/core/testing";
-import { MyApp } from "../../app/app.component";
-import { IonicModule, LoadingController, NavController, NavParams } from "ionic-angular";
-import { ManagePage } from "./manage";
-import { MockBackend } from "@angular/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { BaseRequestOptions, Http } from "@angular/http";
-import { AuthHttp, AuthConfig } from "angular2-jwt";
-import { DepositComponent } from "./deposit/deposit.component";
-import { WithdrawComponent } from "./withdraw/withdraw.component";
+import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
+import { AuthConfig, AuthHttp } from "angular2-jwt";
+import { IonicModule, LoadingController, NavController, NavParams } from "ionic-angular";
+import { MyApp } from "../../app/app.component";
+import { AuthService } from "../../providers/auth.service";
 import { BankTransferService } from "../../providers/bank.service";
 import { WalletsService } from "../../providers/wallet.service";
-import { AuthService } from "../../providers/auth.service";
+import { DepositComponent } from "./deposit/deposit.component";
+import { ManagePage } from "./manage";
+import { WithdrawComponent } from "./withdraw/withdraw.component";
 
 let component: ManagePage;
 let fixture: ComponentFixture<ManagePage>;
@@ -87,8 +87,8 @@ describe("Manage Page", () => {
     try {
       expect(component.ionViewDidLeave()).toBeUndefined();
     }
-    catch(err){
+    catch (err){
 
     }
-  })
+  });
 });

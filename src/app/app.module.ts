@@ -23,11 +23,11 @@ import { SendMoneyPage } from "../pages/send-money/send-money";
 import { TabsPage } from "../pages/tabs/tabs";
 import { TransfersPage } from "../pages/transfers/transfers";
 
-import { AcceptDeclineModalPage } from "../pages/modals/acceptdecline-modal/acceptdecline-modal";
-import { BankTransferModalPage } from "../pages/modals/banktransfer-modal/banktransfer-modal";
 import { DepositComponent } from "../pages/manage/deposit/deposit.component";
 import { WithdrawComponent } from "../pages/manage/withdraw/withdraw.component";
+import { AcceptDeclineModalPage } from "../pages/modals/acceptdecline-modal/acceptdecline-modal";
 import { AddContactModalPage } from "../pages/modals/addcontact-modals/addcontact-modal";
+import { BankTransferModalPage } from "../pages/modals/banktransfer-modal/banktransfer-modal";
 import { ContactModalPage } from "../pages/modals/contact-modals/contact-modal";
 import { AuthService } from "../providers/auth.service";
 import { BankTransferService } from "../providers/bank.service";

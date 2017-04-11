@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { ModalController } from "ionic-angular";
 import { AuthHttp } from "angular2-jwt";
+import { ModalController } from "ionic-angular";
 import { environment } from "../../environments/environment";
 import { BankTransferModalPage } from "../../pages/modals/banktransfer-modal/banktransfer-modal";
 import {TransfersModalPage} from "../../pages/modals/transfers-modal/transfers-modal";

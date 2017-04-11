@@ -43,7 +43,7 @@ describe("Wallet Service", () => {
   })));
 
   it("update wallet response should defined", async(inject([WalletsService], (service) => {
-    var wallet =[{"id":1,"balance":1,"shown":3.00,"order":1}]
+    let wallet = [{id: 1, balance: 1, shown: 3.00, order: 1}];
     expect(service.updateWallet(wallet)).toBeDefined();
   })));
 

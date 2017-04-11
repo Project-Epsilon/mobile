@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
-import { Platform, Nav, App } from "ionic-angular";
-import { Splashscreen, StatusBar, Deeplinks } from "ionic-native";
+import { App, Nav, Platform } from "ionic-angular";
+import { Deeplinks, Splashscreen, StatusBar } from "ionic-native";
 import { LoginPage } from "../pages/login/login";
 import { AuthService } from "../providers/auth.service";
 

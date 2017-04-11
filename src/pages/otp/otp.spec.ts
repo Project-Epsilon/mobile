@@ -1,10 +1,10 @@
 import { async, ComponentFixture, TestBed} from "@angular/core/testing";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { BaseRequestOptions, Http } from "@angular/http";
 import { MockBackend } from "@angular/http/testing";
 import { Storage } from "@ionic/storage";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthConfig, AuthHttp } from "angular2-jwt";
-import { NavParams,IonicModule,App,NavController} from "ionic-angular";
+import { App, IonicModule, NavController, NavParams} from "ionic-angular";
 import { MyApp } from "../../app/app.component";
 import { AuthService } from "../../providers/auth.service";
 import { BankTransferService } from "../../providers/bank.service";

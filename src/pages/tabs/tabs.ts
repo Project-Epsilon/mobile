@@ -1,11 +1,11 @@
 import { Component, ViewChild } from "@angular/core";
 
+import { NavParams, Tabs } from "ionic-angular";
 import { HomePage } from "../home/home";
 import { ManagePage } from "../manage/manage";
 import { MorePage } from "../more/more";
 import { SendMoneyPage} from "../send-money/send-money";
 import { TransfersPage} from "../transfers/transfers";
-import { NavParams, Tabs } from "ionic-angular";
 
 @Component({
   templateUrl: "tabs.html",
@@ -33,7 +33,7 @@ export class TabsPage {
     /* istanbul ignore if */
     if (transferToken) {
       this.transferParams = {
-        transferToken: transferToken,
+        transferToken,
       };
     }
 

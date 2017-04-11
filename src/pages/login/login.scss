@@ -1,47 +1,55 @@
 
-.logo{
-	padding-top: 80px;
-	padding-bottom: 80px;
-	text-align: center;
-	ion-img{
-		background: transparent;
-	}
+.logo {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  text-align: center;
+
+  ion-img {
+    background: transparent;
+  }
+
 }
 
-.input-group{
-	margin-bottom: 1rem;
-	background-color: rgba(255, 255, 255, 0.80);
-	display: flex;
-	align-items: center;
-	ion-icon{
-	    width: 30px;
-    	text-align: center;
-	}
-	ion-input{
-		width: calc(100% - 35px);
-	}
+.input-group {
+  margin-bottom: 1rem;
+  background-color: rgba(255, 255, 255, 0.80);
+  display: flex;
+  align-items: center;
+
+  ion-icon {
+    width: 30px;
+    text-align: center;
+  }
+
+  ion-input {
+    width: calc(100% - 35px);
+  }
 }
 
-.seperator{
-	color: #fff;
-	text-align: center;
-    margin: 10px 0;
-    font-size: 1rem;
-    position: relative;
-    &:before, &:after{
-    	position: absolute;
-    	top: 50%;
-    	border-top: #eee solid 1px;
-    	content: " ";
-    	width: 35%;
-    }
-	&:before{
-		left: 0;
-	}
-	&:after{
-		right: 0;
-	}
+.seperator {
+  color: #fff;
+  text-align: center;
+  margin: 10px 0;
+  font-size: 1rem;
+  position: relative;
+
+  &:before, &:after {
+    position: absolute;
+    top: 50%;
+    border-top: #eee solid 1px;
+    content: " ";
+    width: 35%;
+  }
+
+  &:before {
+    left: 0;
+  }
+
+  &:after {
+    right: 0;
+  }
 }
+
 .social-login {
   height: 2.8em;
 
@@ -55,7 +63,7 @@
       display: block;
     }
 
-    > div{
+    > div {
       position: absolute;
       left: 0;
       right: 0;
