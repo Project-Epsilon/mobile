@@ -1,19 +1,21 @@
 
-.transfer{
-  display: flex;
+.transfer {
   align-items: center;
+  display: flex;
   padding: 10px;
-  > .details{
+  > .details {
     width: calc(100% - 50px);
-    > div:first-child{
+    > div:first-child {
       font-size: 0.8em;
       margin-bottom: 5px;
     }
   }
-  > .amount{
-    width: 100px;
+
+  > .amount {
     text-align: right;
+    width: 100px;
   }
+
   & + .transfer {
     border-top: color($colors, light) 1px solid;
   }

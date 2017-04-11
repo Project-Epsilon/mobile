@@ -1,9 +1,8 @@
-page-manage {
 
-}
+$paypal_color: #FEC43A;
 
 .paypal-button {
-  background-color: #FEC43A;
+  background-color: $paypal_color;
   color: #222;
   height: 3em;
   .button-inner {
@@ -11,8 +10,10 @@ page-manage {
     > img {
       width: 120px;
     }
+
   }
-  &.button-ios.activated{
-    background-color: #FEC43A;
+
+  &.button-ios.activated {
+    background-color: $paypal_color;
   }
 }
