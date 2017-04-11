@@ -1,10 +1,11 @@
 
-$paypal_color: #FEC43A;
+$paypal-color: #FEC43A;
 
 .paypal-button {
-  background-color: $paypal_color;
+  background-color: $paypal-color;
   color: #222;
   height: 3em;
+
   .button-inner {
     justify-content: space-around;
     > img {
@@ -14,6 +15,6 @@ $paypal_color: #FEC43A;
   }
 
   &.button-ios.activated {
-    background-color: $paypal_color;
+    background-color: $paypal-color;
   }
 }

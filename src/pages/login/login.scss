@@ -42,16 +42,19 @@
 		right: 0;
 	}
 }
-.social-login{
+.social-login {
   height: 2.8em;
-  > .button-inner{
+
+  > .button-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between
+
     > img {
       width: 25px;
       display: block;
     }
+
     > div{
       position: absolute;
       left: 0;
@@ -59,10 +62,13 @@
       text-align: center;
     }
   }
-  &.facebook-login{
-    background-color: #39579B;
+
+  &.facebook-login {
+    background-color: #39579b;
   }
-  &.google-login{
-    background-color: #DD4B39;
+
+  &.google-login {
+    background-color: #dd4b39;
   }
+
 }
