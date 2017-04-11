@@ -51,13 +51,13 @@
     </ion-card>
 
     <div class="button-padding">
-      <button ion-button full [disabled]="!updateAccount.valid">Update Info</button>
+      <button ion-button block [disabled]="!updateAccount.valid">Update Info</button>
     </div>
 
   </form>
 
   <div class="button-padding">
-    <button ion-button color="danger" full (click)='deleteUser()'>Delete Account</button>
+    <button ion-button block color="danger" (click)='deleteUser()'>Delete Account</button>
   </div>
 
 </ion-content>

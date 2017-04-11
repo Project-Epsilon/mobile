@@ -5,29 +5,37 @@
       <div *ngIf="showRequest">
         <form [formGroup]="request">
           <h2>Please enter your phone number.</h2>
-          <p>Including the international number digit(s).</p>
-          <input type="number" formControlName="phone_number" (keyup)="trigger()">
+          <p>Including the international number.</p>
+          <ion-item no-lines>
+            <ion-input type="number" formControlName="phone_number"></ion-input>
+          </ion-item>
           <span *ngIf="request.get('phone_number').invalid && request.get('phone_number').dirty">
             Please enter a phone number.
           </span>
         </form>
 
-        <button (click)="requestCode()" [disabled]="loading || request.invalid">Send code.</button>
+        <button ion-button block (click)="requestCode()" [disabled]="loading || request.invalid">Send code.</button>
 
-        <a (click)="toggle()">Already have a code?</a>
+        <div class="more-info">
+          <a (click)="toggle()">Already have a code? Click here.</a>
+        </div>
       </div>
       <div *ngIf="!showRequest">
         <form [formGroup]="unlock">
           <h2>Please enter the code.</h2>
-          <input type="number" formControlName="token" (keyup)="trigger()">
+          <ion-item no-lines>
+            <ion-input type="number" formControlName="token"></ion-input>
+          </ion-item>
           <span *ngIf="unlock.get('token').invalid && unlock.get('token').dirty">
-            Please enter a four digit token.
-          </span>
+              Please enter a six digit token.
+            </span>
         </form>
 
-        <button (click)="unlockAccount()" [disabled]="loading || unlock.invalid">Submit</button>
+        <button ion-button block (click)="unlockAccount()" [disabled]="loading || unlock.invalid">Submit</button>
 
-        <a (click)="toggle()">Don't have a code?</a>
+        <div class="more-info">
+          <a (click)="toggle()">Don't have a code? Click here.</a>
+        </div>
       </div>
     </div>
   </div>

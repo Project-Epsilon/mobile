@@ -25,15 +25,17 @@ export class MyApp {
       }).subscribe(
         (match) => {
           let parsedToken = match.$link.path;
-          if(parsedToken.indexOf('[') > -1)
-            var token = parsedToken.substring(11, parsedToken.indexOf('['));
-          else
-            var token = parsedToken.substring(parsedToken.lastIndexOf('/') + 1, parsedToken.length);
-          this.app.getRootNav().setRoot(LoginPage, {transferToken:token});
-           } ,
-        (nomatch) =>{
-
-        })
+          let token = undefined;
+          if (parsedToken.indexOf("[") > -1) {
+            token = parsedToken.substring(11, parsedToken.indexOf("["));
+          } else  {
+            token = parsedToken.substring(parsedToken.lastIndexOf("/") + 1, parsedToken.length);
+          }
+          this.app.getRootNav().setRoot(LoginPage, {transferToken: token});
+        },
+        (nomatch) => {
+          // If no match don't do anything.
+        });
     });
   }
 }
