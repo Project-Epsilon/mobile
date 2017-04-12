@@ -1,6 +1,6 @@
 
 <div class="transaction-list">
-  <ng-container *ngFor="let transaction of transactions">
+  <ng-container *ngFor="let transaction of wallet.transactions.data">
     <transaction [transaction]="transaction"></transaction>
   </ng-container>
 </div>

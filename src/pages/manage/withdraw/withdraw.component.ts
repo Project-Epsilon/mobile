@@ -106,7 +106,7 @@ export class WithdrawComponent {
   public handleWithdrawal(res, displayAmount) {
 
     if (res.data) {
-      this.walletSrv.updateWallet(res.data);
+      this.walletSrv.updateWalletId(res.data.id);
       this.form.reset();
       Alert(
         this.alertCtrl,

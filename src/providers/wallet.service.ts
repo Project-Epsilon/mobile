@@ -40,14 +40,15 @@ export class WalletsService {
     for (let wallet of this.wallets) {
       if (wallet.id === walletUpdate.id) {
         wallet.balance = walletUpdate.balance;
-        wallet.shown = walletUpdate.shown;
+        wallet.visible = walletUpdate.visible;
         wallet.order = walletUpdate.order;
+        wallet.transactions = walletUpdate.transactions;
         exists = true;
         break;
       }
     }
     /* istanbul ignore next */
-    if (!exists) {
+    if (! exists) {
       this.wallets.push(walletUpdate);
     }
   }
@@ -58,16 +59,15 @@ export class WalletsService {
    * @param walletId
    */
   public updateWalletId(walletId) {
-
-    return new Observable((observer) => {
+    return new Promise((resolve) => {
       /* istanbul ignore next */
       this.http.get(environment.server_url + "/api/wallet/" + walletId)
         .map((res) => res.json())
         .subscribe((res) => {
           let wallet = res.data;
           this.updateWallet(wallet);
-          observer.next(wallet);
-          observer.complete();
+
+          resolve(wallet);
         });
     });
   }
