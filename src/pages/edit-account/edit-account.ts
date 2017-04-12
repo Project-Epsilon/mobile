@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AlertController, NavController, NavParams, ToastController, ViewController } from "ionic-angular";
+import { AlertController, App, NavController, NavParams, ToastController, ViewController } from "ionic-angular";
 import { AuthService } from "../../providers/auth.service";
 import { Alert } from "../../utils/Alert";
 
@@ -18,6 +18,7 @@ export class EditAccountPage {
   private user: any;
 
   constructor(
+    public app: App,
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
@@ -133,8 +134,7 @@ export class EditAccountPage {
           if (response.status === "ok") {
             this.auth.logout();
 
-            this.navCtrl.popToRoot();
-            this.navCtrl.push(LoginPage);
+            this.app.getRootNav().setRoot(LoginPage).catch((f) => f);
 
             this.dismiss();
             this.presentToast();

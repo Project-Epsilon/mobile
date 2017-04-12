@@ -139,7 +139,7 @@ export class SendMoneyPage {
   private handleSend(res, displayAmount) {
     if (res.data) {
       this.walletSrv.updateWalletId(this.form.value.wallet.id)
-        .subscribe (() => {
+        .then ((wallet) => {
           this.form.reset();
           this.loader.dismiss().catch((f) => f);
           Alert(
