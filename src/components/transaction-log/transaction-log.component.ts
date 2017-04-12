@@ -1,35 +1,24 @@
-import { Component, Input } from "@angular/core";
-import { HomePage } from "../../pages/home/home";
+import { AfterContentChecked, Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "transaction-log",
   templateUrl: "transaction-log.component.html",
 })
-export class TransactionLogComponent {
+export class TransactionLogComponent implements OnInit, AfterContentChecked {
 
   @Input() public wallet: any;
   public transactions: any;
-
-  constructor(
-    public home: HomePage,
-  ) {
-    this.transactions = this.getWallet()[0].transactions.data;
-    this.transactions = this.transactions.reverse();
-  }
-
   /**
    * Lifecycle hook that will change transactions whenver the wallet changes
    */
   public ngAfterContentChecked() {
-    this.transactions = this.wallet.transactions.data;
+    this.transactions = this.wallet.transactions.data.reverse();
   }
 
   /**
-   * Returns all wallets that user contains
-   *
-   * @returns {Object}
+   * Does logic.
    */
-  public getWallet() {
-    return this.home.wallets;
+  public ngOnInit () {
+    this.transactions = this.wallet.transactions.data.reverse();
   }
 }

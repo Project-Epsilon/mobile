@@ -98,8 +98,8 @@ export class AcceptDeclineModalPage {
     if ( res.data ) {
 
       this.walletSrv.updateWalletId(res.data.receiver_wallet_id)
-        .subscribe(
-          () => {
+        .then(
+          (wallet) => {
             this.loader.dismiss().catch((f) => f);
             this.transferProcessed = true;
             this.presentToast("Transfer Success! Your wallet has been updated.");
