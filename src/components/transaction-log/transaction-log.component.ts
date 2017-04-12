@@ -1,17 +1,18 @@
-import { AfterContentChecked, Component, Input, OnInit } from "@angular/core";
+import { OnChanges, Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "transaction-log",
   templateUrl: "transaction-log.component.html",
 })
-export class TransactionLogComponent implements OnInit, AfterContentChecked {
+export class TransactionLogComponent implements OnInit, OnChanges {
 
   @Input() public wallet: any;
   public transactions: any;
+
   /**
-   * Lifecycle hook that will change transactions whenver the wallet changes
+   * On input changes. Update the transactions.
    */
-  public ngAfterContentChecked() {
+  public ngOnChanges() {
     this.transactions = this.wallet.transactions.data.reverse();
   }
 
@@ -19,6 +20,7 @@ export class TransactionLogComponent implements OnInit, AfterContentChecked {
    * Does logic.
    */
   public ngOnInit () {
+    console.log('Hello1');
     this.transactions = this.wallet.transactions.data.reverse();
   }
 }
