@@ -1,3 +1,11 @@
 page-transfers-modal {
+  .amount {
+    &.negative {
+      color: color($colors, out);
+    }
 
+    &.positive {
+      color: color($colors, in);
+    }
+  }
 }

@@ -20,7 +20,7 @@ export class TransactionComponent {
   /**
    * Displays the modal page for the given transfer.
    *
-   * @param transfer
+   * @param transaction
    */
   public showTransferModal(transaction) {
     if (transaction.transaction_type === "bank") {
