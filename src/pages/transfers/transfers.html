@@ -45,7 +45,7 @@
       <ng-container *ngIf="outgoingTransfers!=undefined">
         <ion-card>
           <ion-card-content class="separated">
-            <div class="transfer" *ngFor="let transfer of outgoingTransfers.data" (click)="showTransferModal(transfer)">
+            <div class="transfer" *ngFor="let transfer of outgoingTransfers.data" (click)="showTransferModal(transfer, false)">
               <div class="details">
                 <div>
                   {{ transfer.status | uppercase }} - {{ transfer.created_at | date: 'longDate'}}
