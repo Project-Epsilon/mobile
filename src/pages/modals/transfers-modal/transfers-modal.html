@@ -18,15 +18,20 @@
   <p>Sent at: {{ transfer.created_at | date:'medium' }}</p>
   <p>Received on: {{ transfer.received_at | date:'medium' }}</p>
 
-  <h4>From</h4>
-  <p>{{ transfer.sender }}</p>
-  <h4>To</h4>
-  <p>Name: {{ transfer.receiver.name }}</p>
-  <p>Phone: {{ transfer.receiver.phone_number }}</p>
-  <p>Email: {{ transfer.receiver.email ? transfer.receiver.email : 'N/A' }}</p>
+  <div *ngIf="isIncoming">
+    <h4>From</h4>
+    <p>{{ transfer.sender }}</p>
+  </div>
+
+  <div *ngIf="!isIncoming">
+    <h4>To</h4>
+    <p>Name: {{ transfer.receiver.name }}</p>
+    <p>Phone: {{ transfer.receiver.phone_number }}</p>
+    <p>Email: {{ transfer.receiver.email ? transfer.receiver.email : 'N/A' }}</p>
+  </div>
 
   <h4>Amount</h4>
-  <p>{{ transfer.amount }}</p>
+  {{ (isIncoming) ? '+' : '-' }} {{transfer.amount}} {{isIncoming ? 'IN' : 'OUT'}}
   <h4>Message</h4>
   <p>{{ transfer.message }}</p>
 

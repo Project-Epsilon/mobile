@@ -8,10 +8,13 @@ import { NavParams, ViewController } from "ionic-angular";
 export class TransfersModalPage {
 
   public transfer;
+  public isIncoming;
+
   constructor(
     public viewCtrl: ViewController,
     public params: NavParams) {
     this.transfer = this.params.get("transfer");
+    this.isIncoming = this.params.get("isIncoming");
   }
 
   /**

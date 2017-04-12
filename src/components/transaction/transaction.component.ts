@@ -33,7 +33,9 @@ export class TransactionComponent {
       this.http.get(environment.server_url + "/api/transfer/user/transfer/" + transaction.transaction_id)
         .map((res) => res.json())
         .subscribe((res) => {
-          this.modalCtrl.create(TransfersModalPage, { transfer: res.data }).present();
+          let isIncoming = transaction.amount > 0 ? true : false;
+
+          this.modalCtrl.create(TransfersModalPage, { transfer: res.data, isIncoming: isIncoming }).present();
         });
     }
   }
