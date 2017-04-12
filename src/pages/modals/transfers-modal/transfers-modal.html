@@ -18,17 +18,13 @@
   <p>Sent at: {{ transfer.created_at | date:'medium' }}</p>
   <p>Received on: {{ transfer.received_at | date:'medium' }}</p>
 
-  <div *ngIf="isIncoming">
-    <h4>From</h4>
-    <p>{{ transfer.sender }}</p>
-  </div>
+  <h4>From</h4>
+  <p>{{ transfer.sender }}</p>
 
-  <div *ngIf="!isIncoming">
-    <h4>To</h4>
-    <p>Name: {{ transfer.receiver.name }}</p>
-    <p>Phone: {{ transfer.receiver.phone_number }}</p>
-    <p>Email: {{ transfer.receiver.email ? transfer.receiver.email : 'N/A' }}</p>
-  </div>
+  <h4>To</h4>
+  <p>Name: {{ transfer.receiver.name }}</p>
+  <p>Phone: {{ transfer.receiver.phone_number }}</p>
+  <p>Email: {{ transfer.receiver.email ? transfer.receiver.email : 'N/A' }}</p>
 
   <h4>Amount</h4>
   <div [ngClass]=" {'negative': !isIncoming , 'positive': isIncoming}" class="amount">
