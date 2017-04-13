@@ -10,7 +10,7 @@
   <div class="vertical-container" *ngIf="wallets.length == 0">
     <div class="vertical-align no-wallets-message">
       <h2>Deposit money to start using mBarter!</h2>
-      <button ion-button round><ion-icon name="add"></ion-icon>&nbsp; Deposit</button>
+      <button ion-button round (click) = "deposit()"><ion-icon name="add"></ion-icon>&nbsp; Deposit</button>
     </div>
   </div>
 </ion-content>
